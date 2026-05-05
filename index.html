@@ -3,389 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dust — Candidate Tour</title>
+<title>Dust — Candidate Experience</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{font-family:'Inter',sans-serif}
-.bounce{animation:b 1s infinite}.b2{animation-delay:.15s}.b3{animation-delay:.3s}
-@keyframes b{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.fadein{animation:fi .3s ease}
-@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fi .35s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
-<body class="bg-slate-50 h-screen flex flex-col overflow-hidden">
+<body class="bg-white h-screen overflow-hidden">
 
-<div class="bg-white border-b border-slate-100 px-4 py-2.5 flex items-center gap-3 shrink-0">
-  <div class="w-8 h-8 bg-slate-900 rounded-xl flex items-center justify-center">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-  </div>
-  <div class="flex-1">
-    <div class="flex items-center gap-2">
-      <span class="font-bold text-sm text-slate-900">dust · Candidate Tour</span>
-      <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>
-      <span class="text-xs text-slate-400">Alex</span>
-    </div>
-    <div id="progress" class="flex items-center gap-0.5 mt-0.5"></div>
-  </div>
+<div id="onboarding" class="h-screen flex items-center justify-center p-6 bg-white">
+  <div class="max-w-md w-full" id="ob-inner"></div>
 </div>
 
-<div id="msgs" class="flex-1 overflow-y-auto px-4 py-4 space-y-4"></div>
-
-<div class="bg-white border-t border-slate-100 px-4 py-3 shrink-0">
-  <div class="flex items-center gap-2">
-    <input id="inp" type="text" placeholder="Ask anything — Back Market fraud system, roles, culture, tech stack…" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-slate-400 transition-colors"/>
-    <button onclick="send()" class="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors shrink-0">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-    </button>
+<div id="tour" style="display:none" class="h-screen flex flex-col">
+  <div class="border-b border-slate-100 px-5 py-3 flex items-center gap-3 shrink-0">
+    <div class="flex items-center gap-2">
+      <div class="w-6 h-6 bg-slate-900 rounded-lg flex items-center justify-center">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <span class="font-bold text-sm">dust</span>
+      <span class="text-slate-200 mx-1">·</span>
+      <span class="text-xs text-slate-400">Candidate Experience</span>
+    </div>
+    <div id="section-tabs" class="flex items-center gap-1.5 ml-auto"></div>
+  </div>
+  <div class="flex-1 flex overflow-hidden">
+    <div class="w-72 border-r border-slate-100 flex flex-col shrink-0 bg-slate-50">
+      <div class="flex-1 p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2.5 mb-6">
+            <div class="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center"><span class="text-white text-xs font-bold">A</span></div>
+            <div><div class="text-xs font-semibold text-slate-900">Alex</div><div class="text-xs text-slate-400">Dust Recruiting Guide</div></div>
+            <span class="ml-auto w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+          </div>
+          <div id="left-caption"></div>
+        </div>
+        <div>
+          <div id="section-dots" class="flex items-center gap-1.5 mb-5"></div>
+          <div class="flex gap-2">
+            <button id="btn-prev" onclick="prev()" class="flex-1 border border-slate-200 text-slate-600 text-xs font-medium py-2.5 rounded-xl hover:border-slate-400 transition-all">&#8592; Back</button>
+            <button id="btn-next" onclick="next()" class="flex-1 bg-slate-900 text-white text-xs font-medium py-2.5 rounded-xl hover:bg-slate-700 transition-all">Next &#8594;</button>
+          </div>
+          <div class="mt-3 text-center"><button onclick="goTo(5)" class="text-xs text-slate-400 hover:text-slate-700 transition-colors">Skip to match assessment</button></div>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 p-3">
+        <div class="flex items-center gap-1.5 text-xs text-slate-400">
+          <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+          Tailored for <span id="profile-tag" class="font-medium text-slate-600 ml-1"></span>
+        </div>
+      </div>
+    </div>
+    <div id="right-panel" class="flex-1 overflow-y-auto"></div>
   </div>
 </div>
 
 <script>
-// ── RICH HTML BUILDERS ──
-function agentDiagram(){
-  var agents=["🏠 Address Check","📍 Return Distance vs Origin","👤 Customer History","🚚 Logistics Incidents","💳 Payment Incidents","📝 Text Fraud Patterns"];
-  return '<div class="mt-3 bg-slate-50 rounded-xl p-4 border border-slate-100">' +
-    '<div class="flex justify-center mb-2"><div class="bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-lg">🤖 Orchestrator Agent</div></div>' +
-    '<div class="flex justify-center mb-1"><div class="w-px h-5 bg-slate-300"></div></div>' +
-    '<div class="flex justify-center mb-3"><span class="text-xs text-slate-400 font-medium">dispatches to 6 specialized sub-agents</span></div>' +
-    '<div class="grid grid-cols-2 gap-2 mb-3">' + agents.map(function(a){return '<div class="bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 font-medium">'+a+'</div>'}).join('') + '</div>' +
-    '<div class="grid grid-cols-3 gap-2">' +
-      '<div class="bg-green-50 border border-green-100 rounded-lg p-2.5 text-center"><div class="text-lg font-bold text-green-700">1 week</div><div class="text-xs text-slate-500 mt-0.5">Build time</div></div>' +
-      '<div class="bg-green-50 border border-green-100 rounded-lg p-2.5 text-center"><div class="text-lg font-bold text-green-700">€1.2M</div><div class="text-xs text-slate-500 mt-0.5">Savings</div></div>' +
-      '<div class="bg-slate-100 border border-slate-200 rounded-lg p-2.5 text-center"><div class="text-lg font-bold text-slate-700">6</div><div class="text-xs text-slate-500 mt-0.5">Sub-agents</div></div>' +
-    '</div></div>';
+var profile={background:'',priority:''};
+var section=0;
+var activeSources=["Notion","Slack","GitHub"];
+var BG=[
+  {id:"builder",label:"I build products & systems",sub:"Engineering, dev, technical roles"},
+  {id:"data",label:"I work with data & insights",sub:"Analytics, data science, BI, research"},
+  {id:"product",label:"I shape what gets built",sub:"Product, design, strategy, UX"},
+  {id:"business",label:"I grow or operate businesses",sub:"Sales, marketing, ops, GTM, HR, recruitment"}
+];
+var PRI=[
+  {id:"ownership",label:"Autonomy & ownership",sub:"I want to own things end-to-end"},
+  {id:"team",label:"Team & culture",sub:"The people I work with matter most"},
+  {id:"technical",label:"Technical challenge",sub:"I want hard problems"},
+  {id:"impact",label:"Impact & mission",sub:"I want to see real-world results"}
+];
+var SECTIONS=["Mission","Product","In the Wild","Team","Roles","Match"];
+
+function renderOnboarding(step){
+  var items=step===0?BG:PRI;
+  var logo='<div class="flex items-center gap-2 mb-10"><div class="w-7 h-7 bg-slate-900 rounded-lg flex items-center justify-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="font-bold text-sm">dust</span><span class="text-slate-300 text-sm mx-1">&#183;</span><span class="text-xs text-slate-400">Candidate Experience</span></div>';
+  var hdr=step===0
+    ?'<div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Before we start — question 1 of 2</div><h1 class="text-2xl font-bold text-slate-900 mb-2">What best describes your background?</h1><p class="text-sm text-slate-500 mb-6">I\'ll tailor the tour to what\'s most relevant for you.</p>'
+    :'<div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Question 2 of 2</div><h1 class="text-2xl font-bold text-slate-900 mb-2">What matters most in your next role?</h1><p class="text-sm text-slate-500 mb-6">No right answer — this shapes how I frame things.</p>';
+  var btns=items.map(function(o){
+    var fn=step===0?"selectBg('"+o.id+"')" :"selectPri('"+o.id+"')";
+    return '<button onclick="'+fn+'" class="w-full text-left border border-slate-200 rounded-xl px-4 py-3.5 hover:border-slate-900 hover:bg-slate-50 transition-all mb-2"><div class="text-sm font-semibold text-slate-900">'+o.label+'</div><div class="text-xs text-slate-400 mt-0.5">'+o.sub+'</div></button>';
+  }).join('');
+  document.getElementById('ob-inner').innerHTML=logo+hdr+btns;
 }
 
-function customerCards(){
-  var co=[
-    {n:"Persona",c:"#4f46e5",t:"Identity · $2B",s:"80%",l:"adoption · 300+ agents"},
-    {n:"Vanta",c:"#7c3aed",t:"Trust & Compliance",s:"400h/wk",l:"saved on QBR prep"},
-    {n:"Clay",c:"#f97316",t:"GTM SaaS · $1.5B",s:"100%",l:"adoption in 24 hours"},
-    {n:"Watershed",c:"#059669",t:"Sustainability",s:"20→90%",l:"adoption in months"},
-    {n:"Back Market",c:"#16a34a",t:"Recommerce",s:"€1.2M",l:"fraud savings · 1 week"},
-    {n:"Spendesk",c:"#2563eb",t:"Spend Management",s:"90%",l:"adoption in 6 months"}
+function selectBg(id){profile.background=id;renderOnboarding(1);}
+function selectPri(id){
+  profile.priority=id;
+  document.getElementById('onboarding').style.display='none';
+  var t=document.getElementById('tour');t.style.display='flex';t.style.flexDirection='column';
+  initTour();
+}
+
+function getCaption(i){
+  var bg=profile.background,pri=profile.priority;
+  return [
+    {title:"One belief changed everything.",sub:bg==='business'?"AI compounds when shared across a whole company — not siloed in individual tools.":pri==='impact'?"AI compounds when shared — not siloed in individual chatbots. The mission is real.":"AI only works as team infrastructure. That's the insight Dust was built on."},
+    {title:bg==='business'||bg==='product'?"No code. No prompts. Real results.":"See it to believe it.",sub:bg==='business'?"Anyone in your company can use agents built by one person. Here's how it works.":bg==='product'?"Here's the Dust interface — a PM's dream: ship agents like features.":"Here's what building and using an agent looks like inside Dust."},
+    {title:pri==='technical'?"Shipped in the morning. In production by noon.":bg==='business'?"This is what a high-trust, high-output team looks like.":"Culture isn't written. It's lived.",sub:bg==='business'?"A real glimpse at how Dust operates internally — using its own product every day.":pri==='team'?"A real glimpse at how the team moves day-to-day.":"A real day inside the Dust team."},
+    {title:"~40 people. Exceptional backgrounds.",sub:bg==='business'?"Founders from OpenAI and Stripe. You'd work with people who've scaled things before.":pri==='ownership'?"Small enough that everyone has massive scope from day one.":"You'd work directly with these people, including the founders."},
+    {title:bg==='business'?"There's a role for every kind of builder.":"Based on your background...",sub:bg==='business'||bg==='product'?"Dust hires for mindset as much as background. The AI Builder role is deliberately broad.":"Here's where you'd likely land at Dust. The top card is personalized for you."},
+    {title:"Let's find out if you're a fit.",sub:bg==='business'?"Describe what you do and I'll tell you where you'd land — honestly.":"Paste your background or use a quick option. I'll give you an honest read."}
+  ][i];
+}
+
+function initTour(){
+  document.getElementById('section-tabs').innerHTML=SECTIONS.map(function(s,i){
+    return '<button onclick="goTo('+i+')" id="tab-'+i+'" class="text-xs font-medium px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-slate-700 hover:bg-slate-50">'+s+'</button>';
+  }).join('');
+  var bg=BG.find(function(b){return b.id===profile.background;});
+  document.getElementById('profile-tag').textContent=bg?bg.label.replace('I build','building').replace('I work','working').replace('I shape','shaping').replace('I grow','growing'):'';
+  goTo(0);
+}
+
+function goTo(i){
+  section=i;
+  var cap=getCaption(i);
+  document.getElementById('section-dots').innerHTML=SECTIONS.map(function(_,j){
+    return '<button onclick="goTo('+j+')" style="width:'+(j===i?'20px':'6px')+';height:6px" class="rounded-full transition-all '+(j===i?'bg-slate-900':'bg-slate-300 hover:bg-slate-400')+'"></button>';
+  }).join('');
+  document.getElementById('left-caption').innerHTML='<div class="fade"><h3 class="text-lg font-bold text-slate-900 leading-snug mb-2">'+cap.title+'</h3><p class="text-sm text-slate-500 leading-relaxed">'+cap.sub+'</p></div>';
+  SECTIONS.forEach(function(_,j){
+    var tab=document.getElementById('tab-'+j);
+    if(tab)tab.className='text-xs font-medium px-2.5 py-1 rounded-lg transition-all '+(j===i?'bg-slate-900 text-white':'text-slate-400 hover:text-slate-700 hover:bg-slate-50');
+  });
+  document.getElementById('btn-prev').style.opacity=i===0?'0.3':'1';
+  document.getElementById('btn-next').style.opacity=i===SECTIONS.length-1?'0.3':'1';
+  var fns=[renderMission,renderProduct,renderWild,renderTeam,renderRoles,renderMatch];
+  document.getElementById('right-panel').innerHTML='<div class="fade">'+fns[i]()+'</div>';
+}
+function next(){if(section<SECTIONS.length-1)goTo(section+1);}
+function prev(){if(section>0)goTo(section-1);}
+
+function renderMission(){
+  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">The thesis</div><h2 class="text-4xl font-bold text-slate-900 leading-tight mb-3">AI that works for<br/>one person<br/><span class="text-slate-300">half-works.</span></h2><p class="text-sm text-slate-500 leading-relaxed mb-8 max-w-sm">Dust was built on one conviction: the value of AI compounds when shared. Every agent becomes infrastructure. Every insight becomes institutional knowledge.</p><div class="grid grid-cols-2 gap-3 mb-8">'+[["5,000+","Organizations"],["80K+","Agents in production"],["12M","Conversations in 2025"],["70-90%","Typical adoption rate"]].map(function(x){return '<div class="bg-slate-900 text-white rounded-2xl p-5"><div class="text-3xl font-bold mb-1">'+x[0]+'</div><div class="text-xs text-slate-400">'+x[1]+'</div></div>';}).join('')+'</div><div class="border-l-2 border-slate-900 pl-4"><p class="text-sm text-slate-700 italic mb-1">"Not just a 10xer — a 100xer if we harness it right."</p><p class="text-xs text-slate-400">Patrick Hall, Product Architect &middot; Persona</p></div></div></div>';
+}
+
+function renderProduct(){
+  var srcList=["Notion","Slack","GitHub","Google Drive","Salesforce"];
+  var btns=srcList.map(function(s){var a=activeSources.indexOf(s)>-1;return '<button onclick="toggleSrc(\''+s+'\')" class="text-xs px-3 py-1.5 rounded-lg border font-medium transition-all '+(a?'bg-slate-900 text-white border-slate-900':'bg-white text-slate-500 border-slate-200 hover:border-slate-400')+'">'+(a?'&#10003; ':'')+s+'</button>';}).join('');
+  var previewTxt=activeSources.length===0?'No data sources connected.':'Based on '+activeSources[0]+', Project Atlas is in final review. 2 open blockers remain before launch.';
+  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Interactive demo</div><h2 class="text-2xl font-bold text-slate-900 mb-1">Build an agent in 2 minutes.</h2><p class="text-sm text-slate-500 mb-6">Toggle data sources — watch the agent update live.</p><div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm"><div class="bg-slate-50 border-b border-slate-100 px-4 py-2.5 flex items-center gap-2"><div class="flex gap-1.5"><div class="w-2.5 h-2.5 bg-red-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-yellow-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-green-400 rounded-full"></div></div><span class="text-xs text-slate-400 ml-2">dust.tt — New Agent</span></div><div class="p-4 space-y-4"><div><div class="text-xs font-semibold text-slate-500 mb-1.5">Model</div><div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="text-xs font-medium text-slate-700">Claude Sonnet 4.5</span><span class="ml-auto text-xs text-slate-400">&#9660;</span></div></div><div><div class="text-xs font-semibold text-slate-500 mb-1.5">Data sources <span class="font-normal text-slate-400">(click to toggle)</span></div><div id="src-btns" class="flex flex-wrap gap-2">'+btns+'</div></div><div><div class="text-xs font-semibold text-slate-500 mb-1.5">Instructions</div><div class="bg-slate-900 rounded-lg px-3 py-2.5 text-xs font-mono leading-relaxed"><span class="text-blue-300">You have access to</span> <span id="src-names" class="text-green-400">'+(activeSources.length>0?activeSources.join(', '):'no sources selected')+'</span><span class="text-blue-300">.</span><br/><span class="text-slate-300">Answer using only what\'s in those sources.</span></div></div></div><div class="border-t border-slate-100 bg-slate-50 p-4"><div class="text-xs font-semibold text-slate-500 mb-3">Preview</div><div class="space-y-2.5"><div class="flex justify-end"><div class="bg-slate-900 text-white text-xs px-3 py-2 rounded-xl rounded-tr-sm">What\'s the status of Project Atlas?</div></div><div class="flex gap-2"><div class="w-6 h-6 bg-violet-600 rounded-full flex items-center justify-center shrink-0" style="font-size:9px"><span class="text-white font-bold">AI</span></div><div id="preview-reply" class="bg-white border border-slate-200 text-xs px-3 py-2 rounded-xl rounded-tl-sm text-slate-700 flex-1">'+previewTxt+'</div></div></div></div></div><p class="text-xs text-slate-400 text-center mt-3">No code. No prompting expertise. This is the actual Dust interface.</p></div></div>';
+}
+
+function toggleSrc(s){
+  var idx=activeSources.indexOf(s);
+  if(idx>-1)activeSources.splice(idx,1);else activeSources.push(s);
+  var srcList=["Notion","Slack","GitHub","Google Drive","Salesforce"];
+  var c=document.getElementById('src-btns');
+  if(c)c.innerHTML=srcList.map(function(x){var a=activeSources.indexOf(x)>-1;return '<button onclick="toggleSrc(\''+x+'\')" class="text-xs px-3 py-1.5 rounded-lg border font-medium transition-all '+(a?'bg-slate-900 text-white border-slate-900':'bg-white text-slate-500 border-slate-200 hover:border-slate-400')+'">'+(a?'&#10003; ':'')+x+'</button>';}).join('');
+  var n=document.getElementById('src-names');if(n)n.textContent=activeSources.length>0?activeSources.join(', '):'no sources selected';
+  var r=document.getElementById('preview-reply');if(r)r.textContent=activeSources.length===0?'No data sources connected.':'Based on '+activeSources[0]+', Project Atlas is in final review. 2 open blockers remain before launch.';
+}
+
+function renderWild(){
+  var msgs=[
+    {init:"SP",name:"Stanislas",color:"bg-indigo-600",time:"10:32",text:profile.priority==='technical'?"just traced the latency spike — model over-fetching context on long threads. 3-line fix, deploying now":"shipped the new retrieval fix \uD83C\uDF89 3x faster on large workspaces"},
+    {init:"GH",name:"Gabriel",color:"bg-violet-600",time:"10:33",text:"already saw the metrics tick. what broke exactly?"},
+    {init:"SP",name:"Stanislas",color:"bg-indigo-600",time:"10:34",text:"context window filling with noise before the actual answer. logs made it obvious once I looked"},
+    {init:"EH",name:"new hire",color:"bg-slate-500",time:"10:35",text:"this is what i mean when I say everyone here moves fast"},
+    {init:"GH",name:"Gabriel",color:"bg-violet-600",time:"10:36",text:"and we used a Dust agent to trace the logs \uD83D\uDE04 using our own product to ship faster"},
+    {init:"SP",name:"Stanislas",color:"bg-indigo-600",time:"10:36",text:"^^ that's literally the job"}
   ];
-  return '<div class="mt-3 space-y-2">' + co.map(function(x){
-    return '<div class="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-lg px-3 py-2.5">' +
-      '<div class="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0" style="background:'+x.c+'">'+x.n.slice(0,2)+'</div>' +
-      '<div class="flex-1 min-w-0"><div class="text-xs font-bold text-slate-900">'+x.n+'</div><div class="text-xs text-slate-400">'+x.t+'</div></div>' +
-      '<div class="text-right shrink-0"><div class="text-sm font-bold text-slate-900">'+x.s+'</div><div class="text-xs text-slate-400">'+x.l+'</div></div>' +
-    '</div>';
-  }).join('') + '</div>';
+  var slk=msgs.map(function(m){return '<div class="flex gap-3"><div class="w-8 h-8 rounded-lg '+m.color+' flex items-center justify-center text-white text-xs font-bold shrink-0">'+m.init+'</div><div><div class="flex items-baseline gap-2 mb-0.5"><span class="text-xs font-bold text-slate-900">'+m.name+'</span><span class="text-xs text-slate-400">'+m.time+' AM</span></div><p class="text-sm text-slate-700">'+m.text+'</p></div></div>';}).join('');
+  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">A real day at Dust</div><h2 class="text-2xl font-bold text-slate-900 mb-1">This is what fast actually looks like.</h2><p class="text-sm text-slate-500 mb-6">From issue spotted to fix in production — before lunch.</p><div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-5"><div class="bg-slate-800 px-4 py-2.5 flex items-center gap-2"><div class="flex gap-1.5"><div class="w-2.5 h-2.5 bg-red-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-yellow-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-green-400 rounded-full"></div></div><span class="text-slate-300 text-xs ml-2 font-medium"># eng-daily</span><span class="text-slate-500 text-xs ml-auto">Slack — Dust workspace</span></div><div class="p-4 space-y-4"><div class="flex justify-center"><span class="text-xs text-slate-400 bg-slate-50 border border-slate-100 px-3 py-1 rounded-full">Today</span></div>'+slk+'</div></div><div class="bg-slate-900 rounded-2xl overflow-hidden"><div class="px-4 py-2.5 border-b border-slate-700 flex items-center justify-between"><span class="text-slate-400 text-xs font-mono">dust-tt/dust &middot; core/src/agents/runner.ts</span><a href="https://github.com/dust-tt/dust" target="_blank" class="text-xs text-slate-500 hover:text-slate-300">View on GitHub &#8599;</a></div><pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto"><code><span class="text-slate-500">// The core agent execution loop</span>\n<span class="text-blue-400">export async function</span> <span class="text-green-400">runAgent</span><span class="text-slate-300">(</span>\n  <span class="text-orange-300">auth</span><span class="text-slate-400">: Authenticator,</span>\n  <span class="text-orange-300">config</span><span class="text-slate-400">: AgentConfig,</span>\n  <span class="text-orange-300">conversation</span><span class="text-slate-400">: ConversationWithContent</span>\n<span class="text-slate-300">)</span><span class="text-slate-400">: Promise&lt;AgentRunResult&gt; {</span>\n  <span class="text-blue-400">const</span> <span class="text-slate-300">model</span> <span class="text-slate-400">= await</span> <span class="text-green-400">selectModel</span><span class="text-slate-300">(config.model);</span>\n  <span class="text-blue-400">const</span> <span class="text-slate-300">ctx</span> <span class="text-slate-400">= await</span> <span class="text-green-400">buildContext</span><span class="text-slate-300">(auth, conversation);</span>\n  <span class="text-blue-400">return</span> <span class="text-slate-300">model.<span class="text-green-400">run</span>({ config, context: ctx });</span>\n<span class="text-slate-300">}</span></code></pre></div></div></div>';
 }
 
-function techStack(){
-  var layers=[
-    {l:"Frontend",bg:"bg-blue-50",tags:["React","Next.js","TypeScript","shadcn/ui"]},
-    {l:"Backend",bg:"bg-slate-50",tags:["Node.js","TypeScript","Rust","REST APIs"]},
-    {l:"Infrastructure",bg:"bg-violet-50",tags:["Kubernetes","Helm","Terraform","GCP"]},
-    {l:"Data",bg:"bg-green-50",tags:["PostgreSQL","QDrant","Elasticsearch"]},
-    {l:"AI Models",bg:"bg-amber-50",tags:["GPT-5","Claude","Gemini","Mistral","DeepSeek"]}
+function renderTeam(){
+  var founders=[
+    {init:"SP",bg:"bg-slate-900",name:"Stanislas Polu",role:"Co-founder & CEO",prev:["OpenAI Research Scientist","Worked on GPT-3 & RLHF"],note:"Left OpenAI to fix the team AI problem"},
+    {init:"GH",bg:"bg-slate-700",name:"Gabriel Hubert",role:"Co-founder & CPO",prev:["ex-Stripe","ex-Front (co-founder)"],note:"Built products at scale before founding Dust"}
   ];
-  return '<div class="mt-3 space-y-2">' + layers.map(function(x){
-    return '<div class="border border-slate-200 rounded-xl px-3 py-2.5 '+x.bg+'">' +
-      '<div class="text-xs font-semibold text-slate-600 mb-1.5">'+x.l+'</div>' +
-      '<div class="flex flex-wrap gap-1.5">' + x.tags.map(function(t){return '<span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-md font-medium">'+t+'</span>'}).join('') + '</div>' +
-    '</div>';
-  }).join('') + '<p class="text-xs text-slate-500 mt-1">Open source at <strong>github.com/dust-tt/dust</strong></p></div>';
+  var cards=founders.map(function(p){return '<div class="bg-slate-50 border border-slate-100 rounded-2xl p-4"><div class="w-12 h-12 '+p.bg+' rounded-2xl flex items-center justify-center text-white font-bold mb-3">'+p.init+'</div><div class="text-xs font-bold text-slate-900 mb-0.5">'+p.name+'</div><div class="text-xs text-slate-500 mb-3">'+p.role+'</div>'+p.prev.map(function(x){return '<div class="text-xs text-slate-400 flex gap-1.5 mb-0.5"><span class="text-slate-300">&middot;</span>'+x+'</div>';}).join('')+'<div class="mt-3 text-xs text-slate-400 italic border-t border-slate-200 pt-2">"'+p.note+'"</div></div>';}).join('');
+  var alumni=["Stripe","OpenAI","Front","Stanford","Google","Airbnb","Datadog","Notion"].map(function(c){return '<span class="bg-slate-50 border border-slate-200 text-slate-700 text-xs px-3 py-1.5 rounded-xl font-medium">'+c+'</span>';}).join('');
+  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">The people</div><h2 class="text-2xl font-bold text-slate-900 mb-6">Built by people who\'ve done it before.</h2><div class="grid grid-cols-2 gap-4 mb-5">'+cards+'</div><div class="bg-white border border-slate-100 rounded-2xl p-4 mb-4"><div class="text-xs font-semibold text-slate-500 mb-3">~40 people &middot; Paris & San Francisco &middot; alumni from</div><div class="flex flex-wrap gap-2">'+alumni+'</div></div><div class="bg-slate-900 text-white rounded-2xl p-4"><div class="text-xs text-slate-400 mb-1">What this means for you</div><div class="text-sm font-medium">The founders interview every candidate. You\'d work directly with them from day one — not as a number, but as someone they chose personally.</div></div></div></div>';
 }
 
-function roleCards(){
+function renderRoles(){
+  var bgToRole={builder:"backend",data:"data",product:"builder",business:"builder"};
+  var preferred=bgToRole[profile.background]||"backend";
   var roles=[
-    {t:"Software Engineer",tag:"Engineering",tc:"bg-blue-100 text-blue-700",loc:"Paris",sal:"€40K–€150K",skills:["TypeScript","Rust","Kubernetes","PostgreSQL"]},
-    {t:"Software Engineer, Frontend",tag:"Engineering",tc:"bg-blue-100 text-blue-700",loc:"Paris",sal:"€60K–€150K",skills:["React","Next.js","TypeScript","shadcn"]},
-    {t:"Product Data Analyst",tag:"Data",tc:"bg-purple-100 text-purple-700",loc:"Paris",sal:"€70K–€110K",skills:["SQL","Experimentation","Dashboards"]},
-    {t:"AI Builder (Open Role)",tag:"Open",tc:"bg-amber-100 text-amber-700",loc:"Paris · SF",sal:"Competitive",skills:["Builder mindset","AI passion"]}
+    {id:"frontend",title:"Software Engineer, Frontend",salary:"€60K–€150K",skills:["React","Next.js","TypeScript","shadcn"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"},
+    {id:"backend",title:"Software Engineer",salary:"€40K–€150K",skills:["TypeScript","Rust","Kubernetes","PostgreSQL"],link:"https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766"},
+    {id:"data",title:"Product Data Analyst",salary:"€70K–€110K",skills:["SQL","A/B Testing","Dashboards","Product metrics"],link:"https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883"},
+    {id:"builder",title:"AI Builder (Open Role)",salary:"Competitive",skills:["Builder mindset","AI passion","Ownership"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"}
   ];
-  return '<div class="mt-3 space-y-2">' + roles.map(function(r){
-    return '<div class="bg-slate-50 border border-slate-100 rounded-xl p-3">' +
-      '<div class="flex items-start justify-between gap-2 mb-2">' +
-        '<div><div class="flex items-center gap-1.5 mb-0.5"><span class="text-xs font-bold text-slate-900">'+r.t+'</span><span class="text-xs font-medium px-1.5 py-0.5 rounded-full '+r.tc+'">'+r.tag+'</span></div>' +
-        '<div class="flex gap-3 text-xs text-slate-500"><span>📍 '+r.loc+'</span><span>💰 '+r.sal+' + equity</span></div></div>' +
-      '</div>' +
-      '<div class="flex flex-wrap gap-1">' + r.skills.map(function(s){return '<span class="bg-white border border-slate-200 text-slate-600 text-xs px-2 py-0.5 rounded-md">'+s+'</span>'}).join('') + '</div>' +
-    '</div>';
-  }).join('') +
-  '<a href="https://jobs.ashbyhq.com/dust" target="_blank" class="block w-full bg-slate-900 text-white text-xs font-semibold py-2.5 rounded-xl text-center hover:bg-slate-700 transition-colors mt-1">Apply at jobs.ashbyhq.com/dust ↗</a>' +
-  '</div>';
+  roles.sort(function(a,b){return a.id===preferred?-1:b.id===preferred?1:0;});
+  var cards=roles.map(function(r,i){
+    var border=i===0?'border-slate-900 shadow-sm':'border-slate-100';
+    var badge=i===0?'<div class="text-xs font-semibold text-slate-900 mb-2.5 flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Best match for your background</div>':'';
+    var btn=i===0?'<a href="'+r.link+'" target="_blank" class="text-xs font-semibold px-3 py-2 rounded-xl shrink-0 bg-slate-900 text-white hover:bg-slate-700 transition-colors">Apply &#8599;</a>':'<a href="'+r.link+'" target="_blank" class="text-xs font-semibold px-3 py-2 rounded-xl shrink-0 border border-slate-200 text-slate-700 hover:border-slate-400 transition-colors">Apply &#8599;</a>';
+    var tags=r.skills.map(function(s){return '<span class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-lg">'+s+'</span>';}).join('');
+    return '<div class="border rounded-2xl p-4 '+border+'">'+badge+'<div class="flex items-start justify-between gap-3"><div class="flex-1"><div class="text-sm font-bold text-slate-900 mb-1">'+r.title+'</div><div class="text-xs text-slate-500 mb-2">&#128205; Paris &middot; &#128176; '+r.salary+' + equity</div><div class="flex flex-wrap gap-1.5">'+tags+'</div></div>'+btn+'</div></div>';
+  }).join('');
+  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Open roles</div><h2 class="text-2xl font-bold text-slate-900 mb-1">4 roles. All shape the product.</h2><p class="text-sm text-slate-500 mb-6">The top one matches your background. All include meaningful equity.</p><div class="space-y-3">'+cards+'</div></div></div>';
 }
 
-function teamCard(){
-  return '<div class="mt-3 space-y-2">' +
-    '<div class="grid grid-cols-2 gap-2">' +
-      '<div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">' +
-        '<div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-2">SP</div>' +
-        '<div class="text-xs font-bold text-slate-900">Stanislas Polu</div>' +
-        '<div class="text-xs text-slate-500">Co-founder & CEO</div>' +
-        '<div class="mt-1.5 inline-flex items-center bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">ex-OpenAI</div>' +
-      '</div>' +
-      '<div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">' +
-        '<div class="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-2">GH</div>' +
-        '<div class="text-xs font-bold text-slate-900">Gabriel Hubert</div>' +
-        '<div class="text-xs text-slate-500">Co-founder & CPO</div>' +
-        '<div class="mt-1.5 flex gap-1 justify-center flex-wrap">' +
-          '<span class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">ex-Stripe</span>' +
-          '<span class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">ex-Front</span>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="bg-slate-50 border border-slate-100 rounded-xl p-3">' +
-      '<div class="text-xs font-semibold text-slate-700 mb-2">~40 people · Paris + San Francisco</div>' +
-      '<div class="text-xs text-slate-500 mb-2">Alumni from:</div>' +
-      '<div class="flex flex-wrap gap-1.5">' +
-        ["Stripe","OpenAI","Front","Stanford","Google","Airbnb"].map(function(c){return '<span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-lg font-medium">'+c+'</span>'}).join('') +
-      '</div>' +
-    '</div>' +
-  '</div>';
+function renderMatch(){
+  var qMap={
+    builder:["Frontend engineer — React & TypeScript","Backend / full-stack — Node, Kubernetes, Rust","Full-stack — own features end-to-end","Infrastructure / DevOps — cloud & platform"],
+    data:["Product analyst — SQL, metrics, A-B testing","Data scientist — ML, experimentation, Python","BI analyst — dashboards, Looker, Snowflake","Growth analyst — funnel metrics, attribution"],
+    product:["Product manager — roadmap, specs, cross-functional","Product designer — UX, user research, Figma","Head of product — 0-to-1 and scaling","Strategy / ops — problem solving, cross-team"],
+    business:["Sales / AE — SaaS, quota-carrying, technical deals","Recruiter / TA — tech hiring, candidate experience","Marketing — brand, content, demand generation","Ops / COO-type — process, efficiency, execution"]
+  };
+  var list=qMap[profile.background]||qMap.business;
+  var quick=list.map(function(q,i){return '<button onclick="analyzeQuick('+i+')" class="w-full text-left bg-white border border-slate-200 text-slate-700 text-xs px-4 py-3 rounded-xl hover:border-slate-400 transition-colors">'+q+'</button>';}).join('');
+  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Match assessment</div><h2 class="text-2xl font-bold text-slate-900 mb-1">Are you a fit for Dust?</h2><p class="text-sm text-slate-500 mb-6">Paste your LinkedIn bio, describe your background, or pick a quick option below.</p><div id="match-form"><textarea id="match-input" placeholder="e.g. Recruiter with 4 years experience in tech hiring, specializing in engineering roles at startups. Built hiring pipelines from scratch..." class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-700 placeholder-slate-400 outline-none focus:border-slate-400 resize-none mb-3" rows="4"></textarea><button onclick="analyzeInput()" class="w-full bg-slate-900 text-white text-sm font-semibold py-3 rounded-xl hover:bg-slate-700 transition-colors mb-5">Analyze my profile &#8594;</button><div class="text-xs text-slate-400 text-center mb-3">or pick a quick option</div><div class="space-y-2">'+quick+'</div></div><div id="match-result" style="display:none"></div></div></div>';
 }
 
-function cultureCards(){
-  var vals=[
-    {i:"🎯",t:"Product-First",d:"Every decision starts from the user. We don't build features to fill roadmaps."},
-    {i:"🚀",t:"Ship to Learn",d:"We move fast and treat every release as a learning opportunity, not a bet."},
-    {i:"🧠",t:"Intellectual Humility",d:"We debate hard but change our minds when shown better evidence. Low ego, high standards."},
-    {i:"🔁",t:"Dust on Dust",d:"We run our own product internally. If we build it, we're the first users. No exceptions."},
-    {i:"⚡",t:"Proactive Problem-Solving",d:"We don't wait to be asked. If you see something broken, you fix it."}
-  ];
-  return '<div class="mt-3 space-y-2">' + vals.map(function(v){
-    return '<div class="flex gap-3 bg-slate-50 border border-slate-100 rounded-xl p-3">' +
-      '<div class="text-lg shrink-0">'+v.i+'</div>' +
-      '<div><div class="text-xs font-bold text-slate-900 mb-0.5">'+v.t+'</div><div class="text-xs text-slate-500 leading-relaxed">'+v.d+'</div></div>' +
-    '</div>';
-  }).join('') + '</div>';
+var _quickList=null;
+function analyzeQuick(i){
+  var qMap={
+    builder:["Frontend engineer — React & TypeScript","Backend / full-stack — Node, Kubernetes, Rust","Full-stack — own features end-to-end","Infrastructure / DevOps — cloud & platform"],
+    data:["Product analyst — SQL, metrics, A-B testing","Data scientist — ML, experimentation, Python","BI analyst — dashboards, Looker, Snowflake","Growth analyst — funnel metrics, attribution"],
+    product:["Product manager — roadmap, specs, cross-functional","Product designer — UX, user research, Figma","Head of product — 0-to-1 and scaling","Strategy / ops — problem solving, cross-team"],
+    business:["Sales / AE — SaaS, quota-carrying, technical deals","Recruiter / TA — tech hiring, candidate experience","Marketing — brand, content, demand generation","Ops / COO-type — process, efficiency, execution"]
+  };
+  doAnalyze((qMap[profile.background]||qMap.business)[i]);
+}
+function analyzeInput(){var v=document.getElementById('match-input');if(v&&v.value.trim())doAnalyze(v.value.trim());}
+
+function doAnalyze(text){
+  var lower=text.toLowerCase();
+  var s={fe:0,be:0,da:0,ai:0};
+  ["react","next","frontend","ui","ux","css","html","vue","angular","figma","design"].forEach(function(k){if(lower.indexOf(k)>-1)s.fe++;});
+  ["backend","typescript","rust","node","kubernetes","postgres","infrastructure","devops","api","fullstack","full-stack","cloud","system","java","python","scala"].forEach(function(k){if(lower.indexOf(k)>-1)s.be++;});
+  ["data","sql","analytics","analyst","bi","dbt","snowflake","looker","metric","dashboard","ml","spark","pandas"].forEach(function(k){if(lower.indexOf(k)>-1)s.da++;});
+  ["product","pm","ops","operations","gpt","llm","prompt","agent","automation","builder","recruiter","hiring","marketing","sales","gtm","candidate","talent"].forEach(function(k){if(lower.indexOf(k)>-1)s.ai++;});
+  if(profile.background==="builder"){s.fe+=1;s.be+=1;}
+  if(profile.background==="data")s.da+=2;
+  if(profile.background==="product")s.ai+=2;
+  if(profile.background==="business")s.ai+=2;
+  var max=Math.max(s.fe,s.be,s.da,s.ai);
+  var key=(s.fe===max&&s.fe>0)?"fe":(s.be===max&&s.be>0)?"be":(s.da===max&&s.da>0)?"da":"ai";
+  var strength=max>=4?"strong":max>=2?"good":"explore";
+  var ROLES={
+    fe:{title:"Software Engineer, Frontend",salary:"€60K–€150K",signals:["React/Next.js","TypeScript","UI ownership","User-facing product work"],tips:["React architecture decisions you've owned","Component library or design system work","Accessibility or performance optimization","Frame impact in user-facing terms"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"},
+    be:{title:"Software Engineer",salary:"€40K–€150K",signals:["Full-stack/backend","TypeScript or Rust","Infrastructure","End-to-end ownership"],tips:["Features owned from API to production","Multi-language or infra work (Rust a bonus)","Open source contributions","System design trade-offs you've made"],link:"https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766"},
+    da:{title:"Product Data Analyst",salary:"€70K–€110K",signals:["Data/analytics background","SQL proficiency","Product-oriented metrics","Dashboard/tooling work"],tips:["How your data work influenced product decisions","Experimentation/A-B testing experience","Self-serve tooling for non-technical teams","Show impact, not just tools used"],link:"https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883"},
+    ai:{title:"AI Builder (Open Role)",salary:"Competitive",signals:["AI/product interest","Builder mindset","Automation or ops experience","Domain expertise"],tips:["Real AI projects — not buzzwords, actual builds","Agents or automation you've shipped","Why Dust specifically resonates","Initiative matters as much as background"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"}
+  };
+  var role=ROLES[key];
+  var cfg={strong:{bg:"bg-green-50",border:"border-green-200",badge:"bg-green-100 text-green-800",dot:"bg-green-500",label:"Strong Match"},good:{bg:"bg-blue-50",border:"border-blue-200",badge:"bg-blue-100 text-blue-800",dot:"bg-blue-500",label:"Good Match"},explore:{bg:"bg-amber-50",border:"border-amber-200",badge:"bg-amber-100 text-amber-800",dot:"bg-amber-500",label:"Worth Exploring"}}[strength];
+  var signals=role.signals.map(function(s){return '<span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-lg">&#10003; '+s+'</span>';}).join('');
+  var tips=role.tips.map(function(t){return '<li class="text-xs text-slate-600 flex gap-2"><span class="text-slate-300 shrink-0 mt-0.5">&#8594;</span>'+t+'</li>';}).join('');
+  var html='<div class="border rounded-2xl p-5 '+cfg.bg+' '+cfg.border+'"><div class="flex items-start justify-between gap-3 mb-4"><div><div class="text-sm font-bold text-slate-900">'+role.title+'</div><div class="text-xs text-slate-500 mt-0.5">&#128176; '+role.salary+' + equity &middot; &#128205; Paris</div></div><span class="text-xs font-semibold px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 '+cfg.badge+'"><span class="w-1.5 h-1.5 rounded-full '+cfg.dot+' inline-block"></span>'+cfg.label+'</span></div><div class="mb-4"><div class="text-xs font-semibold text-slate-600 mb-2">Detected from your profile:</div><div class="flex flex-wrap gap-1.5">'+signals+'</div></div><div class="mb-4"><div class="text-xs font-semibold text-slate-600 mb-2">What to highlight when you apply:</div><ul class="space-y-1.5">'+tips+'</ul></div><a href="'+role.link+'" target="_blank" class="block w-full bg-slate-900 text-white text-xs font-semibold py-3 rounded-xl text-center hover:bg-slate-700 transition-colors mb-2">Apply for this role &#8599;</a><button onclick="resetMatch()" class="w-full text-xs text-slate-400 py-1 hover:text-slate-600 transition-colors">Try a different profile</button></div>';
+  var f=document.getElementById('match-form'),r=document.getElementById('match-result');
+  if(f)f.style.display='none';
+  if(r){r.style.display='block';r.innerHTML=html;}
+}
+function resetMatch(){
+  var f=document.getElementById('match-form'),r=document.getElementById('match-result');
+  if(f)f.style.display='block';if(r)r.style.display='none';
 }
 
-function perksCard(){
-  var perks=[
-    ["❤️","Health insurance","For you and your dependents"],
-    ["💻","MacBook Pro or Linux","Full equipment setup included"],
-    ["✈️","Relocation support","Up to €10,000 + apartment search"],
-    ["🏢","Beautiful Paris office","Real HQ, not a co-working space"],
-    ["🌍","US travel","Multiple trips to San Francisco per year"],
-    ["📈","Netflix-style comp","Reviews anytime, not just once a year"],
-    ["🎉","Team events","Regular offsites and gatherings"],
-    ["🛠️","Ship every day","Work on a product you actually use"]
-  ];
-  return '<div class="mt-3 grid grid-cols-1 gap-2">' + perks.map(function(p){
-    return '<div class="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-lg px-3 py-2.5">' +
-      '<span class="text-base shrink-0">'+p[0]+'</span>' +
-      '<div><div class="text-xs font-semibold text-slate-900">'+p[1]+'</div><div class="text-xs text-slate-500">'+p[2]+'</div></div>' +
-    '</div>';
-  }).join('') + '</div>';
-}
-
-function interviewSteps(){
-  var steps=[
-    {n:"1",t:"Intro call",d:"30 min with a recruiter — low pressure, get to know each other",b:"~30 min"},
-    {n:"2",t:"Technical / domain interview",d:"Role-specific — assesses skills and how you think",b:"~1h"},
-    {n:"3",t:"Paid work session",d:"A realistic exercise relevant to the role — we pay for your time",b:"Paid"},
-    {n:"4",t:"Team interviews",d:"Meet the people you'd work with day to day",b:"~2h"},
-    {n:"5",t:"Founders chat",d:"Stan and Gabriel are involved in every single hire",b:"Final"}
-  ];
-  return '<div class="mt-3 space-y-2">' + steps.map(function(s){
-    return '<div class="flex gap-3 bg-slate-50 border border-slate-100 rounded-xl p-3">' +
-      '<div class="w-6 h-6 bg-slate-900 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0 mt-0.5">'+s.n+'</div>' +
-      '<div class="flex-1"><div class="flex items-center gap-2 mb-0.5"><span class="text-xs font-bold text-slate-900">'+s.t+'</span><span class="bg-slate-100 text-slate-600 text-xs px-1.5 py-0.5 rounded-full">'+s.b+'</span></div><div class="text-xs text-slate-500">'+s.d+'</div></div>' +
-    '</div>';
-  }).join('') +
-  '<a href="https://jobs.ashbyhq.com/dust" target="_blank" class="block w-full bg-slate-900 text-white text-xs font-semibold py-2.5 rounded-xl text-center hover:bg-slate-700 transition-colors mt-1">Start the process ↗</a>' +
-  '</div>';
-}
-
-// ── KNOWLEDGE BASE ──
-var KB = [
-  {keys:["back market","backmarket","fraud","recommerce","detection","1.2m","use case","usecase","extend","elaborate","develop on","more about","tell me more","detail"],
-   text:"Back Market's fraud team built a complete AI detection system in <strong>one week</strong> using Dust. An orchestrator coordinates 6 specialized sub-agents, each focused on a different fraud signal — contributing to a <strong>€1.2M savings initiative</strong>.",
-   rich:agentDiagram,
-   deep:"Here's why this matters as a candidate: this is a real example of what Dust enables — a <strong>non-engineering team</strong> building a production-grade multi-agent system in days, without custom infrastructure. The fraud analyst defined the logic, Dust handled the orchestration. <strong>That's the product you'd be building.</strong>"},
-  {keys:["customer","customers","traction","adoption","results","impact","who uses","example","stories","case","companies","clients","show me"],
-   text:"Here's a snapshot of what customers are achieving with Dust:",
-   rich:customerCards,
-   deep:"The common thread: adoption happens organically. One company configured <strong>7,683 agents</strong> in 2025. Another processed <strong>2.09 million messages</strong> through a single risk assessment agent. 70–90%+ adoption — not mandated, just genuinely useful."},
-  {keys:["tech","stack","typescript","rust","react","kubernetes","postgres","backend","frontend","code","engineering","developer","infrastructure","open source","github","architecture"],
-   text:"The stack is modern, intentional, and fully open source:",
-   rich:techStack,
-   deep:"Engineers at Dust own features end-to-end — from API design to production. No siloed specialists. The codebase is open source at <strong>github.com/dust-tt/dust</strong> — you can explore the actual code before you apply."},
-  {keys:["role","roles","position","job","opening","hiring","apply","vacancy","work as","join as","available"],
-   text:"Here are the 4 open roles at Dust right now:",
-   rich:roleCards,
-   deep:"All roles include significant equity. Dust is Sequoia-backed and growing fast. The people joining now are building something that will matter at scale — with scope from day one."},
-  {keys:["founder","ceo","stan","stanislas","gabriel","hubert","polu","who started","leadership","team","people","colleague","headcount","background","alumni"],
-   text:"Dust was co-founded by two people who've been at the frontier of what they do:",
-   rich:teamCard,
-   deep:"Stan and Gabriel are in the office every day and interview every candidate personally. That's intentional — they're not hiring to scale a headcount, they're hiring people they want to work with closely."},
-  {keys:["culture","values","principles","vibe","environment","mindset","work style","how you work","operate"],
-   text:"Culture at Dust isn't a set of slogans — these are the things used to make actual decisions:",
-   rich:cultureCards,
-   deep:""Dust on Dust" is the one that matters most in practice. Every person at Dust uses Dust every day. Feedback loops are instant and the team has genuine conviction in what they build."},
-  {keys:["perk","benefit","health","insurance","laptop","equipment","relocation","office","travel","compensation review","what do you offer","advantages"],
-   text:"Beyond salary and equity, here's the full package:",
-   rich:perksCard,
-   deep:"The relocation support is real — we actively help people move to Paris, not just hand them a check. And Netflix-style comp review means if you're doing great work, you don't wait until January to be recognized."},
-  {keys:["interview","process","hiring process","how to apply","steps","assessment","test","expect","timeline","how long"],
-   text:"Our process is thorough but respects your time. Here's exactly what to expect:",
-   rich:interviewSteps,
-   deep:"We move in under 3 weeks end-to-end in most cases. Real feedback is given at every stage — we don't ghost candidates. If you have a notice period, we work around it."},
-  {keys:["salary","compensation","pay","wage","earn","how much","package","comp","remuneration","money"],
-   text:"We pay competitively and adjust proactively — <strong>Netflix-style</strong>: reviews happen whenever warranted.<br><br>Current bands:<br>• Software Engineer: <strong>€40K–€150K</strong><br>• Software Engineer, Frontend: <strong>€60K–€150K</strong><br>• Product Data Analyst: <strong>€70K–€110K</strong><br><br>All roles include <strong>significant equity</strong> (Sequoia-backed, real upside).",
-   deep:"To be direct: the range is wide because we calibrate to the person, not the title. A senior engineer who's done this before will be at the top of that band from day one."},
-  {keys:["equity","stock","options","ownership","shares","upside"],
-   text:"Equity is a real part of the package — not a token gesture. Sequoia-backed, growing fast, meaningful upside. We don't use equity as a substitute for salary. Both are competitive."},
-  {keys:["mission","why","purpose","goal","vision","exist","founded","create","believe","conviction"],
-   text:"Dust was founded in 2022 with one conviction: <strong>AI should be a team sport, not a solo tool.</strong><br><br>Most companies hand every employee a standalone chatbot and wonder why adoption stays low. Dust is different — agents are built once and shared across the entire organization. 5,000+ organizations, 80,000+ agents, 12M conversations in 2025."},
-  {keys:["product","what does dust","what is dust","how does it work","agents","platform","build","ai agent","knowledge"],
-   text:"Dust is a platform for building and running <strong>custom AI agents</strong> connected to a company's internal knowledge. Connect Slack, Notion, GitHub, Google Drive, Salesforce — build agents that actually know your business — publish them company-wide.<br><br>One great agent built by an engineer benefits every non-technical person."},
-  {keys:["funding","raise","investors","sequoia","valuation","series","backed"],
-   text:"Dust raised a <strong>$16M round backed by Sequoia</strong>. Also named <strong>Future 50</strong> by The Generalist. Well-funded, focused on building the right product."},
-  {keys:["where","location","office","paris","san francisco","remote","onsite","hybrid"],
-   text:"<strong>In-person first</strong> — Paris (HQ) and San Francisco. Up to <strong>€10,000 in relocation support</strong> + apartment search. Engineering roles travel to the US multiple times a year."},
-  {keys:["day","typical","daily","week","life","routine","morning","what's it like"],
-   text:"Deep work in the morning, daily team sync, lunch often with colleagues. Afternoons: product reviews with founders or quick customer syncs. Meetings kept light, async by default. Smart, motivated people in a real Paris office. It's energizing."},
-  {keys:["grow","career","progression","learning","development","future","promoted","level up","scope"],
-   text:"Small enough that <strong>your scope is whatever you're ready to take on</strong>. No waiting in line for responsibility. Engineers today are shaping architecture used by 5,000+ organizations. We invest in people proactively."},
-  {keys:["ai","artificial intelligence","llm","gpt","claude","model","openai","future","technology","shift"],
-   text:"We're at an inflection point. In 2025, general AI agents went from 16% to 40%+ of all Dust conversations. Working at Dust means being at the center of that shift — not observing it from the outside."}
-];
-
-// ── TOUR ──
-var TOUR = [
-  {msg:"Hey there! 👋 I'm <strong>Alex</strong>, Dust's candidate guide.<br><br>I'll walk you through who we are, what we build, the team, culture, and open roles. Ask me anything along the way.<br><br>Ready?",chips:["Yes, let's go!","What is Dust?","Show me the team"]},
-  {msg:"Dust was founded in 2022 with one conviction: <strong>AI should be a team sport, not a solo tool.</strong><br><br>Most companies hand every employee a standalone chatbot and wonder why adoption stays low. Dust is different — agents are built once and shared across the entire organization.<br><br>Today: 5,000+ orgs, 80,000+ agents, 12M conversations in 2025.",chips:["How does the product work?","Who are the founders?","Show me customer results"]},
-  {msg:"Think of Dust as the <strong>OS for how a company works with AI</strong>.<br><br>Connect your data, build custom agents that know your business, publish them company-wide. One great agent built by an engineer benefits every non-technical colleague.",rich:customerCards,chips:["Tell me about the team","What's the culture?","What roles are open?"]},
-  {msg:"The team is ~40 people — alumni from Stripe, OpenAI, Front, and Stanford. In-person in Paris and SF. Founders are hands-on every day.",rich:teamCard,chips:["What's the culture like?","What roles are open?","What's compensation?"]},
-  {msg:"Culture at Dust isn't a set of slogans — these are the things actually used to make decisions:",rich:cultureCards,chips:["What roles are open?","What are the perks?","How do I apply?"]},
-  {msg:"We're currently hiring for 4 roles:",rich:roleCards,chips:["What's the interview process?","Tell me about compensation","What are the perks?"]},
-  {msg:"That's the tour! 🎉<br><br>A small, exceptional team building the infrastructure layer for how companies work with AI — at the moment that shift is happening in real time.<br><br>Anything else you want to dig into?",chips:["How do I apply?","Tell me about compensation","Back Market fraud system"]}
-];
-
-var PROG = ["Welcome","Mission","Product","Team","Culture","Roles","Wrap-up"];
-var tourStep = 0, tourDone = false, isTyping = false, lastTopic = null;
-
-function updateProgress(){
-  var bar = document.getElementById('progress');
-  bar.innerHTML = PROG.map(function(l,i){
-    var dot = i < tourStep ? '<span class="text-green-600 text-xs font-medium">✓</span>'
-      : i === tourStep ? '<span class="text-slate-900 text-xs font-medium">'+(i+1)+'</span>'
-      : '<span class="text-slate-300 text-xs font-medium">'+(i+1)+'</span>';
-    var line = i < PROG.length-1 ? '<div class="w-3 h-px '+(i<tourStep?'bg-green-400':'bg-slate-200')+'"></div>' : '';
-    return dot + line;
-  }).join('') + '<span class="text-xs text-slate-400 ml-1">'+PROG[Math.min(tourStep,PROG.length-1)]+'</span>';
-}
-
-function renderText(t){ return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>'); }
-
-function addMsg(role, text, richFn, chips){
-  var msgs = document.getElementById('msgs');
-  var wrap = document.createElement('div');
-  wrap.className = 'fadein';
-  if(role === 'guide'){
-    var richHTML = richFn ? richFn() : '';
-    var chipsHTML = chips ? '<div class="flex flex-wrap gap-1.5 mt-2">' + chips.map(function(c){
-      return '<button onclick="chip(\'' + c.replace(/'/g,"\\'") + '\')" class="text-xs font-medium bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full hover:border-slate-900 hover:text-slate-900 transition-all">'+c+'</button>';
-    }).join('') + '</div>' : '';
-    wrap.innerHTML = '<div class="flex items-start gap-2.5 max-w-lg">' +
-      '<div class="w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center shrink-0 mt-0.5"><span class="text-white text-xs font-bold">A</span></div>' +
-      '<div><div class="bg-white border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-700 leading-relaxed shadow-sm">' + text + richHTML + '</div>' + chipsHTML + '</div>' +
-    '</div>';
-  } else {
-    wrap.innerHTML = '<div class="flex justify-end"><div class="bg-slate-900 text-white text-sm px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-xs">'+text+'</div></div>';
-  }
-  msgs.appendChild(wrap);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function showTyping(){
-  var msgs = document.getElementById('msgs');
-  var t = document.createElement('div');
-  t.id = 'typing'; t.className = 'fadein flex items-start gap-2.5';
-  t.innerHTML = '<div class="w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center shrink-0"><span class="text-white text-xs font-bold">A</span></div>' +
-    '<div class="bg-white border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm"><div class="flex gap-1 items-center h-4">' +
-    '<span class="w-1.5 h-1.5 bg-slate-400 rounded-full inline-block bounce"></span>' +
-    '<span class="w-1.5 h-1.5 bg-slate-400 rounded-full inline-block bounce b2"></span>' +
-    '<span class="w-1.5 h-1.5 bg-slate-400 rounded-full inline-block bounce b3"></span>' +
-    '</div></div>';
-  msgs.appendChild(t);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function hideTyping(){ var t=document.getElementById('typing'); if(t) t.remove(); }
-
-function guide(text, richFn, chips, delay){
-  isTyping = true; showTyping();
-  setTimeout(function(){
-    hideTyping(); isTyping = false;
-    addMsg('guide', text, richFn, chips);
-    updateProgress();
-  }, delay || 950);
-}
-
-function isExtend(q){ return /extend|elaborate|develop|more about|tell me more|go deeper|detail|explain more|can you expand|more on|dig|deeper/.test(q.toLowerCase()); }
-
-function findTopic(q){
-  var lower = q.toLowerCase();
-  for(var i=0; i<KB.length; i++){ if(KB[i].keys.some(function(k){return k.includes(' ') && lower.includes(k);})) return KB[i]; }
-  for(var i=0; i<KB.length; i++){ if(KB[i].keys.some(function(k){return !k.includes(' ') && lower.includes(k);})) return KB[i]; }
-  return null;
-}
-
-function respond(q){
-  if(isExtend(q) && lastTopic){
-    var deep = lastTopic.deep || lastTopic.text;
-    guide(deep, null, !tourDone ? ["Continue the tour →","Another question"] : ["How do I apply?","Another question"]);
-    return;
-  }
-  var topic = findTopic(q);
-  if(topic){
-    lastTopic = topic;
-    guide(topic.text, topic.rich || null, !tourDone ? ["Tell me more about this","Continue the tour →"] : ["Tell me more about this","How do I apply?"]);
-    return;
-  }
-  if(/hi|hello|hey|good/.test(q.toLowerCase())){ guide("Hey! 😊 Ask me anything — roles, culture, compensation, tech stack, the Back Market fraud system..."); return; }
-  if(/thank/.test(q.toLowerCase())){ guide("Of course! Anything else you'd like to know about Dust?"); return; }
-  guide("I want to give you a useful answer. Could you rephrase? You can ask about: <strong>the team</strong>, <strong>open roles</strong>, <strong>compensation</strong>, <strong>culture</strong>, <strong>tech stack</strong>, <strong>interview process</strong>, <strong>customer stories</strong>, or the <strong>Back Market fraud use case</strong>.", null, !tourDone ? ["Continue the tour →","Show me open roles"] : ["Show me open roles","How do I apply?"]);
-}
-
-function advanceTour(){
-  var next = tourStep + 1;
-  if(next < TOUR.length){
-    tourStep = next;
-    if(next === TOUR.length - 1) tourDone = true;
-    guide(TOUR[next].msg, TOUR[next].rich || null, TOUR[next].chips, 650);
-  }
-}
-
-function chip(c){
-  addMsg('user', c, null, null);
-  if(c === "Yes, let's go!"){ tourStep=1; guide(TOUR[1].msg, null, TOUR[1].chips, 700); return; }
-  if(c === "Continue the tour →"){ advanceTour(); return; }
-  if(c === "Tell me more about this"){ if(lastTopic && lastTopic.deep) guide(lastTopic.deep, null, !tourDone?["Continue the tour →","Another question"]:["How do I apply?","Another question"]); else advanceTour(); return; }
-  if(c === "How does the product work?" || c === "Show me customer results"){ tourStep=2; guide(TOUR[2].msg, TOUR[2].rich||null, TOUR[2].chips); return; }
-  if(c === "Tell me about the team" || c === "Show me the team"){ tourStep=3; guide(TOUR[3].msg, TOUR[3].rich||null, TOUR[3].chips); return; }
-  if(c === "What's the culture?" || c === "What's the culture like?"){ tourStep=4; guide(TOUR[4].msg, TOUR[4].rich||null, TOUR[4].chips); return; }
-  if(c === "What roles are open?" || c === "Show me open roles"){ tourStep=5; guide(TOUR[5].msg, TOUR[5].rich||null, TOUR[5].chips); return; }
-  if(c === "How do I apply?"){
-    if(!tourDone){ tourDone=true; tourStep=6; guide(TOUR[6].msg, null, TOUR[6].chips, 600); }
-    setTimeout(function(){ guide("Head to <strong>jobs.ashbyhq.com/dust</strong> — starts with a 30-min intro call. We move fast and give real feedback at every step.", interviewSteps, null, 950); }, 200);
-    return;
-  }
-  respond(c);
-}
-
-function send(){
-  var inp = document.getElementById('inp');
-  var q = inp.value.trim();
-  if(!q || isTyping) return;
-  inp.value = '';
-  addMsg('user', q, null, null);
-  if(/^(next|continue|go on|keep going)$/i.test(q)){ advanceTour(); return; }
-  respond(q);
-}
-
-document.getElementById('inp').addEventListener('keydown', function(e){ if(e.key==='Enter') send(); });
-
-updateProgress();
-addMsg('guide', TOUR[0].msg, null, TOUR[0].chips);
+renderOnboarding(0);
 </script>
 </body>
 </html>
