@@ -3,462 +3,224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dust is the AI platform where enterprise teams build, deploy, and run custom AI agents — connected to their internal knowledge, embedded in their workflows, governed at scale.">
-<title>Dust — The AI Platform for Enterprise Teams</title>
+<title>Dust — Candidate Tour</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body{font-family:'Inter',sans-serif}
-.tab{display:none}.tab.on{display:block}
-.story{display:none}.story.on{display:block}
-.nb{padding:6px 12px;border-radius:6px;font-size:14px;font-weight:500;transition:all .15s;color:#64748b;cursor:pointer;background:transparent;border:none}
-.nb:hover{color:#0f172a;background:#f8fafc}
-.nb.on{background:#f1f5f9;color:#0f172a}
-.cb{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid #e2e8f0;background:#fff;color:#475569;transition:all .15s;white-space:nowrap;cursor:pointer}
-.cb:hover{border-color:#cbd5e1}
-.cb.on{border-color:#0f172a;background:#0f172a;color:#fff}
+*{font-family:'Inter',sans-serif}
+.bounce1{animation:bounce 1s infinite}
+.bounce2{animation:bounce 1s infinite .15s}
+.bounce3{animation:bounce 1s infinite .3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.msg-in{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+#messages{scroll-behavior:smooth}
 </style>
 </head>
-<body class="bg-white text-slate-900 antialiased">
+<body class="bg-slate-50 h-screen flex flex-col overflow-hidden">
 
-<!-- NAV -->
-<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
-<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<!-- HEADER -->
+<div class="bg-white border-b border-slate-100 px-4 py-3 flex items-center gap-3 shrink-0">
+  <div class="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center gap-2">
+      <span class="font-bold text-sm text-slate-900">dust — Candidate Tour</span>
+      <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>
+      <span class="text-xs text-slate-400">Alex is online</span>
+    </div>
+    <div class="flex items-center gap-1 mt-1" id="progress-bar"></div>
+  </div>
+</div>
+
+<!-- MESSAGES -->
+<div id="messages" class="flex-1 overflow-y-auto px-4 py-4 space-y-4"></div>
+
+<!-- INPUT -->
+<div class="bg-white border-t border-slate-100 px-4 py-3 shrink-0">
   <div class="flex items-center gap-2">
-    <div class="w-7 h-7 bg-slate-900 rounded-md flex items-center justify-center">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    </div>
-    <span class="font-bold text-lg tracking-tight">dust</span>
+    <input id="user-input" type="text" placeholder="Ask anything about Dust..." class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:border-slate-400 transition-colors" />
+    <button id="send-btn" onclick="sendMessage()" class="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors shrink-0">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    </button>
   </div>
-  <div class="hidden md:flex items-center gap-1">
-    <button onclick="tab('product')" id="n-product" class="nb on">Product</button>
-    <button onclick="tab('customers')" id="n-customers" class="nb">Customers</button>
-    <button onclick="tab('blog')" id="n-blog" class="nb">Blog</button>
-    <button onclick="tab('jobs')" id="n-jobs" class="nb">Jobs</button>
-    <button onclick="tab('pricing')" id="n-pricing" class="nb">Pricing</button>
-  </div>
-  <a href="https://dust.tt/sign-up" target="_blank" class="hidden md:block bg-slate-900 text-white text-sm font-semibold px-4 py-1.5 rounded-lg hover:bg-slate-700 transition-colors">Try for free</a>
-  <button onclick="toggleMenu()" class="md:hidden p-1 rounded border border-slate-200">
-    <svg id="ico-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  </button>
+  <p class="text-xs text-slate-400 text-center mt-2">Ask about roles, culture, compensation, tech stack, interview process…</p>
 </div>
-<div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white px-4 py-3 flex flex-col gap-1">
-  <button onclick="tab('product');toggleMenu()" class="text-left px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50">Product</button>
-  <button onclick="tab('customers');toggleMenu()" class="text-left px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50">Customers</button>
-  <button onclick="tab('blog');toggleMenu()" class="text-left px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50">Blog</button>
-  <button onclick="tab('jobs');toggleMenu()" class="text-left px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50">Jobs</button>
-  <button onclick="tab('pricing');toggleMenu()" class="text-left px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50">Pricing</button>
-</div>
-</nav>
-
-<!-- HERO -->
-<section class="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">
-<div class="inline-flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs font-medium text-slate-600 mb-6">
-  <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>
-  Backed by Sequoia &middot; Named Future 50 by The Generalist
-</div>
-<h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight mb-5">
-  Work is being rewritten.<br><span class="text-slate-400">Be the one holding the pen.</span>
-</h1>
-<p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-8 leading-relaxed">
-  Dust is the AI platform where teams build, deploy, and run custom AI agents &mdash; connected to their internal knowledge, embedded in their workflows, governed at scale.
-</p>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-14">
-  <a href="https://dust.tt/sign-up" target="_blank" class="bg-slate-900 text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-slate-700 transition-colors">Start free &mdash; 14 days trial &rarr;</a>
-  <a href="https://dust.tt/home/contact" target="_blank" class="border border-slate-200 text-slate-700 text-sm font-semibold px-6 py-3 rounded-xl hover:border-slate-400 transition-colors">Talk to sales</a>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12 text-center">
-  <div><div class="text-3xl font-bold">5,000+</div><div class="text-xs text-slate-500 mt-1">Organizations</div></div>
-  <div><div class="text-3xl font-bold">70%+</div><div class="text-xs text-slate-500 mt-1">Weekly active users</div></div>
-  <div><div class="text-3xl font-bold">12M</div><div class="text-xs text-slate-500 mt-1">Conversations in 2025</div></div>
-  <div><div class="text-3xl font-bold">80K+</div><div class="text-xs text-slate-500 mt-1">Agents deployed</div></div>
-</div>
-<p class="text-xs text-slate-400 uppercase tracking-widest mb-3 font-medium">Trusted by 5,000+ organizations</p>
-<div class="flex flex-wrap justify-center gap-x-5 gap-y-1">
-  <span class="text-sm font-bold text-slate-200">Datadog</span><span class="text-sm font-bold text-slate-200">Clay</span><span class="text-sm font-bold text-slate-200">Persona</span><span class="text-sm font-bold text-slate-200">1Password</span><span class="text-sm font-bold text-slate-200">Vanta</span><span class="text-sm font-bold text-slate-200">Cursor</span><span class="text-sm font-bold text-slate-200">Assembled</span><span class="text-sm font-bold text-slate-200">Watershed</span><span class="text-sm font-bold text-slate-200">Spendesk</span><span class="text-sm font-bold text-slate-200">Brevo</span><span class="text-sm font-bold text-slate-200">Alan</span><span class="text-sm font-bold text-slate-200">Kyriba</span><span class="text-sm font-bold text-slate-200">Doctolib</span><span class="text-sm font-bold text-slate-200">PayFit</span>
-</div>
-</section>
-
-<div class="max-w-6xl mx-auto px-4 pb-20">
-
-<!-- ===== PRODUCT ===== -->
-<div id="t-product" class="tab on">
-<div class="text-center mb-10">
-  <h2 class="text-2xl md:text-3xl font-bold mb-3">The infrastructure for enterprise AI</h2>
-  <p class="text-slate-500 max-w-xl mx-auto">Not a chatbot. Not a wrapper. Dust is the platform layer where AI meets how companies actually operate.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 transition-colors"><div class="text-2xl mb-3">&#129302;</div><h3 class="font-semibold mb-2 text-sm">Custom AI Agents</h3><p class="text-xs text-slate-500 leading-relaxed">Build purpose-built agents connected to your internal knowledge &mdash; Notion, Slack, GitHub, Google Drive, and more. No code required.</p></div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 transition-colors"><div class="text-2xl mb-3">&#128101;</div><h3 class="font-semibold mb-2 text-sm">Team Collaboration</h3><p class="text-xs text-slate-500 leading-relaxed">Agents are shared infrastructure, not personal utilities. A searchable marketplace ensures the best thinking benefits everyone in your workspace.</p></div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 transition-colors"><div class="text-2xl mb-3">&#128274;</div><h3 class="font-semibold mb-2 text-sm">Enterprise Security</h3><p class="text-xs text-slate-500 leading-relaxed">SOC 2 Type II, zero data retention with model providers, GDPR &amp; HIPAA compliant. Your data stays yours, accessed with your own credentials.</p></div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 transition-colors"><div class="text-2xl mb-3">&#9889;</div><h3 class="font-semibold mb-2 text-sm">Skills &amp; Composability</h3><p class="text-xs text-slate-500 leading-relaxed">Package capabilities as reusable Skills. Any agent can load them &mdash; research, analysis, or domain knowledge available everywhere, instantly composable.</p></div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 transition-colors"><div class="text-2xl mb-3">&#129504;</div><h3 class="font-semibold mb-2 text-sm">Model Agnostic</h3><p class="text-xs text-slate-500 leading-relaxed">GPT-5, Claude, Gemini, Mistral &mdash; switch models freely. Never locked into one provider. Use the best model for each task at the best price.</p></div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 transition-colors"><div class="text-2xl mb-3">&#128279;</div><h3 class="font-semibold mb-2 text-sm">Native Integrations</h3><p class="text-xs text-slate-500 leading-relaxed">Slack, Zendesk, Chrome Extension, Zapier, Google Sheets, Salesforce. Dust lives where your teams already work &mdash; no new tab required.</p></div>
-</div>
-<div class="bg-slate-50 border border-slate-100 rounded-xl p-6 mb-6">
-  <h3 class="font-semibold mb-4 text-sm">&#128187; Built by engineers, for builders</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Connections</p>
-      <div class="flex flex-wrap gap-2">
-        <span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Slack</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Notion</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">GitHub</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Google Drive</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Salesforce</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Zendesk</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Snowflake</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Confluence</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Linear</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Intercom</span>
-      </div>
-    </div>
-    <div>
-      <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">AI Models</p>
-      <div class="flex flex-wrap gap-2">
-        <span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">GPT-5</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Claude Sonnet</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Gemini</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">Mistral</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">DeepSeek</span><span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-1 rounded-md">o3</span>
-      </div>
-    </div>
-  </div>
-  <p class="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-200"><strong class="text-slate-700">Open source</strong> &middot; SOC 2 Type II &middot; GDPR &middot; HIPAA &middot; US &amp; EU data hosting &middot; Zero data retention with model providers</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-  <div class="bg-slate-50 rounded-xl p-5 text-center"><div class="text-2xl font-bold">20%</div><div class="text-xs text-slate-500 mt-1">Faster project completion at Alan</div></div>
-  <div class="bg-slate-50 rounded-xl p-5 text-center"><div class="text-2xl font-bold">2h</div><div class="text-xs text-slate-500 mt-1">Saved per engineering incident</div></div>
-  <div class="bg-slate-50 rounded-xl p-5 text-center"><div class="text-2xl font-bold">7,683</div><div class="text-xs text-slate-500 mt-1">Agents configured by one customer in 2025</div></div>
-</div>
-</div>
-
-<!-- ===== CUSTOMERS ===== -->
-<div id="t-customers" class="tab">
-<div class="text-center mb-8">
-  <h2 class="text-2xl md:text-3xl font-bold mb-3">42 customer stories. One consistent outcome.</h2>
-  <p class="text-slate-500 max-w-xl mx-auto">Teams across industries reach 70&ndash;90%+ adoption &mdash; not because it was mandated, but because Dust delivers real value from day one.</p>
-</div>
-<div class="flex overflow-x-auto gap-2 pb-2 mb-6" style="-ms-overflow-style:none;scrollbar-width:none">
-  <button onclick="story('persona')" id="c-persona" class="cb on"><span style="display:inline-flex;width:20px;height:20px;border-radius:6px;background:#4f46e5;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">Pe</span>Persona</button>
-  <button onclick="story('vanta')" id="c-vanta" class="cb"><span style="display:inline-flex;width:20px;height:20px;border-radius:6px;background:#7c3aed;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">Va</span>Vanta</button>
-  <button onclick="story('clay')" id="c-clay" class="cb"><span style="display:inline-flex;width:20px;height:20px;border-radius:6px;background:#f97316;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">Cl</span>Clay</button>
-  <button onclick="story('watershed')" id="c-watershed" class="cb"><span style="display:inline-flex;width:20px;height:20px;border-radius:6px;background:#059669;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">Ws</span>Watershed</button>
-  <button onclick="story('backmarket')" id="c-backmarket" class="cb"><span style="display:inline-flex;width:20px;height:20px;border-radius:6px;background:#16a34a;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">BM</span>Back Market</button>
-  <button onclick="story('spendesk')" id="c-spendesk" class="cb"><span style="display:inline-flex;width:20px;height:20px;border-radius:6px;background:#2563eb;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700">Sp</span>Spendesk</button>
-</div>
-<div class="border border-slate-100 rounded-xl p-6 md:p-8 mb-6">
-  <div id="s-persona" class="story on">
-    <div class="flex items-start gap-4 mb-5"><div style="width:48px;height:48px;border-radius:12px;background:#4f46e5;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;font-weight:700;flex-shrink:0">Pe</div><div><h3 class="font-bold text-xl">Persona</h3><p class="text-sm text-slate-500">B2B SaaS &middot; Identity Verification &middot; $2B valuation</p></div></div>
-    <h4 class="text-lg font-semibold mb-3">80% AI adoption across 13 departments</h4>
-    <p class="text-sm text-slate-600 leading-relaxed mb-5">Engineers were drowning in #ask-engineers requests. A weekend hack by one engineer &mdash; the PersonaEngineer agent with specialized sub-agents for GitHub codebases, infrastructure, data warehouses &mdash; went viral organically. 200 people joined the Slack channel. No mandate required. Nearly 300 agents bloomed across the company.</p>
-    <div class="grid grid-cols-3 gap-3 mb-5">
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">80%</div><div class="text-xs text-slate-500 mt-0.5">Employee adoption</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">300+</div><div class="text-xs text-slate-500 mt-0.5">Agents deployed</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">30 min</div><div class="text-xs text-slate-500 mt-0.5">SQL queries (was hours)</div></div>
-    </div>
-    <blockquote class="border-l-2 border-slate-900 pl-4 mb-4"><p class="text-sm text-slate-700 italic mb-1">"Dust is pretty dang powerful &mdash; not just a 10xer, but a 100xer if we harness it right."</p><cite class="text-xs text-slate-500 not-italic">Patrick Hall, Product Architect at Persona</cite></blockquote>
-    <a href="https://dust.tt/customers/how-persona-hit-80-ai-agent-adoption-with-dust" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:border-slate-400 transition-colors">Read full story &rarr;</a>
-  </div>
-  <div id="s-vanta" class="story">
-    <div class="flex items-start gap-4 mb-5"><div style="width:48px;height:48px;border-radius:12px;background:#7c3aed;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;font-weight:700;flex-shrink:0">Va</div><div><h3 class="font-bold text-xl">Vanta</h3><p class="text-sm text-slate-500">B2B SaaS &middot; Trust &amp; Compliance &middot; 1,001+ employees</p></div></div>
-    <h4 class="text-lg font-semibold mb-3">400 hours saved per week on QBR prep</h4>
-    <p class="text-sm text-slate-600 leading-relaxed mb-5">After vetting seven AI platforms, Vanta chose Dust for its balance of self-serve simplicity and enterprise extensibility. Domain agents built by GRC, Finance, and Product were exposed as APIs &mdash; then orchestrated together. QBR decks that took hours now generate in minutes with richer cross-functional insights. 180+ employees attended a single training session.</p>
-    <div class="grid grid-cols-3 gap-3 mb-5">
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">400h/wk</div><div class="text-xs text-slate-500 mt-0.5">Saved on QBR prep</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">180+</div><div class="text-xs text-slate-500 mt-0.5">Attended one training</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">7</div><div class="text-xs text-slate-500 mt-0.5">Platforms evaluated</div></div>
-    </div>
-    <blockquote class="border-l-2 border-slate-900 pl-4 mb-4"><p class="text-sm text-slate-700 italic mb-1">"We used to do the work. Now we build the agents that do it."</p><cite class="text-xs text-slate-500 not-italic">Shashank Khanna, Founder in Residence GTM at Vanta</cite></blockquote>
-    <a href="https://dust.tt/customers/how-vantas-gtm-team-saves-thousands-of-hours-annually-with-dust" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:border-slate-400 transition-colors">Read full story &rarr;</a>
-  </div>
-  <div id="s-clay" class="story">
-    <div class="flex items-start gap-4 mb-5"><div style="width:48px;height:48px;border-radius:12px;background:#f97316;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;font-weight:700;flex-shrink:0">Cl</div><div><h3 class="font-bold text-xl">Clay</h3><p class="text-sm text-slate-500">B2B SaaS &middot; GTM Engineering &middot; $1.5B valuation</p></div></div>
-    <h4 class="text-lg font-semibold mb-3">100% adoption &mdash; 58 hours saved per month</h4>
-    <p class="text-sm text-slate-600 leading-relaxed mb-5">Scaling a GTM engineering team 4x meant knowledge would break. Caren Duane connected Dust to Clay's entire sales ecosystem and embedded it in Slack. Decision to live agent: 24 hours. New hires no longer drink from the firehose &mdash; they self-serve instantly. Questions that once flooded team channels now go to a dedicated Dust channel.</p>
-    <div class="grid grid-cols-3 gap-3 mb-5">
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">100%</div><div class="text-xs text-slate-500 mt-0.5">GTME team adoption</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">58h/mo</div><div class="text-xs text-slate-500 mt-0.5">Saved by 20-person team</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">24h</div><div class="text-xs text-slate-500 mt-0.5">Decision to live agent</div></div>
-    </div>
-    <blockquote class="border-l-2 border-slate-900 pl-4 mb-4"><p class="text-sm text-slate-700 italic mb-1">"Dust democratizes information access &mdash; no longer about who joined earliest or sits closest to the Head of Sales."</p><cite class="text-xs text-slate-500 not-italic">Caren Duane, Head of Business Operations at Clay</cite></blockquote>
-    <a href="https://dust.tt/customers/clay-scaling-gtme-team" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:border-slate-400 transition-colors">Read full story &rarr;</a>
-  </div>
-  <div id="s-watershed" class="story">
-    <div class="flex items-start gap-4 mb-5"><div style="width:48px;height:48px;border-radius:12px;background:#059669;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;font-weight:700;flex-shrink:0">Ws</div><div><h3 class="font-bold text-xl">Watershed</h3><p class="text-sm text-slate-500">B2B SaaS &middot; Sustainability &middot; Clients: Airbnb, FedEx, Visa</p></div></div>
-    <h4 class="text-lg font-semibold mb-3">From 20% to 90% company-wide adoption</h4>
-    <p class="text-sm text-slate-600 leading-relaxed mb-5">Watershed embedded AI champions on every team, ran office hours, and took a demo-led approach. Engineers use Dust for design docs, sales for prospect research, people for performance review coaching. AI skeptics of 6 months ago are now daily power users advocating for the platform.</p>
-    <div class="grid grid-cols-3 gap-3 mb-5">
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">90%</div><div class="text-xs text-slate-500 mt-0.5">Company-wide adoption</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">Every</div><div class="text-xs text-slate-500 mt-0.5">Function with use cases</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">Months</div><div class="text-xs text-slate-500 mt-0.5">To full adoption</div></div>
-    </div>
-    <blockquote class="border-l-2 border-slate-900 pl-4 mb-4"><p class="text-sm text-slate-700 italic mb-1">"Employees went from thinking AI was a fun novelty to: if you're not using AI actively, you're not working as effectively as you could be."</p><cite class="text-xs text-slate-500 not-italic">Vinjai Vale, AI Lead at Watershed</cite></blockquote>
-    <a href="https://dust.tt/customers/how-watershed-got-90-of-its-team-to-leverage-dust-agents" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:border-slate-400 transition-colors">Read full story &rarr;</a>
-  </div>
-  <div id="s-backmarket" class="story">
-    <div class="flex items-start gap-4 mb-5"><div style="width:48px;height:48px;border-radius:12px;background:#16a34a;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;font-weight:700;flex-shrink:0">BM</div><div><h3 class="font-bold text-xl">Back Market</h3><p class="text-sm text-slate-500">Marketplace &middot; Recommerce &middot; Global</p></div></div>
-    <h4 class="text-lg font-semibold mb-3">AI fraud detection system built in one week &mdash; &euro;1.2M savings</h4>
-    <p class="text-sm text-slate-600 leading-relaxed mb-5">Back Market's fraud team built an AI detection system in a single week. An orchestrator agent manages 6 specialized sub-agents: address check, return distance vs origin, customer history analysis, logistics incidents tracking, payment incidents tracking, and text fraud pattern matching. Contributed to a &euro;1.2M savings initiative.</p>
-    <div class="grid grid-cols-3 gap-3 mb-5">
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">1 week</div><div class="text-xs text-slate-500 mt-0.5">To build full system</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">&euro;1.2M</div><div class="text-xs text-slate-500 mt-0.5">Savings initiative</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">6</div><div class="text-xs text-slate-500 mt-0.5">Specialized sub-agents</div></div>
-    </div>
-    <blockquote class="border-l-2 border-slate-900 pl-4 mb-4"><p class="text-sm text-slate-700 italic mb-1">"The fraud team went from manual review to a fully orchestrated multi-agent detection system in a week."</p><cite class="text-xs text-slate-500 not-italic">Back Market Fraud Team</cite></blockquote>
-    <a href="https://dust.tt/customers/back-markets-fraud-team-builds-ai-detection-system-in-one-week-contributing" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:border-slate-400 transition-colors">Read full story &rarr;</a>
-  </div>
-  <div id="s-spendesk" class="story">
-    <div class="flex items-start gap-4 mb-5"><div style="width:48px;height:48px;border-radius:12px;background:#2563eb;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;font-weight:700;flex-shrink:0">Sp</div><div><h3 class="font-bold text-xl">Spendesk</h3><p class="text-sm text-slate-500">Financial Services &middot; B2B SaaS &middot; Spend Management</p></div></div>
-    <h4 class="text-lg font-semibold mb-3">90% AI adoption in 6 months via a champions program</h4>
-    <p class="text-sm text-slate-600 leading-relaxed mb-5">Spendesk achieved 90% adoption through a structured champions program &mdash; then turned that adoption into deeply embedded workflows. Champions act as AI Operators who redesign processes rather than just layering AI on top of them. Every team now has someone who owns their AI workflow design.</p>
-    <div class="grid grid-cols-3 gap-3 mb-5">
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">90%</div><div class="text-xs text-slate-500 mt-0.5">Adoption in 6 months</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">Embedded</div><div class="text-xs text-slate-500 mt-0.5">AI workflows companywide</div></div>
-      <div class="bg-slate-50 rounded-lg p-3 text-center"><div class="text-xl font-bold">Champions</div><div class="text-xs text-slate-500 mt-0.5">Program driving culture</div></div>
-    </div>
-    <blockquote class="border-l-2 border-slate-900 pl-4 mb-4"><p class="text-sm text-slate-700 italic mb-1">"The champions program turned adoption into transformation &mdash; every team now has someone who owns their AI workflow design."</p><cite class="text-xs text-slate-500 not-italic">Spendesk AI Champions Program</cite></blockquote>
-    <a href="https://dust.tt/customers/how-spendesk-achieved-90-ai-adoption-in-6-months-with-dust" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:border-slate-400 transition-colors">Read full story &rarr;</a>
-  </div>
-</div>
-<h3 class="font-semibold mb-4 text-sm">More impact across the portfolio</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-  <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3"><span class="text-green-500 font-bold">&uarr;</span><div><span class="font-semibold text-sm">Profound</span> &mdash; <span class="text-slate-600 text-sm">1,800+ hours/month reclaimed by post-sales</span></div></div>
-  <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3"><span class="text-green-500 font-bold">&uarr;</span><div><span class="font-semibold text-sm">Electra</span> &mdash; <span class="text-slate-600 text-sm">80% faster complex support ticket handling</span></div></div>
-  <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3"><span class="text-green-500 font-bold">&uarr;</span><div><span class="font-semibold text-sm">Brevo</span> &mdash; <span class="text-slate-600 text-sm">80% faster email personalization, zero eng tickets</span></div></div>
-  <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3"><span class="text-green-500 font-bold">&uarr;</span><div><span class="font-semibold text-sm">Patch</span> &mdash; <span class="text-slate-600 text-sm">70% of team uses AI agents weekly</span></div></div>
-  <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3"><span class="text-green-500 font-bold">&uarr;</span><div><span class="font-semibold text-sm">Alan</span> &mdash; <span class="text-slate-600 text-sm">100% HR team daily AI adoption</span></div></div>
-  <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3"><span class="text-green-500 font-bold">&uarr;</span><div><span class="font-semibold text-sm">PayFit</span> &mdash; <span class="text-slate-600 text-sm">250+ agents deployed across sales teams</span></div></div>
-</div>
-</div>
-
-<!-- ===== BLOG ===== -->
-<div id="t-blog" class="tab">
-<div class="text-center mb-8">
-  <h2 class="text-2xl md:text-3xl font-bold mb-3">How we think about AI</h2>
-  <p class="text-slate-500 max-w-xl mx-auto">Not hype. Honest thinking from a team building the infrastructure layer for enterprise AI &mdash; from Paris and San Francisco.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-  <a href="https://dust.tt/blog/getting-out-of-the-way" target="_blank" class="group block border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex items-center justify-between mb-3"><span class="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Product</span><span class="text-xs text-slate-400">5 min</span></div>
-    <h3 class="font-bold text-base leading-snug mb-2">Getting Out Of The Way</h3>
-    <p class="text-sm text-slate-500 leading-relaxed">Every step has been the same: identify something we were deciding on behalf of the model, notice the models had outgrown the need for us, and get out of the way. General agents now account for 40%+ of conversations, up from 16% in Aug 2025.</p>
-    <span class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 mt-4">Read more &rarr;</span>
-  </a>
-  <a href="https://dust.tt/blog/the-hard-problems-no-one-wants-to-solve" target="_blank" class="group block border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex items-center justify-between mb-3"><span class="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Enterprise AI</span><span class="text-xs text-slate-400">8 min</span></div>
-    <h3 class="font-bold text-base leading-snug mb-2">The Hard Problems No One Wants to Solve</h3>
-    <p class="text-sm text-slate-500 leading-relaxed">Most companies don't have an AI problem. They have a governance and operating model problem. Building agent #1 is easy. Running agent #50 is an operating system problem &mdash; most companies still try to solve it with tools designed for individual productivity.</p>
-    <span class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 mt-4">Read more &rarr;</span>
-  </a>
-  <a href="https://dust.tt/blog/dust-wrapped-2025" target="_blank" class="group block border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex items-center justify-between mb-3"><span class="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Year in Review</span><span class="text-xs text-slate-400">6 min</span></div>
-    <h3 class="font-bold text-base leading-snug mb-2">Dust 2025 Wrapped: 12 Million Conversations</h3>
-    <p class="text-sm text-slate-500 leading-relaxed">One company configured 7,683 AI agents in 2025. A risk assessment agent processed 2.09 million messages. A Snowflake-connected agent handled 65,000+ queries. 2025 was the year AI work became team work.</p>
-    <span class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 mt-4">Read more &rarr;</span>
-  </a>
-  <a href="https://dust.tt/blog/your-ai-problem-is-a-collaboration-problem" target="_blank" class="group block border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex items-center justify-between mb-3"><span class="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Strategy</span><span class="text-xs text-slate-400">7 min</span></div>
-    <h3 class="font-bold text-base leading-snug mb-2">Your AI Problem is Actually a Collaboration Problem</h3>
-    <p class="text-sm text-slate-500 leading-relaxed">Give every team member a standalone AI assistant and they retreat further into their own workflows. Dust breaks this pattern &mdash; agents are shared infrastructure, not personal utilities. The agent marketplace ensures the best thinking benefits everyone.</p>
-    <span class="inline-flex items-center gap-1 text-xs font-medium text-slate-700 mt-4">Read more &rarr;</span>
-  </a>
-</div>
-<div class="text-center mb-8"><a href="https://dust.tt/blog" target="_blank" class="inline-flex items-center gap-2 border border-slate-200 text-slate-700 text-sm font-medium px-4 py-2 rounded-lg hover:border-slate-400 transition-colors">All posts on dust.tt/blog &rarr;</a></div>
-<div class="bg-slate-900 text-white rounded-xl p-6">
-  <div class="text-yellow-400 text-2xl mb-3">&#10022;</div>
-  <h3 class="font-bold text-lg mb-2">The shift everyone missed</h3>
-  <p class="text-slate-300 text-sm leading-relaxed">General agents now account for <strong class="text-white">40%+</strong> of Dust conversations, up from 16% in August 2025. One PM edited 560 AI agents in 2025. 80,000+ custom agents live in production. The companies winning aren't those with the best ChatGPT subscription &mdash; they're the ones who turned their entire team into AI builders.</p>
-</div>
-</div>
-
-<!-- ===== JOBS ===== -->
-<div id="t-jobs" class="tab">
-<div class="text-center mb-8">
-  <h2 class="text-2xl md:text-3xl font-bold mb-3">Join a determined team of optimists</h2>
-  <p class="text-slate-500 max-w-xl mx-auto">Alumni from Stripe, Front, OpenAI, and Stanford. Small and mighty &mdash; every person has massive scope. In-person in Paris and San Francisco.</p>
-</div>
-<div class="flex flex-wrap gap-2 justify-center mb-8">
-  <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">Product-First</span>
-  <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">Ship to Learn</span>
-  <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">Open Source</span>
-  <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">Intellectual Humility</span>
-  <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">Proactive Problem-Solving</span>
-  <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full">Dust on Dust</span>
-</div>
-<div class="space-y-4 mb-8">
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-      <div class="flex-1">
-        <div class="flex items-center gap-2 mb-1"><h3 class="font-bold text-base">Software Engineer</h3><span class="text-xs font-medium bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Engineering</span></div>
-        <div class="flex flex-wrap gap-3 text-xs text-slate-500 mb-3"><span>&#128205; Paris</span><span>&#128188; On-site &middot; Full-time</span><span>&#128176; &euro;40K &ndash; &euro;150K + Equity</span></div>
-        <ul class="space-y-1 text-xs text-slate-600">
-          <li>&rsaquo; TypeScript, Rust, React, Node.js &mdash; full-stack ownership</li>
-          <li>&rsaquo; Kubernetes, Helm, Terraform (infrastructure)</li>
-          <li>&rsaquo; PostgreSQL, QDrant, Elasticsearch</li>
-          <li>&rsaquo; Own critical features end-to-end, work directly with users</li>
-        </ul>
-      </div>
-      <a href="https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766" target="_blank" class="shrink-0 bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors whitespace-nowrap">Apply now &nearr;</a>
-    </div>
-  </div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-      <div class="flex-1">
-        <div class="flex items-center gap-2 mb-1"><h3 class="font-bold text-base">Software Engineer, Frontend</h3><span class="text-xs font-medium bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Engineering</span></div>
-        <div class="flex flex-wrap gap-3 text-xs text-slate-500 mb-3"><span>&#128205; Paris</span><span>&#128188; On-site &middot; Full-time</span><span>&#128176; &euro;60K &ndash; &euro;150K + Equity</span></div>
-        <ul class="space-y-1 text-xs text-slate-600">
-          <li>&rsaquo; React, shadcn, TypeScript &mdash; build delightful interfaces</li>
-          <li>&rsaquo; Next.js backend (REST APIs, data retrieval)</li>
-          <li>&rsaquo; Collaborate closely with product designers</li>
-          <li>&rsaquo; Champion design system evolution and code quality</li>
-        </ul>
-      </div>
-      <a href="https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34" target="_blank" class="shrink-0 bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors whitespace-nowrap">Apply now &nearr;</a>
-    </div>
-  </div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-      <div class="flex-1">
-        <div class="flex items-center gap-2 mb-1"><h3 class="font-bold text-base">Product Data Analyst</h3><span class="text-xs font-medium bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">Data</span></div>
-        <div class="flex flex-wrap gap-3 text-xs text-slate-500 mb-3"><span>&#128205; Paris</span><span>&#128188; On-site &middot; Full-time</span><span>&#128176; &euro;70K &ndash; &euro;110K + Equity</span></div>
-        <ul class="space-y-1 text-xs text-slate-600">
-          <li>&rsaquo; First product data analyst at Dust &mdash; define what success looks like</li>
-          <li>&rsaquo; SQL, experimentation frameworks, dashboards</li>
-          <li>&rsaquo; Define metrics for product initiatives, optimize onboarding</li>
-          <li>&rsaquo; 5+ years in product analytics at a high-growth company</li>
-        </ul>
-      </div>
-      <a href="https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883" target="_blank" class="shrink-0 bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors whitespace-nowrap">Apply now &nearr;</a>
-    </div>
-  </div>
-  <div class="border border-slate-100 rounded-xl p-5 hover:border-slate-200 hover:shadow-sm transition-all">
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-      <div class="flex-1">
-        <div class="flex items-center gap-2 mb-1"><h3 class="font-bold text-base">Opportunistic Role &mdash; AI Builder</h3><span class="text-xs font-medium bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Open Role</span></div>
-        <div class="flex flex-wrap gap-3 text-xs text-slate-500 mb-3"><span>&#128205; Paris &middot; San Francisco</span><span>&#128188; On-site &middot; Full-time</span><span>&#128176; Competitive</span></div>
-        <ul class="space-y-1 text-xs text-slate-600">
-          <li>&rsaquo; Excited about the AI space and Dust's mission</li>
-          <li>&rsaquo; Low ego, can-do attitude, genuine builder mindset</li>
-          <li>&rsaquo; Team player who makes those around them better</li>
-          <li>&rsaquo; Already authorized to work in US (SF) or Europe (Paris)</li>
-        </ul>
-      </div>
-      <a href="https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a" target="_blank" class="shrink-0 bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors whitespace-nowrap">Apply now &nearr;</a>
-    </div>
-  </div>
-</div>
-<div class="bg-slate-50 border border-slate-100 rounded-xl p-6 mb-6">
-  <h3 class="font-semibold text-sm mb-4">What you get at Dust</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Competitive salary + significant equity (Sequoia-backed)</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Relocation support up to &euro;10,000 + apartment search</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Health insurance for you and dependents</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>MacBook Pro or Linux machine + full equipment setup</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Beautiful office in the heart of Paris</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Travel to the US multiple times a year</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Regular team events and offsites</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Netflix-style comp reviews &mdash; anytime, not calendar-driven</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Massive scope and impact from day one</div>
-    <div class="flex items-start gap-2 text-xs text-slate-600"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Work on a product you actually use every single day</div>
-  </div>
-</div>
-<div class="text-center"><a href="https://jobs.ashbyhq.com/dust" target="_blank" class="inline-flex items-center gap-2 border border-slate-200 text-slate-700 text-sm font-medium px-4 py-2 rounded-lg hover:border-slate-400 transition-colors">All open roles on Ashby &nearr;</a></div>
-</div>
-
-<!-- ===== PRICING ===== -->
-<div id="t-pricing" class="tab">
-<div class="text-center mb-10">
-  <h2 class="text-2xl md:text-3xl font-bold mb-3">Simple, transparent pricing</h2>
-  <p class="text-slate-500 max-w-xl mx-auto">Start with Pro &mdash; no credit card needed for the 14-day trial. Scale to Enterprise when you're ready.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
-  <div class="border border-slate-200 rounded-xl p-7">
-    <div class="text-sm font-semibold text-slate-500 mb-2">Pro</div>
-    <div class="text-4xl font-bold mb-1">$29</div>
-    <div class="text-sm text-slate-400 mb-5">per user / month &middot; excl. tax</div>
-    <p class="text-xs text-slate-500 mb-5">For small teams and startups, from 1 member. 14-day free trial, no credit card required.</p>
-    <ul class="space-y-2 text-sm text-slate-600 mb-6">
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>All advanced models (GPT-5, Claude, Gemini, Mistral&hellip;)</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Custom agents with actions</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>All connections (GitHub, Notion, Slack, Google Drive&hellip;)</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Native integrations (Zendesk, Chrome Extension)</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>SOC 2 Type II &middot; Zero Data Retention</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Unlimited messages (fair use)</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>Up to 1GB/user of data sources</li>
-      <li class="flex items-start gap-2"><span class="text-green-500 shrink-0 font-bold">&#10003;</span>API, GSheet, Zapier access</li>
-    </ul>
-    <a href="https://dust.tt/sign-up" target="_blank" class="block w-full bg-slate-900 text-white text-sm font-semibold py-3 rounded-xl text-center hover:bg-slate-700 transition-colors">Start 14-day free trial</a>
-  </div>
-  <div class="border-2 border-slate-900 bg-slate-900 text-white rounded-xl p-7">
-    <div class="text-sm font-semibold text-slate-400 mb-2">Enterprise</div>
-    <div class="text-4xl font-bold mb-1">Custom</div>
-    <div class="text-sm text-slate-400 mb-5">based on active users</div>
-    <p class="text-xs text-slate-400 mb-5">From 100 members. Multiple workspaces, SSO, priority support, dedicated account manager.</p>
-    <ul class="space-y-2 text-sm text-slate-300 mb-6">
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>Everything in Pro</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>Advanced security and controls</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>SSO (Okta, Entra ID, Jumpcloud)</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>SCIM user provisioning</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>US / EU data hosting choice</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>Salesforce tool</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>Priority access to new features</li>
-      <li class="flex items-start gap-2"><span class="text-green-400 shrink-0 font-bold">&#10003;</span>Flexible payment (SEPA, Credit Card)</li>
-    </ul>
-    <a href="https://dust.tt/home/contact" target="_blank" class="block w-full border border-slate-600 text-slate-200 text-sm font-semibold py-3 rounded-xl text-center hover:bg-slate-800 transition-colors">Contact Sales</a>
-  </div>
-</div>
-<div class="max-w-2xl mx-auto">
-  <h3 class="font-semibold mb-5 text-center">Common questions</h3>
-  <div class="space-y-3">
-    <div class="bg-slate-50 rounded-lg p-4"><p class="text-sm font-semibold mb-1">Is my data used to train AI models?</p><p class="text-sm text-slate-500">No. Dust has zero data retention agreements with all model providers. Your data is never used for training.</p></div>
-    <div class="bg-slate-50 rounded-lg p-4"><p class="text-sm font-semibold mb-1">Can I switch models freely?</p><p class="text-sm text-slate-500">Yes. Dust is model-agnostic. Use GPT-5, Claude, Gemini, Mistral &mdash; switch per agent or per task, always at the best price.</p></div>
-    <div class="bg-slate-50 rounded-lg p-4"><p class="text-sm font-semibold mb-1">Where is my data hosted?</p><p class="text-sm text-slate-500">Enterprise customers choose between US and EU data hosting. All deployments are SOC 2 Type II certified.</p></div>
-    <div class="bg-slate-50 rounded-lg p-4"><p class="text-sm font-semibold mb-1">Do non-technical employees need to code?</p><p class="text-sm text-slate-500">No. Most agent builders at our top customers are PMs, ops leads, and domain experts. No code required to build powerful agents.</p></div>
-  </div>
-</div>
-</div>
-
-</div>
-
-<!-- FOOTER -->
-<footer class="border-t border-slate-100 bg-slate-50">
-<div class="max-w-6xl mx-auto px-4 py-10">
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-    <div>
-      <div class="flex items-center gap-1.5 mb-4">
-        <div class="w-5 h-5 bg-slate-900 rounded-md flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <span class="font-bold text-sm">dust</span>
-      </div>
-      <p class="text-xs text-slate-400 leading-relaxed">The AI platform for enterprise teams. Backed by Sequoia. Built in Paris &amp; San Francisco.</p>
-    </div>
-    <div>
-      <p class="text-xs font-semibold text-slate-900 uppercase tracking-wide mb-3">Product</p>
-      <a href="https://dust.tt/home/product" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Product</a>
-      <a href="https://dust.tt/home/pricing" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Pricing</a>
-      <a href="https://dust.tt/home/security" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Security</a>
-      <a href="https://dust.tt/home/chrome-extension" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Chrome Extension</a>
-    </div>
-    <div>
-      <p class="text-xs font-semibold text-slate-900 uppercase tracking-wide mb-3">Company</p>
-      <a href="https://dust.tt/home/about" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">About Us</a>
-      <a href="https://jobs.ashbyhq.com/dust" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Jobs</a>
-      <a href="https://dust.tt/customers" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Customers</a>
-      <a href="https://dust.tt/blog" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Blog</a>
-    </div>
-    <div>
-      <p class="text-xs font-semibold text-slate-900 uppercase tracking-wide mb-3">Connect</p>
-      <a href="https://dust-community.tightknit.community/join" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Slack Community</a>
-      <a href="https://x.com/DustHQ" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">X / Twitter</a>
-      <a href="https://www.linkedin.com/company/dust-tt/" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">LinkedIn</a>
-      <a href="https://github.com/dust-tt/dust" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">GitHub (Open Source)</a>
-      <a href="https://docs.dust.tt" target="_blank" class="block text-xs text-slate-500 hover:text-slate-900 mb-1.5">Documentation</a>
-    </div>
-  </div>
-  <div class="border-t border-slate-200 pt-5 flex flex-col md:flex-row justify-between items-center gap-2">
-    <p class="text-xs text-slate-400">&copy; 2026 Dust Technologies Inc. All rights reserved.</p>
-    <div class="flex gap-4">
-      <a href="https://dust.tt/terms" target="_blank" class="text-xs text-slate-400 hover:text-slate-700">Terms &amp; Policies</a>
-      <a href="https://dust.tt/home/platform-privacy" target="_blank" class="text-xs text-slate-400 hover:text-slate-700">Privacy Policy</a>
-      <a href="https://app.vanta.com/dust.tt/trust/f3ytzxpay31bwsiyuqjto" target="_blank" class="text-xs text-slate-400 hover:text-slate-700">Trust Center</a>
-    </div>
-  </div>
-</div>
-</footer>
 
 <script>
-const TABS=['product','customers','blog','jobs','pricing'];
-const STORIES=['persona','vanta','clay','watershed','backmarket','spendesk'];
-function tab(name){TABS.forEach(t=>{document.getElementById('t-'+t).classList.remove('on');document.getElementById('n-'+t).classList.remove('on')});document.getElementById('t-'+name).classList.add('on');document.getElementById('n-'+name).classList.add('on')}
-function story(name){STORIES.forEach(s=>{document.getElementById('s-'+s).classList.remove('on');document.getElementById('c-'+s).classList.remove('on')});document.getElementById('s-'+name).classList.add('on');document.getElementById('c-'+name).classList.add('on')}
-function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('hidden')}
+// ── KNOWLEDGE BASE ──
+const KB = [
+  {keys:["mission","why","purpose","goal","vision","exist","built","founded","create"],
+   ans:"Dust was founded in 2022 with one conviction: **AI should be a team sport, not a solo tool.**\n\nMost companies hand every employee a standalone chatbot and wonder why adoption stays low. Dust is different — it's the platform where AI agents are built once and shared across an entire organization. The best thinking of your top engineer becomes infrastructure for everyone.\n\nToday, 5,000+ organizations use Dust. 80,000+ custom agents are in production."},
+  {keys:["founder","ceo","stan","stanislas","gabriel","started","leadership"],
+   ans:"Dust was co-founded by **Stanislas Polu** and **Gabriel Hubert**. Stan was a Research Scientist at OpenAI — he worked on some of the most advanced reasoning models before leaving to start Dust. Gabriel was previously at Stripe and Front, and brings deep product and GTM experience.\n\nThey're hands-on, in the office daily, and you'd work directly with them."},
+  {keys:["team","people","colleagues","employee","headcount","size","how many","background"],
+   ans:"We're a **~40 person team** split between Paris and San Francisco. Alumni from Stripe, OpenAI, Front, and Stanford — people who've built things at scale and chose to come here to do it again.\n\nSmall enough that everyone has massive scope, large enough to have real depth. You'll collaborate directly with the founders from day one."},
+  {keys:["culture","values","principles","vibe","environment","atmosphere","work style","mindset"],
+   ans:"A few things define how we work:\n\n**Product-First** — every decision starts from the user.\n**Ship to Learn** — we move fast and treat every release as a learning opportunity.\n**Intellectual Humility** — we debate hard, but change our minds when shown better evidence. Low ego, high standards.\n**Dust on Dust** — we run our own product internally. If we build something, we're the first users. No exceptions.\n**Proactive Problem-Solving** — we don't wait to be asked. If you see something broken, you fix it."},
+  {keys:["product","what do you","what does dust","how does it work","what you build","agents","platform"],
+   ans:"Dust is a platform for building and running **custom AI agents** connected to a company's internal knowledge. You connect your data — Slack, Notion, GitHub, Google Drive, Salesforce — and build agents that actually know your business. Then you publish them to a company-wide marketplace.\n\nOne great agent built by an engineer benefits every non-technical colleague. 5,000+ organizations use Dust. 12 million conversations happened on the platform in 2025 alone."},
+  {keys:["customer","traction","growth","adoption","success","results","impact","clients"],
+   ans:"The numbers are real:\n\n• **Persona** — 80% employee adoption across 13 departments, 300+ agents\n• **Vanta** — 400 hours/week saved on QBR prep\n• **Clay** — 100% GTM team adoption, 58 hours/month saved\n• **Watershed** — 20% to 90% company-wide adoption in months\n• **Back Market** — AI fraud system built in 1 week → €1.2M savings\n\nTeams reach 70–90%+ adoption not because it was mandated, but because the product delivers real value from day one."},
+  {keys:["funding","raise","investors","sequoia","money","valuation","series","investment","backed"],
+   ans:"Dust raised a **\$16M round backed by Sequoia** — one of the most respected names in venture. We were also named **Future 50** by The Generalist, recognizing us as one of the most promising AI infrastructure companies.\n\nWe're well-funded and focused on building the right product, not chasing the next round."},
+  {keys:["where","location","office","paris","san francisco","remote","onsite","hybrid","city"],
+   ans:"We're **in-person first** with offices in **Paris** (HQ) and **San Francisco**. Most of the team is in Paris.\n\nWe offer up to **€10,000 in relocation support** plus help finding an apartment. Engineering roles travel to the US multiple times a year."},
+  {keys:["salary","compensation","pay","wage","money","earn","how much","package","comp"],
+   ans:"We pay competitively and adjust proactively — **Netflix-style**: reviews happen whenever warranted, not just once a year.\n\nCurrent salary bands:\n• Software Engineer: **€40K–€150K**\n• Software Engineer, Frontend: **€60K–€150K**\n• Product Data Analyst: **€70K–€110K**\n\nAll roles include **significant equity** (Sequoia-backed, real upside)."},
+  {keys:["equity","stock","options","ownership","shares"],
+   ans:"Equity is a real part of the package at Dust — not a token gesture. We're **Sequoia-backed**, growing fast, and the upside is meaningful. We don't use equity as a substitute for salary. Both are competitive."},
+  {keys:["perk","benefit","health","insurance","equipment","laptop","gym","lunch","advantage"],
+   ans:"Beyond salary + equity:\n\n✓ Health insurance for you and dependents\n✓ MacBook Pro or Linux + full equipment setup\n✓ €10,000 relocation support + apartment search\n✓ Beautiful Paris office — not a co-working space\n✓ Travel to the US multiple times a year\n✓ Regular team events and offsites\n✓ Netflix-style comp reviews — anytime, not calendar-driven\n✓ Work on a product you use every single day"},
+  {keys:["role","position","job","opening","hiring","apply","vacancy","join as","work as"],
+   ans:"We're currently hiring for 4 roles:\n\n🔵 **Software Engineer** (Paris, €40K–€150K + equity)\nTypeScript, Rust, React, Node.js, Kubernetes, PostgreSQL\n\n🔵 **Software Engineer, Frontend** (Paris, €60K–€150K + equity)\nReact, shadcn, TypeScript, Next.js — own the UX end-to-end\n\n🟣 **Product Data Analyst** (Paris, €70K–€110K + equity)\nFirst data analyst at Dust — define what success looks like\n\n🟡 **Opportunistic Role – AI Builder** (Paris or SF)\nBuilder mindset, excited about AI — we want to hear from you\n\nApply at: jobs.ashbyhq.com/dust"},
+  {keys:["tech","stack","typescript","rust","kubernetes","postgres","infrastructure","backend","frontend","code","developer"],
+   ans:"The stack is modern and intentional:\n\n• **TypeScript** everywhere (frontend + backend)\n• **Rust** for performance-critical components\n• **React + Next.js** for the product\n• **Kubernetes + Helm + Terraform** for infra\n• **PostgreSQL + QDrant + Elasticsearch** for data\n\nEngineers own features end-to-end. The codebase is **open source** at github.com/dust-tt/dust — explore before you apply."},
+  {keys:["interview","process","hiring process","how to apply","steps","assessment","test","expect"],
+   ans:"Our process is thorough but respectful of your time:\n\n1. **Intro call** with a recruiter — 30 min, low pressure\n2. **Technical or domain interview** — role-specific\n3. **Work session** — a realistic, paid exercise\n4. **Team interviews** — meet the people you'd work with\n5. **Founders chat** — Stan and Gabriel are involved in every hire\n\nWe move quickly and give real feedback at every stage. Start at jobs.ashbyhq.com/dust."},
+  {keys:["grow","career","progression","learning","development","opportunity","future","promoted","level"],
+   ans:"Dust is small enough that **your scope is whatever you're ready to take on**. No waiting in line for responsibility. Engineers who join today are shaping the architecture of a product used by 5,000+ organizations.\n\nAs we grow, the people who helped build it will naturally grow into larger roles. We invest in people proactively — not just during annual reviews."},
+  {keys:["ai","artificial intelligence","llm","gpt","claude","model","openai","future","technology"],
+   ans:"We're at an inflection point. In 2025, general AI agents went from 16% to 40%+ of all Dust conversations. Models have outgrown the need for rigid scaffolding — and we've been getting out of their way at every step.\n\nWorking at Dust means being at the center of that shift — not observing it from the outside."},
+  {keys:["day","typical","daily","week","life","routine"],
+   ans:"A typical day: start by checking your team's Slack — we move fast and there's usually something interesting in the pipeline. Then deep work: building, reviewing, shipping. Lunch is often with the team. Afternoons can involve a product review with the founders or a quick sync with a customer.\n\nWe keep meetings light and focus on async by default. You're in a Paris office with smart, motivated people — it's energizing."},
+];
+
+// ── TOUR STEPS ──
+const TOUR = [
+  {msg:"Hey there! 👋 I'm **Alex**, your guide for today.\n\nI'll take you on a tour of **Dust** — who we are, what we build, the team, the culture, and the open roles. You can ask me anything along the way.\n\nReady to explore?",
+   chips:["Yes, let's go!","What is Dust exactly?","Tell me about the team"]},
+  {msg:"Dust was founded in 2022 with one conviction: **AI should be a team sport, not a solo tool.**\n\nMost companies hand every employee a standalone chatbot and wonder why adoption stays low. Dust is different — it's the platform where AI agents are built once and shared across an entire organization. The best thinking of your top engineer becomes infrastructure for everyone.\n\nToday, 5,000+ organizations use Dust. 80,000+ custom agents are in production.",
+   chips:["How does the product work?","Who are the founders?","What's the culture like?"]},
+  {msg:"Think of Dust as the **OS for how a company works with AI**.\n\nYou connect your data — Slack, Notion, GitHub, Google Drive, Salesforce — and build custom agents that actually know your business. Then you publish them to a company-wide marketplace.\n\nOne great agent built by an engineer can benefit every non-technical colleague. Results are real:\n\n• Vanta saves **400 hours/week** on QBR prep\n• Clay reached **100% adoption** in 24 hours\n• Back Market built a fraud detection system in **1 week** → €1.2M savings",
+   chips:["Tell me about the team","What's the culture like?","What roles are open?"]},
+  {msg:"A few things define how we work:\n\n**Product-First** — every decision starts from the user.\n**Ship to Learn** — move fast, treat every release as learning.\n**Intellectual Humility** — we debate hard but change our minds when shown better evidence.\n**Dust on Dust** — we run our own product internally. No exceptions.\n\nThe team is ~40 people, alumni from Stripe, OpenAI, Front, and Stanford. In-person in Paris and San Francisco. The founders — Stan (ex-OpenAI) and Gabriel (ex-Stripe) — are in the office every day.",
+   chips:["What roles are open?","What's the compensation?","How do I apply?"]},
+  {msg:"We're currently hiring for 4 roles:\n\n🔵 **Software Engineer** — Paris · €40K–€150K + equity\nTypeScript, Rust, React, Kubernetes, PostgreSQL\n\n🔵 **Software Engineer, Frontend** — Paris · €60K–€150K + equity\nReact, shadcn, TypeScript — own the UX end-to-end\n\n🟣 **Product Data Analyst** — Paris · €70K–€110K + equity\nFirst data analyst at Dust — you define what success looks like\n\n🟡 **AI Builder (Open Role)** — Paris or SF\nBuilder mindset, excited about AI — we want to hear from you",
+   chips:["What are the perks?","How does the interview work?","How do I apply?"]},
+  {msg:"That's the tour! 🎉\n\nThe short version: Dust is a **small, exceptional team** building the infrastructure layer for how companies work with AI — at a moment when that shift is happening in real time.\n\nIf any of this resonates, head to **jobs.ashbyhq.com/dust** to apply. I'm still here if you have questions.",
+   chips:["How do I apply?","Tell me about compensation","What's a typical day like?"]},
+];
+
+const PROGRESS_LABELS = ["Welcome","Mission","Product","Culture & Team","Open Roles","Wrap-up"];
+let tourStep = 0;
+let tourDone = false;
+let isTyping = false;
+
+function updateProgress() {
+  const bar = document.getElementById('progress-bar');
+  bar.innerHTML = PROGRESS_LABELS.map((l,i) => {
+    const dot = i < tourStep ? '<span class="text-green-600 text-xs font-medium">✓</span>'
+      : i === tourStep ? '<span class="text-slate-900 text-xs font-medium">'+(i+1)+'</span>'
+      : '<span class="text-slate-300 text-xs font-medium">'+(i+1)+'</span>';
+    const line = i < PROGRESS_LABELS.length-1 ? '<div class="w-4 h-px '+(i<tourStep?'bg-green-400':'bg-slate-200')+'"></div>' : '';
+    return dot + line;
+  }).join('') + '<span class="text-xs text-slate-400 ml-1">' + PROGRESS_LABELS[Math.min(tourStep, PROGRESS_LABELS.length-1)] + '</span>';
+}
+
+function parseText(text) {
+  return text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').split('\n').map(l => '<p class="'+(l===''?'mt-2':'mt-1 first:mt-0')+'">' + l + '</p>').join('');
+}
+
+function addMessage(role, text, chips) {
+  const msgs = document.getElementById('messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-in';
+  if (role === 'guide') {
+    wrap.innerHTML = `<div class="flex items-start gap-2.5 max-w-xl">
+      <div class="w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center shrink-0 mt-0.5"><span class="text-white text-xs font-bold">A</span></div>
+      <div>
+        <div class="bg-white border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-700 leading-relaxed shadow-sm">${parseText(text)}</div>
+        ${chips ? '<div class="flex flex-wrap gap-2 mt-2">' + chips.map(c => '<button onclick="handleChip(\'' + c.replace(/'/g,"\\'") + '\')" class="text-xs font-medium bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full hover:border-slate-900 hover:text-slate-900 transition-all">' + c + '</button>').join('') + '</div>' : ''}
+      </div>
+    </div>`;
+  } else {
+    wrap.innerHTML = `<div class="flex justify-end"><div class="bg-slate-900 text-white text-sm px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-xs">${text}</div></div>`;
+  }
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('messages');
+  const t = document.createElement('div');
+  t.id = 'typing';
+  t.className = 'msg-in flex items-start gap-2.5';
+  t.innerHTML = `<div class="w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center shrink-0"><span class="text-white text-xs font-bold">A</span></div><div class="bg-white border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm"><div class="flex gap-1 items-center h-4"><span class="w-1.5 h-1.5 bg-slate-400 rounded-full bounce1 inline-block"></span><span class="w-1.5 h-1.5 bg-slate-400 rounded-full bounce2 inline-block"></span><span class="w-1.5 h-1.5 bg-slate-400 rounded-full bounce3 inline-block"></span></div></div>`;
+  msgs.appendChild(t);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+function guideReply(text, chips, delay) {
+  isTyping = true;
+  showTyping();
+  setTimeout(() => {
+    hideTyping();
+    isTyping = false;
+    addMessage('guide', text, chips);
+    updateProgress();
+  }, delay || 900);
+}
+
+function getKBAnswer(input) {
+  const q = input.toLowerCase();
+  for (const entry of KB) {
+    if (entry.keys.some(k => q.includes(k))) return entry.ans;
+  }
+  if (/hi|hello|hey|good/.test(q)) return "Hey! Great to meet you 😊 Feel free to ask me anything about Dust — the company, the team, the roles, compensation, culture... I'm here for all of it.";
+  if (/thank/.test(q)) return "Of course! It's what I'm here for. Anything else you'd like to know about Dust?";
+  return "Great question. To give you the best answer, I'd suggest bringing it up directly during your intro call with the team. You can start the process at **jobs.ashbyhq.com/dust**. Anything else I can help with?";
+}
+
+function advanceTour() {
+  const next = tourStep + 1;
+  if (next < TOUR.length) {
+    tourStep = next;
+    if (next === TOUR.length - 1) tourDone = true;
+    guideReply(TOUR[next].msg, TOUR[next].chips, 600);
+  }
+}
+
+function handleChip(chip) {
+  addMessage('user', chip, null);
+  if (chip === "Yes, let's go!") { tourStep = 1; guideReply(TOUR[1].msg, TOUR[1].chips); return; }
+  if (chip === "How does the product work?") { tourStep = 2; guideReply(TOUR[2].msg, TOUR[2].chips); return; }
+  if (chip === "Tell me about the team" || chip === "What's the culture like?") { tourStep = 3; guideReply(TOUR[3].msg, TOUR[3].chips); return; }
+  if (chip === "What roles are open?") { tourStep = 4; guideReply(TOUR[4].msg, TOUR[4].chips); return; }
+  if (chip === "Continue the tour →") { advanceTour(); return; }
+  if (chip === "How do I apply?") {
+    if (!tourDone) { tourDone = true; tourStep = 5; guideReply(TOUR[5].msg, TOUR[5].chips); }
+    setTimeout(() => guideReply("Head to **jobs.ashbyhq.com/dust** to apply. The process starts with a 30-min intro call — low pressure, just getting to know each other. We move fast and give real feedback at every step.", null, 900), 200);
+    return;
+  }
+  const ans = getKBAnswer(chip);
+  const chips = !tourDone ? ["Continue the tour →","I have another question"] : ["How do I apply?","Tell me more"];
+  guideReply(ans, chips);
+}
+
+function sendMessage() {
+  const input = document.getElementById('user-input');
+  const q = input.value.trim();
+  if (!q || isTyping) return;
+  input.value = '';
+  addMessage('user', q, null);
+  if (/continue|next/.test(q.toLowerCase())) { advanceTour(); return; }
+  const ans = getKBAnswer(q);
+  const chips = !tourDone ? ["Continue the tour →","I have another question"] : ["How do I apply?","Tell me more"];
+  guideReply(ans, chips);
+}
+
+document.getElementById('user-input').addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+// Init
+updateProgress();
+addMessage('guide', TOUR[0].msg, TOUR[0].chips);
 </script>
 </body>
 </html>
