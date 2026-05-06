@@ -461,6 +461,24 @@ function s7(){
     +'</div>';
 }
 function setSugg(q){var i=document.getElementById('chat-in');if(i){i.value=q;sendChat();}}
+function renderMd(s){
+  if(!s)return '';
+  s=String(s).replace(/:cite\[[^\]]*\]/g,'');
+  s=s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  s=s.replace(/```(\w*)\n?([\s\S]*?)```/g,function(_,l,c){return '<pre style="background:#F1F5F9;padding:10px 12px;border-radius:8px;font-family:ui-monospace,monospace;font-size:13px;overflow-x:auto;margin:8px 0;line-height:1.5">'+c.trim()+'</pre>';});
+  s=s.replace(/`([^`\n]+)`/g,'<code style="background:#F1F5F9;padding:1px 5px;border-radius:4px;font-family:ui-monospace,monospace;font-size:.92em">$1</code>');
+  s=s.replace(/^### (.+)$/gm,'<h4 style="font-size:14px;font-weight:700;color:#0F172A;margin:14px 0 6px">$1</h4>');
+  s=s.replace(/^## (.+)$/gm,'<h3 style="font-size:16px;font-weight:800;color:#0F172A;margin:16px 0 8px">$1</h3>');
+  s=s.replace(/^# (.+)$/gm,'<h3 style="font-size:18px;font-weight:800;color:#0F172A;margin:18px 0 10px">$1</h3>');
+  s=s.replace(/\*\*([^\*\n]+)\*\*/g,'<strong style="color:#0F172A">$1</strong>');
+  s=s.replace(/(^|[^\*])\*([^\*\n]+)\*/g,'$1<em>$2</em>');
+  s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener" style="color:var(--track,#3B82F6);text-decoration:underline;text-underline-offset:2px">$1</a>');
+  s=s.replace(/^[\-\*] (.+)$/gm,'<div style="display:flex;gap:8px;margin:3px 0"><span style="color:#94A3B8">•</span><span>$1</span></div>');
+  s=s.replace(/^(\d+)\. (.+)$/gm,'<div style="display:flex;gap:8px;margin:3px 0"><span style="color:#94A3B8;min-width:18px">$1.</span><span>$2</span></div>');
+  s=s.replace(/\n{2,}/g,'<div style="height:8px"></div>');
+  s=s.replace(/\n/g,'<br>');
+  return s;
+}
 function addBubble(txt,role){
   var wrap=document.getElementById('chat-inner');if(!wrap)return;
   var div=document.createElement('div');div.style.display='flex';div.style.gap='8px';div.style.alignItems='flex-start';
@@ -512,8 +530,8 @@ async function sendChat(){
             if(ev.type==='conversation_created'&&ev.conversation){convId=ev.conversation.sId;dustStorage('dust_conv',convId);continue;}
             var d=ev.data;
             if(!d||!d.type)continue;
-            if(d.type==='generation_tokens'&&typeof d.text==='string'){txt2+=d.text;if(loadEl)loadEl.textContent=txt2;}
-            else if((d.type==='agent_message_success'||d.type==='agent_message_done')&&d.message&&d.message.content){txt2=d.message.content;gotMessage=true;if(loadEl)loadEl.textContent=txt2;}
+            if(d.type==='generation_tokens'&&typeof d.text==='string'&&d.classification!=='chain_of_thought'){txt2+=d.text;if(loadEl)loadEl.innerHTML=renderMd(txt2);}
+            else if((d.type==='agent_message_success'||d.type==='agent_message_done')&&d.message&&d.message.content){txt2=d.message.content;gotMessage=true;if(loadEl)loadEl.innerHTML=renderMd(txt2);}
             else if(d.type==='agent_error'&&d.error&&d.error.message){if(loadEl)loadEl.textContent='Agent error: '+d.error.message;gotMessage=true;}
           }catch(e){}
         }
