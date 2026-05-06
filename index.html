@@ -3,61 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dust — Candidate Experience</title>
+<title>Dust — Join the crew</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{font-family:'Inter',sans-serif}
-.fade{animation:fi .35s ease}
-@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  *{font-family:'Inter',sans-serif}
+  .fade{animation:fi .3s ease}
+  @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .dot-active{width:20px;height:6px;background:#0F172A;border-radius:9999px}
+  .dot-inactive{width:6px;height:6px;background:#CBD5E1;border-radius:9999px}
+  .dot-inactive:hover{background:#94A3B8}
+  pre code span{line-height:1.6}
 </style>
 </head>
-<body class="bg-white h-screen overflow-hidden">
+<body style="background:#fff;height:100vh;overflow:hidden">
 
-<div id="onboarding" class="h-screen flex items-center justify-center p-6 bg-white">
-  <div class="max-w-md w-full" id="ob-inner"></div>
+<!-- ONBOARDING -->
+<div id="onboarding" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#fff">
+  <div style="max-width:420px;width:100%" id="ob-inner"></div>
 </div>
 
-<div id="tour" style="display:none" class="h-screen flex flex-col">
-  <div class="border-b border-slate-100 px-5 py-3 flex items-center gap-3 shrink-0">
-    <div class="flex items-center gap-2">
-      <div class="w-6 h-6 bg-slate-900 rounded-lg flex items-center justify-center">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      </div>
-      <span class="font-bold text-sm">dust</span>
-      <span class="text-slate-200 mx-1">·</span>
-      <span class="text-xs text-slate-400">Candidate Experience</span>
+<!-- TOUR -->
+<div id="tour" style="display:none;height:100vh;flex-direction:column" class="flex">
+
+  <!-- HEADER -->
+  <div style="border-bottom:1px solid #F1F5F9;padding:12px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:8px">
+      <img src="https://dust.tt/favicon.ico" width="18" height="18" alt="Dust" style="border-radius:4px">
+      <span style="font-weight:800;font-size:15px;letter-spacing:-0.02em;color:#0F172A">dust</span>
+      <span style="color:#E2E8F0;margin:0 2px">·</span>
+      <span style="font-size:11px;color:#94A3B8;font-weight:500">Join the crew</span>
     </div>
-    <div id="section-tabs" class="flex items-center gap-1.5 ml-auto"></div>
+    <div id="section-tabs" style="display:flex;align-items:center;gap:4px;margin-left:auto"></div>
   </div>
-  <div class="flex-1 flex overflow-hidden">
-    <div class="w-72 border-r border-slate-100 flex flex-col shrink-0 bg-slate-50">
-      <div class="flex-1 p-6 flex flex-col justify-between">
+
+  <!-- BODY -->
+  <div style="flex:1;display:flex;overflow:hidden">
+
+    <!-- LEFT PANEL -->
+    <div style="width:280px;border-right:1px solid #F1F5F9;display:flex;flex-direction:column;flex-shrink:0;background:#FAFAFA">
+      <div style="flex:1;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
         <div>
-          <div class="flex items-center gap-2.5 mb-6">
-            <div class="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center"><span class="text-white text-xs font-bold">A</span></div>
-            <div><div class="text-xs font-semibold text-slate-900">Alex</div><div class="text-xs text-slate-400">Dust Recruiting Guide</div></div>
-            <span class="ml-auto w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+          <!-- Alex -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+            <div style="width:32px;height:32px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <span style="color:#fff;font-size:11px;font-weight:700">A</span>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#0F172A">Alex</div>
+              <div style="font-size:11px;color:#94A3B8">Dust · Recruiting Guide</div>
+            </div>
+            <span style="margin-left:auto;width:6px;height:6px;background:#10B981;border-radius:50%"></span>
           </div>
           <div id="left-caption"></div>
         </div>
         <div>
-          <div id="section-dots" class="flex items-center gap-1.5 mb-5"></div>
-          <div class="flex gap-2">
-            <button id="btn-prev" onclick="prev()" class="flex-1 border border-slate-200 text-slate-600 text-xs font-medium py-2.5 rounded-xl hover:border-slate-400 transition-all">&#8592; Back</button>
-            <button id="btn-next" onclick="next()" class="flex-1 bg-slate-900 text-white text-xs font-medium py-2.5 rounded-xl hover:bg-slate-700 transition-all">Next &#8594;</button>
+          <div id="section-dots" style="display:flex;align-items:center;gap:6px;margin-bottom:20px"></div>
+          <div style="display:flex;gap:8px">
+            <button id="btn-prev" onclick="prev()" style="flex:1;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:10px;border-radius:10px;cursor:pointer;background:#fff;transition:all .15s">&#8592; Back</button>
+            <button id="btn-next" onclick="next()" style="flex:1;background:#0F172A;color:#fff;font-size:11px;font-weight:600;padding:10px;border-radius:10px;cursor:pointer;border:none;transition:all .15s">Next &#8594;</button>
           </div>
-          <div class="mt-3 text-center"><button onclick="goTo(5)" class="text-xs text-slate-400 hover:text-slate-700 transition-colors">Skip to match assessment</button></div>
+          <div style="margin-top:10px;text-align:center">
+            <button onclick="goTo(5)" style="font-size:11px;color:#94A3B8;background:none;border:none;cursor:pointer">Skip to match assessment</button>
+          </div>
         </div>
       </div>
-      <div class="border-t border-slate-200 p-3">
-        <div class="flex items-center gap-1.5 text-xs text-slate-400">
-          <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-          Tailored for <span id="profile-tag" class="font-medium text-slate-600 ml-1"></span>
-        </div>
+      <div style="border-top:1px solid #E2E8F0;padding:10px 16px;display:flex;align-items:center;gap:6px">
+        <span style="width:5px;height:5px;background:#10B981;border-radius:50%"></span>
+        <span style="font-size:11px;color:#94A3B8">Tailored for </span>
+        <span id="profile-tag" style="font-size:11px;font-weight:600;color:#475569"></span>
       </div>
     </div>
-    <div id="right-panel" class="flex-1 overflow-y-auto"></div>
+
+    <!-- RIGHT PANEL -->
+    <div id="right-panel" style="flex:1;overflow-y:auto"></div>
   </div>
 </div>
 
@@ -65,6 +84,7 @@
 var profile={background:'',priority:''};
 var section=0;
 var activeSources=["Notion","Slack","GitHub"];
+
 var BG=[
   {id:"builder",label:"I build products & systems",sub:"Engineering, dev, technical roles"},
   {id:"data",label:"I work with data & insights",sub:"Analytics, data science, BI, research"},
@@ -79,15 +99,16 @@ var PRI=[
 ];
 var SECTIONS=["Mission","Product","In the Wild","Team","Roles","Match"];
 
+// ── ONBOARDING ──
 function renderOnboarding(step){
   var items=step===0?BG:PRI;
-  var logo='<div class="flex items-center gap-2 mb-10"><div class="w-7 h-7 bg-slate-900 rounded-lg flex items-center justify-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><span class="font-bold text-sm">dust</span><span class="text-slate-300 text-sm mx-1">&#183;</span><span class="text-xs text-slate-400">Candidate Experience</span></div>';
+  var logo='<div style="display:flex;align-items:center;gap:8px;margin-bottom:40px"><img src="https://dust.tt/favicon.ico" width="22" height="22" style="border-radius:5px"><span style="font-weight:800;font-size:18px;letter-spacing:-0.03em;color:#0F172A">dust</span></div>';
   var hdr=step===0
-    ?'<div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Before we start — question 1 of 2</div><h1 class="text-2xl font-bold text-slate-900 mb-2">What best describes your background?</h1><p class="text-sm text-slate-500 mb-6">I\'ll tailor the tour to what\'s most relevant for you.</p>'
-    :'<div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Question 2 of 2</div><h1 class="text-2xl font-bold text-slate-900 mb-2">What matters most in your next role?</h1><p class="text-sm text-slate-500 mb-6">No right answer — this shapes how I frame things.</p>';
+    ?'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Before we start — 1 of 2</div><h1 style="font-size:22px;font-weight:800;color:#0F172A;margin-bottom:8px;letter-spacing:-0.02em">What best describes your background?</h1><p style="font-size:13px;color:#64748B;margin-bottom:24px;line-height:1.5">Your answer shapes everything that follows.</p>'
+    :'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Question 2 of 2</div><h1 style="font-size:22px;font-weight:800;color:#0F172A;margin-bottom:8px;letter-spacing:-0.02em">What matters most in your next role?</h1><p style="font-size:13px;color:#64748B;margin-bottom:24px;line-height:1.5">No right answer — this shapes how I frame things.</p>';
   var btns=items.map(function(o){
     var fn=step===0?"selectBg('"+o.id+"')" :"selectPri('"+o.id+"')";
-    return '<button onclick="'+fn+'" class="w-full text-left border border-slate-200 rounded-xl px-4 py-3.5 hover:border-slate-900 hover:bg-slate-50 transition-all mb-2"><div class="text-sm font-semibold text-slate-900">'+o.label+'</div><div class="text-xs text-slate-400 mt-0.5">'+o.sub+'</div></button>';
+    return '<button onclick="'+fn+'" style="width:100%;text-align:left;border:1px solid #E2E8F0;border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;background:#fff;transition:all .15s" onmouseover="this.style.borderColor=\'#0F172A\';this.style.background=\'#F8FAFC\'" onmouseout="this.style.borderColor=\'#E2E8F0\';this.style.background=\'#fff\'"><div style="font-size:13px;font-weight:600;color:#0F172A">'+o.label+'</div><div style="font-size:11px;color:#94A3B8;margin-top:2px">'+o.sub+'</div></button>';
   }).join('');
   document.getElementById('ob-inner').innerHTML=logo+hdr+btns;
 }
@@ -100,21 +121,23 @@ function selectPri(id){
   initTour();
 }
 
+// ── CAPTIONS ──
 function getCaption(i){
   var bg=profile.background,pri=profile.priority;
   return [
-    {title:"One belief changed everything.",sub:bg==='business'?"AI compounds when shared across a whole company — not siloed in individual tools.":pri==='impact'?"AI compounds when shared — not siloed in individual chatbots. The mission is real.":"AI only works as team infrastructure. That's the insight Dust was built on."},
-    {title:bg==='business'||bg==='product'?"No code. No prompts. Real results.":"See it to believe it.",sub:bg==='business'?"Anyone in your company can use agents built by one person. Here's how it works.":bg==='product'?"Here's the Dust interface — a PM's dream: ship agents like features.":"Here's what building and using an agent looks like inside Dust."},
-    {title:pri==='technical'?"Shipped in the morning. In production by noon.":bg==='business'?"This is what a high-trust, high-output team looks like.":"Culture isn't written. It's lived.",sub:bg==='business'?"A real glimpse at how Dust operates internally — using its own product every day.":pri==='team'?"A real glimpse at how the team moves day-to-day.":"A real day inside the Dust team."},
-    {title:"~40 people. Exceptional backgrounds.",sub:bg==='business'?"Founders from OpenAI and Stripe. You'd work with people who've scaled things before.":pri==='ownership'?"Small enough that everyone has massive scope from day one.":"You'd work directly with these people, including the founders."},
-    {title:bg==='business'?"There's a role for every kind of builder.":"Based on your background...",sub:bg==='business'||bg==='product'?"Dust hires for mindset as much as background. The AI Builder role is deliberately broad.":"Here's where you'd likely land at Dust. The top card is personalized for you."},
-    {title:"Let's find out if you're a fit.",sub:bg==='business'?"Describe what you do and I'll tell you where you'd land — honestly.":"Paste your background or use a quick option. I'll give you an honest read."}
+    {title:"One belief changed everything.",sub:bg==='business'?"AI compounds when shared across a whole company — not siloed in individual tools.":pri==='impact'?"AI compounds when shared — not siloed in individual chatbots.":"AI only works as team infrastructure. That's the insight Dust was built on."},
+    {title:bg==='business'||bg==='product'?"No code. No prompts. Real results.":"See it to believe it.",sub:bg==='business'?"Anyone in your company can use agents built by one person. Here's how it works.":bg==='product'?"Here's the Dust interface — a PM's dream: ship agents like features.":"Here's what building and deploying an agent actually looks like."},
+    {title:pri==='technical'?"Shipped in the morning. In production by noon.":bg==='business'?"This is what a high-trust, high-output team looks like.":"Culture isn't written. It's lived.",sub:bg==='business'?"A real glimpse at how Dust operates internally — using its own product every day.":pri==='team'?"A real glimpse at how the team moves day-to-day.":"A real day inside the Dust engineering team."},
+    {title:"~40 people. Exceptional backgrounds.",sub:bg==='business'?"Founders from OpenAI and Stripe. People who've built and scaled before.":pri==='ownership'?"Small enough that everyone owns something real from day one.":"You'd work directly with these people, including the founders."},
+    {title:bg==='business'?"26 open roles. Multiple paths in.":"Based on your background...",sub:bg==='business'||bg==='product'?"Dust hires for mindset as much as background. Multiple roles fit non-technical profiles.":"Here's where you'd likely land. The top card is personalized for you."},
+    {title:"Let's find out if you're a fit.",sub:bg==='business'?"Describe your background and I'll point you to the right role — honestly.":"Paste your background or pick a quick option. I'll give you an honest read."}
   ][i];
 }
 
+// ── TOUR INIT ──
 function initTour(){
   document.getElementById('section-tabs').innerHTML=SECTIONS.map(function(s,i){
-    return '<button onclick="goTo('+i+')" id="tab-'+i+'" class="text-xs font-medium px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-slate-700 hover:bg-slate-50">'+s+'</button>';
+    return '<button onclick="goTo('+i+')" id="tab-'+i+'" style="font-size:11px;font-weight:600;padding:5px 10px;border-radius:8px;cursor:pointer;border:none;transition:all .15s;color:#94A3B8;background:transparent">'+s+'</button>';
   }).join('');
   var bg=BG.find(function(b){return b.id===profile.background;});
   document.getElementById('profile-tag').textContent=bg?bg.label.replace('I build','building').replace('I work','working').replace('I shape','shaping').replace('I grow','growing'):'';
@@ -125,12 +148,12 @@ function goTo(i){
   section=i;
   var cap=getCaption(i);
   document.getElementById('section-dots').innerHTML=SECTIONS.map(function(_,j){
-    return '<button onclick="goTo('+j+')" style="width:'+(j===i?'20px':'6px')+';height:6px" class="rounded-full transition-all '+(j===i?'bg-slate-900':'bg-slate-300 hover:bg-slate-400')+'"></button>';
+    return '<button onclick="goTo('+j+')" class="'+(j===i?'dot-active':'dot-inactive')+'" style="transition:all .2s;border:none;cursor:pointer;padding:0"></button>';
   }).join('');
-  document.getElementById('left-caption').innerHTML='<div class="fade"><h3 class="text-lg font-bold text-slate-900 leading-snug mb-2">'+cap.title+'</h3><p class="text-sm text-slate-500 leading-relaxed">'+cap.sub+'</p></div>';
+  document.getElementById('left-caption').innerHTML='<div class="fade"><h3 style="font-size:16px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:8px;letter-spacing:-0.01em">'+cap.title+'</h3><p style="font-size:12px;color:#64748B;line-height:1.5">'+cap.sub+'</p></div>';
   SECTIONS.forEach(function(_,j){
     var tab=document.getElementById('tab-'+j);
-    if(tab)tab.className='text-xs font-medium px-2.5 py-1 rounded-lg transition-all '+(j===i?'bg-slate-900 text-white':'text-slate-400 hover:text-slate-700 hover:bg-slate-50');
+    if(tab){tab.style.background=j===i?'#0F172A':'transparent';tab.style.color=j===i?'#fff':'#94A3B8';}
   });
   document.getElementById('btn-prev').style.opacity=i===0?'0.3':'1';
   document.getElementById('btn-next').style.opacity=i===SECTIONS.length-1?'0.3':'1';
@@ -140,15 +163,53 @@ function goTo(i){
 function next(){if(section<SECTIONS.length-1)goTo(section+1);}
 function prev(){if(section>0)goTo(section-1);}
 
+// ── MISSION ──
 function renderMission(){
-  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">The thesis</div><h2 class="text-4xl font-bold text-slate-900 leading-tight mb-3">AI that works for<br/>one person<br/><span class="text-slate-300">half-works.</span></h2><p class="text-sm text-slate-500 leading-relaxed mb-8 max-w-sm">Dust was built on one conviction: the value of AI compounds when shared. Every agent becomes infrastructure. Every insight becomes institutional knowledge.</p><div class="grid grid-cols-2 gap-3 mb-8">'+[["5,000+","Organizations"],["80K+","Agents in production"],["12M","Conversations in 2025"],["70-90%","Typical adoption rate"]].map(function(x){return '<div class="bg-slate-900 text-white rounded-2xl p-5"><div class="text-3xl font-bold mb-1">'+x[0]+'</div><div class="text-xs text-slate-400">'+x[1]+'</div></div>';}).join('')+'</div><div class="border-l-2 border-slate-900 pl-4"><p class="text-sm text-slate-700 italic mb-1">"Not just a 10xer — a 100xer if we harness it right."</p><p class="text-xs text-slate-400">Patrick Hall, Product Architect &middot; Persona</p></div></div></div>';
+  var customerLogos=['datadog','clay','cursor','persona','vanta','watershed','1password'].map(function(c){
+    return '<img src="https://dust.tt/static/landing/logos/gray/'+c+'.svg" alt="'+c+'" style="height:18px;opacity:.5;filter:grayscale(1)">';
+  }).join('');
+  var stats=[["5,000+","Organizations"],["80K+","Agents in production"],["12M","Conversations · 2025"],["70–90%","Typical adoption rate"]].map(function(x){
+    return '<div style="background:#0F172A;color:#fff;border-radius:16px;padding:20px 24px"><div style="font-size:28px;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px">'+x[0]+'</div><div style="font-size:11px;color:#64748B">'+x[1]+'</div></div>';
+  }).join('');
+  return '<div style="padding:32px;max-width:580px">'
+    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">The thesis</div>'
+    +'<h2 style="font-size:36px;font-weight:900;color:#0F172A;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px">AI that works for<br/>one person<br/><span style="color:#CBD5E1">half-works.</span></h2>'
+    +'<p style="font-size:13px;color:#64748B;line-height:1.6;max-width:380px;margin-bottom:32px">Dust was built on one conviction: AI compounds when it\'s shared. Every agent built becomes infrastructure. Every insight becomes institutional memory.</p>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px">'+stats+'</div>'
+    +'<div style="margin-bottom:32px">'
+    +'<div style="font-size:10px;font-weight:700;color:#CBD5E1;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px">Trusted by</div>'
+    +'<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">'+customerLogos+'</div>'
+    +'</div>'
+    +'<div style="border-left:2px solid #0F172A;padding-left:16px">'
+    +'<p style="font-size:13px;color:#334155;font-style:italic;margin-bottom:4px">"Not just a 10xer — a 100xer if we harness it right."</p>'
+    +'<p style="font-size:11px;color:#94A3B8">Patrick Hall, Product Architect · Persona</p>'
+    +'</div>'
+    +'</div>';
 }
 
+// ── PRODUCT ──
 function renderProduct(){
   var srcList=["Notion","Slack","GitHub","Google Drive","Salesforce"];
-  var btns=srcList.map(function(s){var a=activeSources.indexOf(s)>-1;return '<button onclick="toggleSrc(\''+s+'\')" class="text-xs px-3 py-1.5 rounded-lg border font-medium transition-all '+(a?'bg-slate-900 text-white border-slate-900':'bg-white text-slate-500 border-slate-200 hover:border-slate-400')+'">'+(a?'&#10003; ':'')+s+'</button>';}).join('');
-  var previewTxt=activeSources.length===0?'No data sources connected.':'Based on '+activeSources[0]+', Project Atlas is in final review. 2 open blockers remain before launch.';
-  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Interactive demo</div><h2 class="text-2xl font-bold text-slate-900 mb-1">Build an agent in 2 minutes.</h2><p class="text-sm text-slate-500 mb-6">Toggle data sources — watch the agent update live.</p><div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm"><div class="bg-slate-50 border-b border-slate-100 px-4 py-2.5 flex items-center gap-2"><div class="flex gap-1.5"><div class="w-2.5 h-2.5 bg-red-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-yellow-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-green-400 rounded-full"></div></div><span class="text-xs text-slate-400 ml-2">dust.tt — New Agent</span></div><div class="p-4 space-y-4"><div><div class="text-xs font-semibold text-slate-500 mb-1.5">Model</div><div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="text-xs font-medium text-slate-700">Claude Sonnet 4.5</span><span class="ml-auto text-xs text-slate-400">&#9660;</span></div></div><div><div class="text-xs font-semibold text-slate-500 mb-1.5">Data sources <span class="font-normal text-slate-400">(click to toggle)</span></div><div id="src-btns" class="flex flex-wrap gap-2">'+btns+'</div></div><div><div class="text-xs font-semibold text-slate-500 mb-1.5">Instructions</div><div class="bg-slate-900 rounded-lg px-3 py-2.5 text-xs font-mono leading-relaxed"><span class="text-blue-300">You have access to</span> <span id="src-names" class="text-green-400">'+(activeSources.length>0?activeSources.join(', '):'no sources selected')+'</span><span class="text-blue-300">.</span><br/><span class="text-slate-300">Answer using only what\'s in those sources.</span></div></div></div><div class="border-t border-slate-100 bg-slate-50 p-4"><div class="text-xs font-semibold text-slate-500 mb-3">Preview</div><div class="space-y-2.5"><div class="flex justify-end"><div class="bg-slate-900 text-white text-xs px-3 py-2 rounded-xl rounded-tr-sm">What\'s the status of Project Atlas?</div></div><div class="flex gap-2"><div class="w-6 h-6 bg-violet-600 rounded-full flex items-center justify-center shrink-0" style="font-size:9px"><span class="text-white font-bold">AI</span></div><div id="preview-reply" class="bg-white border border-slate-200 text-xs px-3 py-2 rounded-xl rounded-tl-sm text-slate-700 flex-1">'+previewTxt+'</div></div></div></div></div><p class="text-xs text-slate-400 text-center mt-3">No code. No prompting expertise. This is the actual Dust interface.</p></div></div>';
+  var btns=srcList.map(function(s){var a=activeSources.indexOf(s)>-1;return '<button onclick="toggleSrc(\''+s+'\')" style="font-size:11px;padding:6px 12px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid '+(a?'#0F172A':'#E2E8F0')+';background:'+(a?'#0F172A':'#fff')+';color:'+(a?'#fff':'#64748B')+'">'+(a?'&#10003; ':'')+s+'</button>';}).join('');
+  var previewTxt=activeSources.length===0?'No data sources connected — I cannot answer this yet.':'Based on '+activeSources[0]+', Project Atlas is in final review. Last updated Monday — 2 open blockers remain before the launch window.';
+  return '<div style="padding:32px;max-width:560px">'
+    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">Interactive demo</div>'
+    +'<h2 style="font-size:24px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">Build an agent in 2 minutes.</h2>'
+    +'<p style="font-size:13px;color:#64748B;margin-bottom:24px">Toggle data sources — watch the instructions and preview update live.</p>'
+    +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)">'
+      +'<div style="background:#F8FAFC;border-bottom:1px solid #F1F5F9;padding:10px 16px;display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:50%;background:#FCA5A5"></div><div style="width:10px;height:10px;border-radius:50%;background:#FDE68A"></div><div style="width:10px;height:10px;border-radius:50%;background:#6EE7B7"></div><span style="font-size:11px;color:#94A3B8;margin-left:8px">dust.tt — New Agent</span></div>'
+      +'<div style="padding:16px">'
+        +'<div style="margin-bottom:16px"><div style="font-size:11px;font-weight:600;color:#64748B;margin-bottom:6px">Model</div><div style="display:flex;align-items:center;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:8px 12px"><span style="font-size:12px;font-weight:500;color:#0F172A">Claude Sonnet 4.5</span><span style="margin-left:auto;font-size:11px;color:#94A3B8">&#9660;</span></div></div>'
+        +'<div style="margin-bottom:16px"><div style="font-size:11px;font-weight:600;color:#64748B;margin-bottom:6px">Data sources <span style="font-weight:400;color:#94A3B8">(click to toggle)</span></div><div id="src-btns" style="display:flex;flex-wrap:wrap;gap:8px">'+btns+'</div></div>'
+        +'<div><div style="font-size:11px;font-weight:600;color:#64748B;margin-bottom:6px">Instructions</div><div style="background:#0F172A;border-radius:8px;padding:12px;font-size:11px;font-family:monospace;line-height:1.6"><span style="color:#93C5FD">You have access to</span> <span id="src-names" style="color:#6EE7B7">'+(activeSources.length>0?activeSources.join(', '):'no sources selected')+'</span><span style="color:#93C5FD">.</span><br/><span style="color:#CBD5E1">Answer using only what\'s in those sources.</span><br/><span style="color:#CBD5E1">Always cite where you found the information.</span></div></div>'
+      +'</div>'
+      +'<div style="border-top:1px solid #F1F5F9;background:#F8FAFC;padding:16px"><div style="font-size:11px;font-weight:600;color:#64748B;margin-bottom:12px">Preview</div>'
+        +'<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><div style="background:#0F172A;color:#fff;font-size:11px;padding:8px 12px;border-radius:12px;border-top-right-radius:3px;max-width:260px">What\'s the status of Project Atlas?</div></div>'
+        +'<div style="display:flex;gap:8px"><div style="width:24px;height:24px;background:#7C3AED;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:9px">AI</span></div><div id="preview-reply" style="background:#fff;border:1px solid #E2E8F0;font-size:11px;padding:8px 12px;border-radius:12px;border-top-left-radius:3px;color:#334155;flex:1">'+previewTxt+'</div></div>'
+      +'</div>'
+    +'</div>'
+    +'<p style="font-size:11px;color:#94A3B8;text-align:center;margin-top:10px">No code. No prompting expertise. This is the actual Dust interface.</p>'
+    +'</div>';
 }
 
 function toggleSrc(s){
@@ -156,103 +217,184 @@ function toggleSrc(s){
   if(idx>-1)activeSources.splice(idx,1);else activeSources.push(s);
   var srcList=["Notion","Slack","GitHub","Google Drive","Salesforce"];
   var c=document.getElementById('src-btns');
-  if(c)c.innerHTML=srcList.map(function(x){var a=activeSources.indexOf(x)>-1;return '<button onclick="toggleSrc(\''+x+'\')" class="text-xs px-3 py-1.5 rounded-lg border font-medium transition-all '+(a?'bg-slate-900 text-white border-slate-900':'bg-white text-slate-500 border-slate-200 hover:border-slate-400')+'">'+(a?'&#10003; ':'')+x+'</button>';}).join('');
+  if(c)c.innerHTML=srcList.map(function(x){var a=activeSources.indexOf(x)>-1;return '<button onclick="toggleSrc(\''+x+'\')" style="font-size:11px;padding:6px 12px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid '+(a?'#0F172A':'#E2E8F0')+';background:'+(a?'#0F172A':'#fff')+';color:'+(a?'#fff':'#64748B')+'">'+(a?'&#10003; ':'')+x+'</button>';}).join('');
   var n=document.getElementById('src-names');if(n)n.textContent=activeSources.length>0?activeSources.join(', '):'no sources selected';
-  var r=document.getElementById('preview-reply');if(r)r.textContent=activeSources.length===0?'No data sources connected.':'Based on '+activeSources[0]+', Project Atlas is in final review. 2 open blockers remain before launch.';
+  var r=document.getElementById('preview-reply');if(r)r.textContent=activeSources.length===0?'No data sources connected — I cannot answer this yet.':'Based on '+activeSources[0]+', Project Atlas is in final review. Last updated Monday — 2 open blockers remain before the launch window.';
 }
 
+// ── IN THE WILD ──
 function renderWild(){
   var msgs=[
-    {init:"SP",name:"Stanislas",color:"bg-indigo-600",time:"10:32",text:profile.priority==='technical'?"just traced the latency spike — model over-fetching context on long threads. 3-line fix, deploying now":"shipped the new retrieval fix \uD83C\uDF89 3x faster on large workspaces"},
-    {init:"GH",name:"Gabriel",color:"bg-violet-600",time:"10:33",text:"already saw the metrics tick. what broke exactly?"},
-    {init:"SP",name:"Stanislas",color:"bg-indigo-600",time:"10:34",text:"context window filling with noise before the actual answer. logs made it obvious once I looked"},
-    {init:"EH",name:"new hire",color:"bg-slate-500",time:"10:35",text:"this is what i mean when I say everyone here moves fast"},
-    {init:"GH",name:"Gabriel",color:"bg-violet-600",time:"10:36",text:"and we used a Dust agent to trace the logs \uD83D\uDE04 using our own product to ship faster"},
-    {init:"SP",name:"Stanislas",color:"bg-indigo-600",time:"10:36",text:"^^ that's literally the job"}
+    {init:"SP",name:"Stanislas",bg:"#3730A3",time:"10:32",text:profile.priority==='technical'?"just traced the latency spike — model over-fetching context on long threads. 3-line fix, deploying now":"shipped the new retrieval fix \uD83C\uDF89 3x faster on large workspaces"},
+    {init:"GH",name:"Gabriel",bg:"#6D28D9",time:"10:33",text:"already saw the metrics tick. what broke exactly?"},
+    {init:"SP",name:"Stanislas",bg:"#3730A3",time:"10:34",text:"context window filling with noise before hitting the actual answer. logs made it obvious once I looked"},
+    {init:"EH",name:"new hire",bg:"#475569",time:"10:35",text:"this is what i mean when I say everyone here moves fast"},
+    {init:"GH",name:"Gabriel",bg:"#6D28D9",time:"10:36",text:"and we used a Dust agent to trace the logs \uD83D\uDE04 using our own product to ship faster"},
+    {init:"SP",name:"Stanislas",bg:"#3730A3",time:"10:36",text:"^^ that's literally the job"}
   ];
-  var slk=msgs.map(function(m){return '<div class="flex gap-3"><div class="w-8 h-8 rounded-lg '+m.color+' flex items-center justify-center text-white text-xs font-bold shrink-0">'+m.init+'</div><div><div class="flex items-baseline gap-2 mb-0.5"><span class="text-xs font-bold text-slate-900">'+m.name+'</span><span class="text-xs text-slate-400">'+m.time+' AM</span></div><p class="text-sm text-slate-700">'+m.text+'</p></div></div>';}).join('');
-  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">A real day at Dust</div><h2 class="text-2xl font-bold text-slate-900 mb-1">This is what fast actually looks like.</h2><p class="text-sm text-slate-500 mb-6">From issue spotted to fix in production — before lunch.</p><div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-5"><div class="bg-slate-800 px-4 py-2.5 flex items-center gap-2"><div class="flex gap-1.5"><div class="w-2.5 h-2.5 bg-red-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-yellow-400 rounded-full"></div><div class="w-2.5 h-2.5 bg-green-400 rounded-full"></div></div><span class="text-slate-300 text-xs ml-2 font-medium"># eng-daily</span><span class="text-slate-500 text-xs ml-auto">Slack — Dust workspace</span></div><div class="p-4 space-y-4"><div class="flex justify-center"><span class="text-xs text-slate-400 bg-slate-50 border border-slate-100 px-3 py-1 rounded-full">Today</span></div>'+slk+'</div></div><div class="bg-slate-900 rounded-2xl overflow-hidden"><div class="px-4 py-2.5 border-b border-slate-700 flex items-center justify-between"><span class="text-slate-400 text-xs font-mono">dust-tt/dust &middot; core/src/agents/runner.ts</span><a href="https://github.com/dust-tt/dust" target="_blank" class="text-xs text-slate-500 hover:text-slate-300">View on GitHub &#8599;</a></div><pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto"><code><span class="text-slate-500">// The core agent execution loop</span>\n<span class="text-blue-400">export async function</span> <span class="text-green-400">runAgent</span><span class="text-slate-300">(</span>\n  <span class="text-orange-300">auth</span><span class="text-slate-400">: Authenticator,</span>\n  <span class="text-orange-300">config</span><span class="text-slate-400">: AgentConfig,</span>\n  <span class="text-orange-300">conversation</span><span class="text-slate-400">: ConversationWithContent</span>\n<span class="text-slate-300">)</span><span class="text-slate-400">: Promise&lt;AgentRunResult&gt; {</span>\n  <span class="text-blue-400">const</span> <span class="text-slate-300">model</span> <span class="text-slate-400">= await</span> <span class="text-green-400">selectModel</span><span class="text-slate-300">(config.model);</span>\n  <span class="text-blue-400">const</span> <span class="text-slate-300">ctx</span> <span class="text-slate-400">= await</span> <span class="text-green-400">buildContext</span><span class="text-slate-300">(auth, conversation);</span>\n  <span class="text-blue-400">return</span> <span class="text-slate-300">model.<span class="text-green-400">run</span>({ config, context: ctx });</span>\n<span class="text-slate-300">}</span></code></pre></div></div></div>';
+  var slk=msgs.map(function(m){
+    return '<div style="display:flex;gap:10px"><div style="width:32px;height:32px;border-radius:8px;background:'+m.bg+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0">'+m.init+'</div><div><div style="display:flex;align-items:baseline;gap:8px;margin-bottom:2px"><span style="font-size:12px;font-weight:700;color:#0F172A">'+m.name+'</span><span style="font-size:10px;color:#94A3B8">'+m.time+' AM</span></div><p style="font-size:13px;color:#334155;margin:0">'+m.text+'</p></div></div>';
+  }).join('');
+  return '<div style="padding:32px;max-width:580px">'
+    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">A real day at Dust</div>'
+    +'<h2 style="font-size:24px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">This is what fast actually looks like.</h2>'
+    +'<p style="font-size:13px;color:#64748B;margin-bottom:24px">From issue spotted to fix in production — before lunch.</p>'
+    +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px">'
+      +'<div style="background:#1E293B;padding:10px 16px;display:flex;align-items:center;gap:6px"><div style="display:flex;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#FCA5A5"></div><div style="width:10px;height:10px;border-radius:50%;background:#FDE68A"></div><div style="width:10px;height:10px;border-radius:50%;background:#6EE7B7"></div></div><span style="color:#94A3B8;font-size:11px;font-weight:600;margin-left:8px"># eng-daily</span><span style="color:#475569;font-size:10px;margin-left:auto">Slack — Dust workspace</span></div>'
+      +'<div style="padding:16px;display:flex;flex-direction:column;gap:16px"><div style="text-align:center"><span style="font-size:10px;color:#94A3B8;background:#F8FAFC;border:1px solid #F1F5F9;padding:3px 10px;border-radius:9999px">Today</span></div>'+slk+'</div>'
+    +'</div>'
+    +'<div style="background:#0F172A;border-radius:16px;overflow:hidden">'
+      +'<div style="padding:10px 16px;border-bottom:1px solid #1E293B;display:flex;align-items:center;justify-content:space-between"><span style="color:#475569;font-size:11px;font-family:monospace">dust-tt/dust · core/src/agents/runner.ts</span><a href="https://github.com/dust-tt/dust" target="_blank" style="font-size:10px;color:#475569;text-decoration:none">View on GitHub &#8599;</a></div>'
+      +'<pre style="padding:16px;margin:0;font-size:11px;font-family:monospace;line-height:1.7;overflow-x:auto"><code><span style="color:#475569">// The core agent execution loop</span>\n<span style="color:#93C5FD">export async function</span> <span style="color:#6EE7B7">runAgent</span><span style="color:#CBD5E1">(</span>\n  <span style="color:#FCA5A5">auth</span><span style="color:#64748B">: Authenticator,</span>\n  <span style="color:#FCA5A5">config</span><span style="color:#64748B">: AgentConfig,</span>\n  <span style="color:#FCA5A5">conversation</span><span style="color:#64748B">: ConversationWithContent</span>\n<span style="color:#CBD5E1">)</span><span style="color:#64748B">: Promise&lt;AgentRunResult&gt; {</span>\n  <span style="color:#93C5FD">const</span> <span style="color:#CBD5E1">model</span> <span style="color:#64748B">= await</span> <span style="color:#6EE7B7">selectModel</span><span style="color:#CBD5E1">(config.model);</span>\n  <span style="color:#93C5FD">const</span> <span style="color:#CBD5E1">ctx</span> <span style="color:#64748B">= await</span> <span style="color:#6EE7B7">buildContext</span><span style="color:#CBD5E1">(auth, conversation);</span>\n  <span style="color:#93C5FD">return</span> <span style="color:#CBD5E1">model.<span style="color:#6EE7B7">run</span>({ config, context: ctx });</span>\n<span style="color:#CBD5E1">}</span></code></pre>'
+    +'</div>'
+    +'</div>';
 }
 
+// ── TEAM ──
 function renderTeam(){
   var founders=[
-    {init:"SP",bg:"bg-slate-900",name:"Stanislas Polu",role:"Co-founder & CEO",prev:["OpenAI Research Scientist","Worked on GPT-3 & RLHF"],note:"Left OpenAI to fix the team AI problem"},
-    {init:"GH",bg:"bg-slate-700",name:"Gabriel Hubert",role:"Co-founder & CPO",prev:["ex-Stripe","ex-Front (co-founder)"],note:"Built products at scale before founding Dust"}
+    {init:"SP",bg:"#0F172A",name:"Stanislas Polu",role:"Co-founder & CEO",prev:["OpenAI Research Scientist","GPT-3 & RLHF"],note:"Left OpenAI to fix the team AI problem"},
+    {init:"GH",bg:"#1E293B",name:"Gabriel Hubert",role:"Co-founder & CPO",prev:["ex-Stripe","ex-Front (co-founder)"],note:"Built products at scale before founding Dust"}
   ];
-  var cards=founders.map(function(p){return '<div class="bg-slate-50 border border-slate-100 rounded-2xl p-4"><div class="w-12 h-12 '+p.bg+' rounded-2xl flex items-center justify-center text-white font-bold mb-3">'+p.init+'</div><div class="text-xs font-bold text-slate-900 mb-0.5">'+p.name+'</div><div class="text-xs text-slate-500 mb-3">'+p.role+'</div>'+p.prev.map(function(x){return '<div class="text-xs text-slate-400 flex gap-1.5 mb-0.5"><span class="text-slate-300">&middot;</span>'+x+'</div>';}).join('')+'<div class="mt-3 text-xs text-slate-400 italic border-t border-slate-200 pt-2">"'+p.note+'"</div></div>';}).join('');
-  var alumni=["Stripe","OpenAI","Front","Stanford","Google","Airbnb","Datadog","Notion"].map(function(c){return '<span class="bg-slate-50 border border-slate-200 text-slate-700 text-xs px-3 py-1.5 rounded-xl font-medium">'+c+'</span>';}).join('');
-  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">The people</div><h2 class="text-2xl font-bold text-slate-900 mb-6">Built by people who\'ve done it before.</h2><div class="grid grid-cols-2 gap-4 mb-5">'+cards+'</div><div class="bg-white border border-slate-100 rounded-2xl p-4 mb-4"><div class="text-xs font-semibold text-slate-500 mb-3">~40 people &middot; Paris & San Francisco &middot; alumni from</div><div class="flex flex-wrap gap-2">'+alumni+'</div></div><div class="bg-slate-900 text-white rounded-2xl p-4"><div class="text-xs text-slate-400 mb-1">What this means for you</div><div class="text-sm font-medium">The founders interview every candidate. You\'d work directly with them from day one — not as a number, but as someone they chose personally.</div></div></div></div>';
+  var cards=founders.map(function(p){
+    return '<div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:16px;padding:16px"><div style="width:44px;height:44px;background:'+p.bg+';border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;margin-bottom:12px">'+p.init+'</div><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:2px">'+p.name+'</div><div style="font-size:11px;color:#64748B;margin-bottom:10px">'+p.role+'</div>'+p.prev.map(function(x){return '<div style="font-size:11px;color:#94A3B8;display:flex;gap:5px;margin-bottom:3px"><span style="color:#CBD5E1">·</span>'+x+'</div>';}).join('')+'<div style="margin-top:10px;font-size:11px;color:#94A3B8;font-style:italic;border-top:1px solid #E2E8F0;padding-top:10px">"'+p.note+'"</div></div>';
+  }).join('');
+  var alumni=["Stripe","OpenAI","Front","Stanford","Google","Airbnb","Datadog","Notion"].map(function(c){return '<span style="background:#F8FAFC;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:5px 10px;border-radius:8px">'+c+'</span>';}).join('');
+  return '<div style="padding:32px;max-width:580px">'
+    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">The people</div>'
+    +'<h2 style="font-size:24px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:24px">Built by people who\'ve done it before.</h2>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">'+cards+'</div>'
+    +'<div style="background:#fff;border:1px solid #F1F5F9;border-radius:16px;padding:16px;margin-bottom:12px"><div style="font-size:11px;font-weight:600;color:#64748B;margin-bottom:10px">~40 people · Paris & San Francisco · alumni from</div><div style="display:flex;flex-wrap:wrap;gap:8px">'+alumni+'</div></div>'
+    +'<div style="background:#0F172A;color:#fff;border-radius:16px;padding:16px"><div style="font-size:10px;color:#475569;font-weight:600;margin-bottom:4px">What this means for you</div><div style="font-size:13px;font-weight:500;line-height:1.5">The founders interview every candidate personally. You\'d work directly with them from day one — not as a number, but as someone they chose.</div></div>'
+    +'</div>';
 }
+
+// ── ROLES ──
+var ROLES_CATALOG={
+  builder:[
+    {title:"Software Engineer",dept:"Engineering",location:"Paris",salary:"€40K–€150K",skills:["TypeScript","Rust","Kubernetes","PostgreSQL"],link:"https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766"},
+    {title:"Software Engineer, Frontend",dept:"Engineering",location:"Paris",salary:"€60K–€150K",skills:["React","Next.js","TypeScript","shadcn"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"},
+    {title:"AI Builder (Open Role)",dept:"General",location:"Paris · SF",salary:"Competitive",skills:["Builder mindset","AI passion","Ownership"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"}
+  ],
+  data:[
+    {title:"Product Data Analyst",dept:"Data",location:"Paris",salary:"€70K–€110K",skills:["SQL","A/B Testing","Product metrics","Dashboards"],link:"https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883"},
+    {title:"Growth Engineer",dept:"Marketing",location:"San Francisco",salary:"$100K–$200K",skills:["Growth","Data","Engineering"],link:"https://jobs.ashbyhq.com/dust/18f24ccf-5182-4099-8802-ab9b36e88db7"},
+    {title:"AI Builder (Open Role)",dept:"General",location:"Paris · SF",salary:"Competitive",skills:["Builder mindset","AI passion"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"}
+  ],
+  product:[
+    {title:"Senior Product Design",dept:"Product Design",location:"Paris",salary:"Competitive",skills:["Product design","UX","Figma","User research"],link:"https://jobs.ashbyhq.com/dust/a58a9807-026c-469d-a550-582565b54329"},
+    {title:"AI Builder (Open Role)",dept:"General",location:"Paris · SF",salary:"Competitive",skills:["Builder mindset","Product thinking","AI"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"},
+    {title:"Software Engineer, Frontend",dept:"Engineering",location:"Paris",salary:"€60K–€150K",skills:["React","Next.js","TypeScript"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"}
+  ],
+  business:[
+    {title:"Account Executive",dept:"Sales",location:"Paris · SF",salary:"Competitive + equity",skills:["B2B SaaS","Quota-carrying","Pipeline"],link:"https://jobs.ashbyhq.com/dust/490980d2-422c-4329-8776-093e74e9a91f"},
+    {title:"Customer Success Manager",dept:"Customer Experience",location:"Paris",salary:"Competitive",skills:["Retention","Onboarding","AI products"],link:"https://jobs.ashbyhq.com/dust/949b4370-93b5-4629-8060-2fe0aca0d016"},
+    {title:"Senior Talent Acquisition Partner",dept:"Talent",location:"Paris · London",salary:"Competitive",skills:["Tech hiring","Candidate experience","Sourcing"],link:"https://jobs.ashbyhq.com/dust/5f996467-a3ff-404b-922d-c39c2c718f75"},
+    {title:"Solutions Engineer",dept:"Sales",location:"Paris",salary:"Competitive",skills:["Pre-sales","Technical demos","Implementation"],link:"https://jobs.ashbyhq.com/dust/54d23ce3-f59f-447f-87a4-4549a6a8074f"}
+  ]
+};
 
 function renderRoles(){
-  var bgToRole={builder:"backend",data:"data",product:"builder",business:"builder"};
-  var preferred=bgToRole[profile.background]||"backend";
-  var roles=[
-    {id:"frontend",title:"Software Engineer, Frontend",salary:"€60K–€150K",skills:["React","Next.js","TypeScript","shadcn"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"},
-    {id:"backend",title:"Software Engineer",salary:"€40K–€150K",skills:["TypeScript","Rust","Kubernetes","PostgreSQL"],link:"https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766"},
-    {id:"data",title:"Product Data Analyst",salary:"€70K–€110K",skills:["SQL","A/B Testing","Dashboards","Product metrics"],link:"https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883"},
-    {id:"builder",title:"AI Builder (Open Role)",salary:"Competitive",skills:["Builder mindset","AI passion","Ownership"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"}
-  ];
-  roles.sort(function(a,b){return a.id===preferred?-1:b.id===preferred?1:0;});
-  var cards=roles.map(function(r,i){
-    var border=i===0?'border-slate-900 shadow-sm':'border-slate-100';
-    var badge=i===0?'<div class="text-xs font-semibold text-slate-900 mb-2.5 flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span>Best match for your background</div>':'';
-    var btn=i===0?'<a href="'+r.link+'" target="_blank" class="text-xs font-semibold px-3 py-2 rounded-xl shrink-0 bg-slate-900 text-white hover:bg-slate-700 transition-colors">Apply &#8599;</a>':'<a href="'+r.link+'" target="_blank" class="text-xs font-semibold px-3 py-2 rounded-xl shrink-0 border border-slate-200 text-slate-700 hover:border-slate-400 transition-colors">Apply &#8599;</a>';
-    var tags=r.skills.map(function(s){return '<span class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-lg">'+s+'</span>';}).join('');
-    return '<div class="border rounded-2xl p-4 '+border+'">'+badge+'<div class="flex items-start justify-between gap-3"><div class="flex-1"><div class="text-sm font-bold text-slate-900 mb-1">'+r.title+'</div><div class="text-xs text-slate-500 mb-2">&#128205; Paris &middot; &#128176; '+r.salary+' + equity</div><div class="flex flex-wrap gap-1.5">'+tags+'</div></div>'+btn+'</div></div>';
+  var list=ROLES_CATALOG[profile.background]||ROLES_CATALOG.builder;
+  var cards=list.map(function(r,i){
+    var isTop=i===0;
+    var borderStyle=isTop?'border:1px solid #0F172A;box-shadow:0 1px 4px rgba(0,0,0,.08)':'border:1px solid #F1F5F9';
+    var badge=isTop?'<div style="font-size:10px;font-weight:700;color:#0F172A;margin-bottom:10px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;background:#10B981;border-radius:50%;display:inline-block"></span>Best match for your background</div>':'';
+    var applyStyle=isTop?'background:#0F172A;color:#fff;border:none':'background:#fff;color:#0F172A;border:1px solid #E2E8F0';
+    var tags=r.skills.map(function(s){return '<span style="background:#F1F5F9;color:#475569;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px">'+s+'</span>';}).join('');
+    return '<div style="'+borderStyle+';border-radius:14px;padding:16px">'+badge+'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px"><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#0F172A;margin-bottom:4px">'+r.title+'</div><div style="font-size:11px;color:#64748B;margin-bottom:8px">'+r.dept+' · '+r.location+' · '+r.salary+'</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+tags+'</div></div><a href="'+r.link+'" target="_blank" style="font-size:11px;font-weight:700;padding:8px 14px;border-radius:8px;text-decoration:none;flex-shrink:0;'+applyStyle+'">Apply &#8599;</a></div></div>';
   }).join('');
-  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Open roles</div><h2 class="text-2xl font-bold text-slate-900 mb-1">4 roles. All shape the product.</h2><p class="text-sm text-slate-500 mb-6">The top one matches your background. All include meaningful equity.</p><div class="space-y-3">'+cards+'</div></div></div>';
+  var total=profile.background==='business'?'4 roles shown of 26 open positions':'';
+  return '<div style="padding:32px;max-width:580px">'
+    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">Open roles</div>'
+    +'<h2 style="font-size:24px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">26 open positions. All shape the product.</h2>'
+    +'<p style="font-size:13px;color:#64748B;margin-bottom:24px">The top card is personalized for your background. Every role includes meaningful equity.<br/><a href="https://dust.tt/jobs" target="_blank" style="color:#0F172A;font-weight:600">View all 26 roles &#8599;</a></p>'
+    +'<div style="display:flex;flex-direction:column;gap:10px">'+cards+'</div>'
+    +'</div>';
 }
+
+// ── MATCH ──
+var QUICK_MAP={
+  builder:["Frontend engineer — React & TypeScript","Backend / full-stack — Node, Kubernetes, Rust","Full-stack — own features end-to-end","Infrastructure / DevOps — cloud & platform"],
+  data:["Product analyst — SQL, metrics, A-B testing","Data scientist — ML, experimentation, Python","BI analyst — dashboards, Looker, Snowflake","Growth analyst — funnel metrics, attribution"],
+  product:["Product manager — roadmap, specs, 0-to-1","Product designer — UX, user research, Figma","Head of product — 0-to-1 and scaling","Strategy / ops — problem solving, cross-team"],
+  business:["Account Executive — B2B SaaS, quota-carrying","Recruiter / TA — tech hiring, candidate experience","Customer Success Manager — retention & onboarding","Solutions Engineer — pre-sales, technical demos"]
+};
 
 function renderMatch(){
-  var qMap={
-    builder:["Frontend engineer — React & TypeScript","Backend / full-stack — Node, Kubernetes, Rust","Full-stack — own features end-to-end","Infrastructure / DevOps — cloud & platform"],
-    data:["Product analyst — SQL, metrics, A-B testing","Data scientist — ML, experimentation, Python","BI analyst — dashboards, Looker, Snowflake","Growth analyst — funnel metrics, attribution"],
-    product:["Product manager — roadmap, specs, cross-functional","Product designer — UX, user research, Figma","Head of product — 0-to-1 and scaling","Strategy / ops — problem solving, cross-team"],
-    business:["Sales / AE — SaaS, quota-carrying, technical deals","Recruiter / TA — tech hiring, candidate experience","Marketing — brand, content, demand generation","Ops / COO-type — process, efficiency, execution"]
-  };
-  var list=qMap[profile.background]||qMap.business;
-  var quick=list.map(function(q,i){return '<button onclick="analyzeQuick('+i+')" class="w-full text-left bg-white border border-slate-200 text-slate-700 text-xs px-4 py-3 rounded-xl hover:border-slate-400 transition-colors">'+q+'</button>';}).join('');
-  return '<div class="p-8"><div class="max-w-lg"><div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Match assessment</div><h2 class="text-2xl font-bold text-slate-900 mb-1">Are you a fit for Dust?</h2><p class="text-sm text-slate-500 mb-6">Paste your LinkedIn bio, describe your background, or pick a quick option below.</p><div id="match-form"><textarea id="match-input" placeholder="e.g. Recruiter with 4 years experience in tech hiring, specializing in engineering roles at startups. Built hiring pipelines from scratch..." class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-700 placeholder-slate-400 outline-none focus:border-slate-400 resize-none mb-3" rows="4"></textarea><button onclick="analyzeInput()" class="w-full bg-slate-900 text-white text-sm font-semibold py-3 rounded-xl hover:bg-slate-700 transition-colors mb-5">Analyze my profile &#8594;</button><div class="text-xs text-slate-400 text-center mb-3">or pick a quick option</div><div class="space-y-2">'+quick+'</div></div><div id="match-result" style="display:none"></div></div></div>';
+  var quick=(QUICK_MAP[profile.background]||QUICK_MAP.business).map(function(q,i){
+    return '<button onclick="analyzeQuick('+i+')" style="width:100%;text-align:left;background:#fff;border:1px solid #E2E8F0;color:#334155;font-size:12px;padding:12px 14px;border-radius:10px;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor=\'#0F172A\'" onmouseout="this.style.borderColor=\'#E2E8F0\'">'+q+'</button>';
+  }).join('');
+  return '<div style="padding:32px;max-width:540px">'
+    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">Match assessment</div>'
+    +'<h2 style="font-size:24px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">Are you a fit for Dust?</h2>'
+    +'<p style="font-size:13px;color:#64748B;margin-bottom:24px">Paste your LinkedIn bio, describe your background, or pick a quick option below.</p>'
+    +'<div id="match-form">'
+    +'<textarea id="match-input" placeholder="e.g. Talent acquisition partner with 5 years in tech hiring. Specialized in engineering roles at growth-stage startups. Built candidate experience programs from scratch..." style="width:100%;background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:14px;font-size:12px;color:#334155;resize:none;outline:none;box-sizing:border-box;margin-bottom:10px;font-family:inherit" rows="4" onfocus="this.style.borderColor=\'#0F172A\'" onblur="this.style.borderColor=\'#E2E8F0\'"></textarea>'
+    +'<button onclick="analyzeInput()" style="width:100%;background:#0F172A;color:#fff;font-size:13px;font-weight:700;padding:13px;border-radius:11px;cursor:pointer;border:none;margin-bottom:20px;letter-spacing:-0.01em">Analyze my profile &#8594;</button>'
+    +'<div style="font-size:11px;color:#94A3B8;text-align:center;margin-bottom:10px">or pick a quick option</div>'
+    +'<div style="display:flex;flex-direction:column;gap:7px">'+quick+'</div>'
+    +'</div>'
+    +'<div id="match-result" style="display:none"></div>'
+    +'</div>';
 }
 
-var _quickList=null;
-function analyzeQuick(i){
-  var qMap={
-    builder:["Frontend engineer — React & TypeScript","Backend / full-stack — Node, Kubernetes, Rust","Full-stack — own features end-to-end","Infrastructure / DevOps — cloud & platform"],
-    data:["Product analyst — SQL, metrics, A-B testing","Data scientist — ML, experimentation, Python","BI analyst — dashboards, Looker, Snowflake","Growth analyst — funnel metrics, attribution"],
-    product:["Product manager — roadmap, specs, cross-functional","Product designer — UX, user research, Figma","Head of product — 0-to-1 and scaling","Strategy / ops — problem solving, cross-team"],
-    business:["Sales / AE — SaaS, quota-carrying, technical deals","Recruiter / TA — tech hiring, candidate experience","Marketing — brand, content, demand generation","Ops / COO-type — process, efficiency, execution"]
-  };
-  doAnalyze((qMap[profile.background]||qMap.business)[i]);
-}
 function analyzeInput(){var v=document.getElementById('match-input');if(v&&v.value.trim())doAnalyze(v.value.trim());}
+function analyzeQuick(i){doAnalyze((QUICK_MAP[profile.background]||QUICK_MAP.business)[i]);}
 
 function doAnalyze(text){
   var lower=text.toLowerCase();
-  var s={fe:0,be:0,da:0,ai:0};
-  ["react","next","frontend","ui","ux","css","html","vue","angular","figma","design"].forEach(function(k){if(lower.indexOf(k)>-1)s.fe++;});
+  var s={fe:0,be:0,da:0,ai:0,ae:0,csm:0,ta:0,se:0};
+  ["react","next","frontend","ui","ux","css","figma","design","component","interface"].forEach(function(k){if(lower.indexOf(k)>-1)s.fe++;});
   ["backend","typescript","rust","node","kubernetes","postgres","infrastructure","devops","api","fullstack","full-stack","cloud","system","java","python","scala"].forEach(function(k){if(lower.indexOf(k)>-1)s.be++;});
-  ["data","sql","analytics","analyst","bi","dbt","snowflake","looker","metric","dashboard","ml","spark","pandas"].forEach(function(k){if(lower.indexOf(k)>-1)s.da++;});
-  ["product","pm","ops","operations","gpt","llm","prompt","agent","automation","builder","recruiter","hiring","marketing","sales","gtm","candidate","talent"].forEach(function(k){if(lower.indexOf(k)>-1)s.ai++;});
+  ["data","sql","analytics","analyst","bi","dbt","snowflake","looker","metric","dashboard","ml","spark","pandas","jupyter"].forEach(function(k){if(lower.indexOf(k)>-1)s.da++;});
+  ["product manager","pm ","roadmap","specs","0-to-1","strategy","gpt","llm","agent","automation","builder","no-code"].forEach(function(k){if(lower.indexOf(k)>-1)s.ai++;});
+  ["sales","quota","revenue","closing","pipeline","crm","bdr","sdr","account executive","outbound","b2b"].forEach(function(k){if(lower.indexOf(k)>-1)s.ae++;});
+  ["customer success","csm","onboarding","retention","account management","churn","nps"].forEach(function(k){if(lower.indexOf(k)>-1)s.csm++;});
+  ["recruiter","recruiting","talent acquisition","hiring","sourcing","headhunting","candidate","people ops","talent partner"].forEach(function(k){if(lower.indexOf(k)>-1)s.ta++;});
+  ["solutions engineer","pre-sales","presales","technical sales","demo","rfi","rfp","poc","implementation","se "].forEach(function(k){if(lower.indexOf(k)>-1)s.se++;});
   if(profile.background==="builder"){s.fe+=1;s.be+=1;}
   if(profile.background==="data")s.da+=2;
   if(profile.background==="product")s.ai+=2;
-  if(profile.background==="business")s.ai+=2;
-  var max=Math.max(s.fe,s.be,s.da,s.ai);
-  var key=(s.fe===max&&s.fe>0)?"fe":(s.be===max&&s.be>0)?"be":(s.da===max&&s.da>0)?"da":"ai";
+  if(profile.background==="business"){s.ae+=1;s.csm+=1;s.ta+=1;s.se+=1;}
+  var max=Math.max(s.fe,s.be,s.da,s.ai,s.ae,s.csm,s.ta,s.se);
+  var key="ai";
+  if(s.fe===max&&s.fe>0)key="fe";
+  else if(s.be===max&&s.be>0)key="be";
+  else if(s.da===max&&s.da>0)key="da";
+  else if(s.ae===max&&s.ae>0)key="ae";
+  else if(s.csm===max&&s.csm>0)key="csm";
+  else if(s.ta===max&&s.ta>0)key="ta";
+  else if(s.se===max&&s.se>0)key="se";
   var strength=max>=4?"strong":max>=2?"good":"explore";
-  var ROLES={
-    fe:{title:"Software Engineer, Frontend",salary:"€60K–€150K",signals:["React/Next.js","TypeScript","UI ownership","User-facing product work"],tips:["React architecture decisions you've owned","Component library or design system work","Accessibility or performance optimization","Frame impact in user-facing terms"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"},
+  var ROLES_MATCH={
+    fe:{title:"Software Engineer, Frontend",salary:"€60K–€150K",signals:["React/Next.js","TypeScript","UI ownership","User-facing work"],tips:["React architecture decisions you've owned","Design system or component library work","Accessibility or performance impact","Frame work in user-facing outcomes"],link:"https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34"},
     be:{title:"Software Engineer",salary:"€40K–€150K",signals:["Full-stack/backend","TypeScript or Rust","Infrastructure","End-to-end ownership"],tips:["Features owned from API to production","Multi-language or infra work (Rust a bonus)","Open source contributions","System design trade-offs you've made"],link:"https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766"},
-    da:{title:"Product Data Analyst",salary:"€70K–€110K",signals:["Data/analytics background","SQL proficiency","Product-oriented metrics","Dashboard/tooling work"],tips:["How your data work influenced product decisions","Experimentation/A-B testing experience","Self-serve tooling for non-technical teams","Show impact, not just tools used"],link:"https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883"},
-    ai:{title:"AI Builder (Open Role)",salary:"Competitive",signals:["AI/product interest","Builder mindset","Automation or ops experience","Domain expertise"],tips:["Real AI projects — not buzzwords, actual builds","Agents or automation you've shipped","Why Dust specifically resonates","Initiative matters as much as background"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"}
+    da:{title:"Product Data Analyst",salary:"€70K–€110K",signals:["Data/analytics background","SQL proficiency","Product-oriented metrics","Tooling built for teams"],tips:["How your data work influenced product decisions","Experimentation/A-B testing depth","Self-serve tooling for non-technical teammates","Show impact, not just tools used"],link:"https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883"},
+    ai:{title:"AI Builder (Open Role)",salary:"Competitive",signals:["AI/product interest","Builder mindset","Cross-functional experience","Domain expertise"],tips:["Real AI builds — not buzzwords, actual shipped work","Agents or automation you've deployed","Why Dust specifically resonates with you","Initiative matters as much as background here"],link:"https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a"},
+    ae:{title:"Account Executive",salary:"Competitive + equity",signals:["B2B SaaS sales","Quota-carrying experience","Enterprise or mid-market","AI product interest"],tips:["Quota attainment and deal size context","Technical product selling — how you learn and demo","Why AI infrastructure (not just AI tools) matters to you","Your approach to multi-threaded enterprise deals"],link:"https://jobs.ashbyhq.com/dust/490980d2-422c-4329-8776-093e74e9a91f"},
+    csm:{title:"Customer Success Manager",salary:"Competitive",signals:["Customer success background","Retention/onboarding focus","Technical product affinity","Account management"],tips:["Retention metrics you've owned and improved","How you handle onboarding for complex products","AI tools you've used internally or deployed for customers","Examples of turning at-risk accounts around"],link:"https://jobs.ashbyhq.com/dust/949b4370-93b5-4629-8060-2fe0aca0d016"},
+    ta:{title:"Senior Talent Acquisition Partner",salary:"Competitive",signals:["Talent acquisition background","Tech hiring experience","Candidate experience focus","Startup or scale-up environment"],tips:["Engineering roles you've closed at a technical depth","How you've improved candidate experience metrics","Sourcing strategies that worked in competitive markets","Your take on AI's role in recruiting — and Dust's specifically"],link:"https://jobs.ashbyhq.com/dust/5f996467-a3ff-404b-922d-c39c2c718f75"},
+    se:{title:"Solutions Engineer",salary:"Competitive",signals:["Pre-sales or solutions engineering","Technical customer-facing","Demo and POC experience","Implementation background"],tips:["Complex deals you've technically owned end-to-end","How you build and deliver product demos","API/integration depth — can you go deep with CTOs?","POC success rate and methodology"],link:"https://jobs.ashbyhq.com/dust/54d23ce3-f59f-447f-87a4-4549a6a8074f"}
   };
-  var role=ROLES[key];
-  var cfg={strong:{bg:"bg-green-50",border:"border-green-200",badge:"bg-green-100 text-green-800",dot:"bg-green-500",label:"Strong Match"},good:{bg:"bg-blue-50",border:"border-blue-200",badge:"bg-blue-100 text-blue-800",dot:"bg-blue-500",label:"Good Match"},explore:{bg:"bg-amber-50",border:"border-amber-200",badge:"bg-amber-100 text-amber-800",dot:"bg-amber-500",label:"Worth Exploring"}}[strength];
-  var signals=role.signals.map(function(s){return '<span class="bg-white border border-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-lg">&#10003; '+s+'</span>';}).join('');
-  var tips=role.tips.map(function(t){return '<li class="text-xs text-slate-600 flex gap-2"><span class="text-slate-300 shrink-0 mt-0.5">&#8594;</span>'+t+'</li>';}).join('');
-  var html='<div class="border rounded-2xl p-5 '+cfg.bg+' '+cfg.border+'"><div class="flex items-start justify-between gap-3 mb-4"><div><div class="text-sm font-bold text-slate-900">'+role.title+'</div><div class="text-xs text-slate-500 mt-0.5">&#128176; '+role.salary+' + equity &middot; &#128205; Paris</div></div><span class="text-xs font-semibold px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 '+cfg.badge+'"><span class="w-1.5 h-1.5 rounded-full '+cfg.dot+' inline-block"></span>'+cfg.label+'</span></div><div class="mb-4"><div class="text-xs font-semibold text-slate-600 mb-2">Detected from your profile:</div><div class="flex flex-wrap gap-1.5">'+signals+'</div></div><div class="mb-4"><div class="text-xs font-semibold text-slate-600 mb-2">What to highlight when you apply:</div><ul class="space-y-1.5">'+tips+'</ul></div><a href="'+role.link+'" target="_blank" class="block w-full bg-slate-900 text-white text-xs font-semibold py-3 rounded-xl text-center hover:bg-slate-700 transition-colors mb-2">Apply for this role &#8599;</a><button onclick="resetMatch()" class="w-full text-xs text-slate-400 py-1 hover:text-slate-600 transition-colors">Try a different profile</button></div>';
+  var role=ROLES_MATCH[key];
+  var cfg={
+    strong:{bg:"#F0FDF4",border:"#BBF7D0",badge:"#DCFCE7",badgeText:"#166534",dot:"#22C55E",label:"Strong Match"},
+    good:{bg:"#EFF6FF",border:"#BFDBFE",badge:"#DBEAFE",badgeText:"#1E40AF",dot:"#3B82F6",label:"Good Match"},
+    explore:{bg:"#FFFBEB",border:"#FDE68A",badge:"#FEF3C7",badgeText:"#92400E",dot:"#F59E0B",label:"Worth Exploring"}
+  }[strength];
+  var signals=role.signals.map(function(s){return '<span style="background:#fff;border:1px solid #E2E8F0;color:#334155;font-size:11px;padding:3px 8px;border-radius:6px;font-weight:500">&#10003; '+s+'</span>';}).join('');
+  var tips=role.tips.map(function(t){return '<li style="font-size:12px;color:#475569;display:flex;gap:8px;margin-bottom:6px"><span style="color:#CBD5E1;flex-shrink:0;margin-top:1px">&#8594;</span>'+t+'</li>';}).join('');
+  var html='<div style="border:1px solid '+cfg.border+';border-radius:16px;padding:20px;background:'+cfg.bg+'">'
+    +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px">'
+    +'<div><div style="font-size:14px;font-weight:700;color:#0F172A;margin-bottom:4px">'+role.title+'</div><div style="font-size:11px;color:#64748B">&#128176; '+role.salary+' + equity &middot; &#128205; Paris</div></div>'
+    +'<span style="font-size:11px;font-weight:700;padding:5px 10px;border-radius:9999px;background:'+cfg.badge+';color:'+cfg.badgeText+';display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0"><span style="width:6px;height:6px;border-radius:50%;background:'+cfg.dot+';display:inline-block"></span>'+cfg.label+'</span>'
+    +'</div>'
+    +'<div style="margin-bottom:14px"><div style="font-size:11px;font-weight:600;color:#475569;margin-bottom:7px">Detected from your profile:</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+signals+'</div></div>'
+    +'<div style="margin-bottom:16px"><div style="font-size:11px;font-weight:600;color:#475569;margin-bottom:7px">What to highlight when you apply:</div><ul style="margin:0;padding:0;list-style:none">'+tips+'</ul></div>'
+    +'<a href="'+role.link+'" target="_blank" style="display:block;width:100%;background:#0F172A;color:#fff;font-size:12px;font-weight:700;padding:12px;border-radius:10px;text-align:center;text-decoration:none;box-sizing:border-box;margin-bottom:8px">Apply for this role &#8599;</a>'
+    +'<button onclick="resetMatch()" style="width:100%;font-size:11px;color:#94A3B8;background:none;border:none;cursor:pointer;padding:4px">Try a different profile</button>'
+    +'</div>';
   var f=document.getElementById('match-form'),r=document.getElementById('match-result');
   if(f)f.style.display='none';
   if(r){r.style.display='block';r.innerHTML=html;}
