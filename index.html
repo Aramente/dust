@@ -1,416 +1,493 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dust — Join the crew</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dust — Everything you need to know</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  *{font-family:'Inter',sans-serif;box-sizing:border-box;margin:0;padding:0}
-  body{background:#fff;height:100vh;overflow:hidden}
-  .fade{animation:fi .35s ease}
-  @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-  .dot-on{width:22px;height:6px;background:#0F172A;border-radius:9999px;border:none;cursor:pointer;padding:0;transition:all .2s}
-  .dot-off{width:6px;height:6px;background:#CBD5E1;border-radius:9999px;border:none;cursor:pointer;padding:0;transition:all .2s}
-  .dot-off:hover{background:#94A3B8}
-  .tab-on{background:#0F172A!important;color:#fff!important}
-  .tab-off{background:transparent!important;color:#94A3B8!important}
-  a{color:inherit;text-decoration:none}
-  button{cursor:pointer}
-  .card{background:#fff;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;transition:border-color .15s}
-  .card:hover{border-color:#94A3B8}
-  .tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block}
-  .tag-blue{background:#EFF6FF;color:#1D4ED8}
-  .tag-green{background:#F0FDF4;color:#166534}
-  .tag-slate{background:#F8FAFC;color:#475569}
-  .tag-purple{background:#F5F3FF;color:#6D28D9}
-  .apply-btn{display:inline-block;background:#0F172A;color:#fff;font-size:11px;font-weight:700;padding:8px 14px;border-radius:8px;white-space:nowrap;transition:opacity .15s}
-  .apply-btn:hover{opacity:.85}
-  .role-primary{border:1px solid #0F172A!important;box-shadow:0 1px 6px rgba(0,0,0,.08)}
-  .scroll-panel{overflow-y:auto;height:100%}
-  .scroll-panel::-webkit-scrollbar{width:4px}
-  .scroll-panel::-webkit-scrollbar-track{background:transparent}
-  .scroll-panel::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:4px}
-  .ob-btn{width:100%;text-align:left;border:1px solid #E2E8F0;border-radius:12px;padding:14px 16px;margin-bottom:8px;background:#fff;transition:all .15s}
-  .ob-btn:hover{border-color:#0F172A;background:#F8FAFC}
+*{font-family:Inter,sans-serif;box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;height:100vh;overflow:hidden}
+.fade{animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+a{color:inherit;text-decoration:none}button{cursor:pointer}
+.lbl{font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.h2{font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px}
+.desc{font-size:13px;color:#64748B;line-height:1.65;margin-bottom:18px}
+.card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;transition:border-color .15s}
+.card:hover{border-color:#94A3B8}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sk{background:#F1F5F9;color:#475569;font-size:10px;font-weight:600;padding:3px 7px;border-radius:5px}
+.pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block}
+.pb{background:#EFF6FF;color:#1D4ED8}.pp{background:#F5F3FF;color:#6D28D9}.pg{background:#F0FDF4;color:#166534}
+.sp{overflow-y:auto;height:100%}.sp::-webkit-scrollbar{width:4px}.sp::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:4px}
+.ob-btn{width:100%;text-align:left;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px 16px;margin-bottom:8px;background:#fff;transition:all .18s;display:flex;align-items:center;justify-content:space-between}
+.ob-btn:hover{border-color:#0F172A;background:#FAFAFA}.ob-btn:hover .oa{opacity:1;transform:none}
+.oa{opacity:0;transform:translateX(-4px);transition:all .18s;color:#94A3B8}
+.cb{padding:9px 13px;border-radius:12px;font-size:12px;line-height:1.55;max-width:80%}
+.ub{background:#0F172A;color:#fff;margin-left:auto;border-bottom-right-radius:3px}
+.ab{background:#F8FAFC;border:1px solid #E2E8F0;color:#334155;border-bottom-left-radius:3px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cur{display:inline-block;width:2px;height:12px;background:#0F172A;vertical-align:middle;animation:blink 1s infinite}
 </style>
 </head>
 <body>
+<div id="ts-host" style="position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden"></div>
 
-<!-- ═══ ONBOARDING ═══ -->
-<div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
-  <div style="max-width:440px;width:100%">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:44px">
-      <img src="https://dust.tt/static/favicon.png" width="22" height="22" style="border-radius:5px">
-      <span style="font-weight:800;font-size:18px;letter-spacing:-0.03em;color:#0F172A">dust</span>
-      <span style="color:#CBD5E1;margin:0 4px">·</span>
+<div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-120px;right:-120px;opacity:.04;pointer-events:none"><img src="https://dust.tt/static/landing/industry/d-blue.svg" width="460" height="460" alt=""></div>
+  <div style="position:absolute;bottom:-100px;left:-100px;opacity:.035;pointer-events:none"><img src="https://dust.tt/static/landing/industry/d-red.svg" width="360" height="360" alt=""></div>
+  <div style="max-width:440px;width:100%;position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:44px">
+      <img src="https://dust.tt/apple-touch-icon.png" width="32" height="32" style="border-radius:8px">
+      <span style="font-weight:900;font-size:20px;letter-spacing:-.05em;color:#0F172A">dust</span>
+      <div style="width:1px;height:16px;background:#E2E8F0;margin:0 4px"></div>
       <span style="font-size:12px;color:#94A3B8;font-weight:500">Candidate Experience</span>
     </div>
-    <div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">One question</div>
-    <h1 style="font-size:26px;font-weight:900;color:#0F172A;letter-spacing:-0.03em;line-height:1.2;margin-bottom:8px">Which area are you exploring?</h1>
-    <p style="font-size:13px;color:#64748B;margin-bottom:28px;line-height:1.5">Your answer shapes the entire experience — the roles, articles, and case studies shown are matched to your function.</p>
-    <button class="ob-btn" onclick="pick('eng')"><div style="font-size:13px;font-weight:700;color:#0F172A">Engineering</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Software Engineer, AI Builder, Platform</div></button>
-    <button class="ob-btn" onclick="pick('gtm')"><div style="font-size:13px;font-weight:700;color:#0F172A">Sales & GTM</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Account Executive, BDR, GTM Engineer, Solutions Engineer</div></button>
-    <button class="ob-btn" onclick="pick('cs')"><div style="font-size:13px;font-weight:700;color:#0F172A">Customer & Post-Sales</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Customer Success, AI Support, Deployment Strategist</div></button>
-    <button class="ob-btn" onclick="pick('people')"><div style="font-size:13px;font-weight:700;color:#0F172A">Talent, People & Ops</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Talent Acquisition, People Ops, Operations, Legal</div></button>
-    <button class="ob-btn" onclick="pick('product')"><div style="font-size:13px;font-weight:700;color:#0F172A">Product, Data & Design</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Product Design, Data Analyst, Growth Engineer, Marketing</div></button>
+    <div class="lbl">One question to start</div>
+    <h1 style="font-size:28px;font-weight:900;color:#0F172A;letter-spacing:-.03em;line-height:1.15;margin-bottom:10px">Which area are you<br>exploring at Dust?</h1>
+    <p class="desc">Your roles and case studies are matched to your function. Everything else — culture, product, team, comp — is the same for everyone.</p>
+    <button class="ob-btn" onclick="pick('eng')"><div><div style="font-size:13px;font-weight:700;color:#0F172A">Engineering</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Software Engineer, AI Builder, Platform</div></div><span class="oa">→</span></button>
+    <button class="ob-btn" onclick="pick('gtm')"><div><div style="font-size:13px;font-weight:700;color:#0F172A">Sales &amp; GTM</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Account Executive, BDR, GTM Engineer, SE</div></div><span class="oa">→</span></button>
+    <button class="ob-btn" onclick="pick('cs')"><div><div style="font-size:13px;font-weight:700;color:#0F172A">Customer &amp; Post-Sales</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Customer Success, AI Support, Deployment</div></div><span class="oa">→</span></button>
+    <button class="ob-btn" onclick="pick('people')"><div><div style="font-size:13px;font-weight:700;color:#0F172A">Talent, People &amp; Ops</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Talent Acquisition, People Ops, Legal</div></div><span class="oa">→</span></button>
+    <button class="ob-btn" onclick="pick('product')"><div><div style="font-size:13px;font-weight:700;color:#0F172A">Product, Data &amp; Design</div><div style="font-size:11px;color:#94A3B8;margin-top:3px">Product Design, Data Analyst, Growth</div></div><span class="oa">→</span></button>
+    <div style="margin-top:18px;display:flex;align-items:center;gap:8px"><span style="width:5px;height:5px;background:#10B981;border-radius:50%"></span><span style="font-size:11px;color:#94A3B8">26 open roles · Paris &amp; SF</span><span style="color:#E2E8F0">·</span><a href="https://dust.tt/jobs" target="_blank" style="font-size:11px;color:#64748B;font-weight:600">dust.tt/jobs ↗</a></div>
   </div>
 </div>
 
-<!-- ═══ TOUR ═══ -->
 <div id="tour" style="display:none;height:100vh;flex-direction:column">
-
-  <!-- HEADER -->
-  <div style="border-bottom:1px solid #F1F5F9;padding:0 20px;height:46px;display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <img src="https://dust.tt/static/favicon.png" width="16" height="16" style="border-radius:3px">
-    <span style="font-weight:800;font-size:14px;letter-spacing:-0.02em;color:#0F172A">dust</span>
-    <span style="color:#E2E8F0">·</span>
-    <span id="cat-label" style="font-size:11px;color:#94A3B8;font-weight:500"></span>
-    <div id="tabs" style="display:flex;gap:2px;margin-left:auto"></div>
+  <div style="border-bottom:1px solid #F1F5F9;padding:0 20px;height:48px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <img src="https://dust.tt/apple-touch-icon.png" width="22" height="22" style="border-radius:6px">
+    <span style="font-weight:900;font-size:15px;letter-spacing:-.04em;color:#0F172A">dust</span>
+    <div style="width:1px;height:14px;background:#E2E8F0"></div>
+    <span id="cat-label" style="font-size:11px;color:#94A3B8;font-weight:600"></span>
+    <div id="tabs" style="display:flex;gap:2px;margin-left:auto;overflow-x:auto"></div>
   </div>
-
-  <!-- BODY -->
   <div style="flex:1;display:flex;overflow:hidden">
-
-    <!-- LEFT -->
-    <div style="width:272px;border-right:1px solid #F1F5F9;display:flex;flex-direction:column;flex-shrink:0;background:#FAFAFA">
-      <div style="flex:1;padding:22px;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="width:252px;border-right:1px solid #F1F5F9;display:flex;flex-direction:column;flex-shrink:0;background:#FAFAFA">
+      <div style="flex:1;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
         <div>
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px">
-            <div style="width:30px;height:30px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:10px;font-weight:700">A</span></div>
-            <div><div style="font-size:11px;font-weight:700;color:#0F172A">Alex</div><div style="font-size:10px;color:#94A3B8">Dust · Recruiting Guide</div></div>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px">
+            <div style="width:28px;height:28px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:10px;font-weight:700">A</span></div>
+            <div><div style="font-size:11px;font-weight:700;color:#0F172A">Alex</div><div style="font-size:10px;color:#94A3B8">Dust Recruiting Guide</div></div>
             <span style="margin-left:auto;width:6px;height:6px;background:#10B981;border-radius:50%"></span>
           </div>
           <div id="cap"></div>
         </div>
         <div>
-          <div id="dots" style="display:flex;gap:6px;margin-bottom:18px"></div>
-          <div style="display:flex;gap:8px">
-            <button id="btnP" onclick="prev()" style="flex:1;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:9px;border-radius:9px;background:#fff">&#8592; Back</button>
-            <button id="btnN" onclick="next()" style="flex:1;background:#0F172A;color:#fff;font-size:11px;font-weight:600;padding:9px;border-radius:9px;border:none">Next &#8594;</button>
+          <div id="dots" style="display:flex;gap:5px;margin-bottom:13px"></div>
+          <div style="display:flex;gap:7px">
+            <button id="btnP" onclick="prev()" style="flex:1;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:8px;border-radius:8px;background:#fff">← Back</button>
+            <button id="btnN" onclick="next()" style="flex:1;background:#0F172A;color:#fff;font-size:11px;font-weight:600;padding:8px;border-radius:8px;border:none">Next →</button>
           </div>
         </div>
       </div>
-      <div style="border-top:1px solid #E2E8F0;padding:9px 14px;display:flex;align-items:center;gap:6px">
-        <span style="width:5px;height:5px;background:#10B981;border-radius:50%"></span>
+      <div style="border-top:1px solid #E2E8F0;padding:7px 13px;display:flex;align-items:center;gap:6px">
+        <img src="https://dust.tt/apple-touch-icon.png" width="12" height="12" style="border-radius:3px;opacity:.5">
         <span id="cat-footer" style="font-size:10px;color:#94A3B8"></span>
       </div>
     </div>
-
-    <!-- RIGHT -->
-    <div id="rp" class="scroll-panel" style="flex:1"></div>
+    <div id="rp" class="sp" style="flex:1"></div>
   </div>
 </div>
 
 <script>
-var CAT='', SEC=0;
-var LABELS=['Mission','Product','Thinking','Culture','Hiring','Team','Roles'];
-
-// ── BLOG ARTICLES ──
-var IMG={
-  'eng-process':'https://images.ctfassets.net/751ge4ljeqso/6qcvksLDBMqW9cDaSHpMmW/295ba81f5c43ac503a7a92f863ecdf9d/Engineering_hiring_process.jpg?w=800&fm=webp&q=75',
-  'build-run':'https://images.ctfassets.net/751ge4ljeqso/4HPu6D3nEOeFip7CFctI29/2fb8b707f0104ede7eee2e845f6ef54a/BuildVsRun_Cover.jpg?w=800&fm=webp&q=75',
-  'interviews':'https://images.ctfassets.net/751ge4ljeqso/7md4GywNDhcaUaV9khKcWF/5546e9f733b3f6ede036cd667a4a3e45/image.png?w=800&fm=webp&q=75',
-  'no-pms':'https://images.ctfassets.net/751ge4ljeqso/72Wlz12isH8V9j5NKqniza/05c5bfeb7447fddd78d195a486e42c3f/image.png?w=800&fm=webp&q=75',
-  'dust-for-dust':'https://images.ctfassets.net/751ge4ljeqso/21MynLrJpzBsOrooJOcQ2p/3c31a5b66a19924db2f7f4faf6fdb5de/image.png?w=800&fm=webp&q=75',
-  'free-market':'https://images.ctfassets.net/751ge4ljeqso/7lBib9mS1iZi76zBhYHSFk/518e0e029ebafd4f92442b185cac2a16/image.png?w=800&fm=webp&q=75',
-  'build-person':'https://images.ctfassets.net/751ge4ljeqso/20IW6HSj7YSYgT0JBLq9sm/071531a5222576fd510694ee6061b24e/image.png?w=800&fm=webp&q=75'
-};
-var ARTICLES={
-  eng:[
-    {img:IMG['no-pms'],tag:'Culture',tagClass:'tag-green',title:'Product Is Everyone\'s Job',date:'Mar 2025',excerpt:'No PMs at Dust. Engineers own features end-to-end — discovery, specs, launch, monitoring. This is what the DRI model means in practice.',link:'https://dust.tt/blog/no-pms-just-builders'},
-    {img:IMG['dust-for-dust'],tag:'How we work',tagClass:'tag-blue',title:'Dust for Dust',date:'Apr 2025',excerpt:'How Dust engineers use their own product every day. @Q generates PR drafts. @eng handles first-line triage. @pr_review automated against internal standards.',link:'https://dust.tt/blog/dust-for-dust'},
-    {img:IMG['build-run'],tag:'Thinking',tagClass:'tag-purple',title:'Build vs Run',date:'Jan 2026',excerpt:'AI amplifies build jobs and shifts their ratio even further toward building. Mediocrity becomes the #1 enemy. Dust\'s framework for post-AI engineering orgs.',link:'https://dust.tt/blog/build-vs-run'}
-  ],
-  gtm:[
-    {img:IMG['build-run'],tag:'Thinking',tagClass:'tag-purple',title:'Build vs Run',date:'Jan 2026',excerpt:'GTM is a zero-sum game. Any competitor using AI is gaining on you. This is why Dust argues GTM orgs need to over-invest in AI while still scaling headcount aggressively.',link:'https://dust.tt/blog/build-vs-run'},
-    {img:IMG['interviews'],tag:'Hiring',tagClass:'tag-blue',title:'Interviews at Dust',date:'May 2025',excerpt:'GTM candidates work on actual business challenges during onsite day — not slides or theory. Full Dust access, Slack channel, real account problems.',link:'https://dust.tt/blog/interviews-at-dust'},
-    {img:IMG['build-person'],tag:'Culture',tagClass:'tag-green',title:'Build in Person',date:'Feb 2025',excerpt:'Office-first by design. Paris and SF. The kind of spontaneous, high-bandwidth collaboration that only happens when talented people share the same space.',link:'https://dust.tt/blog/build-in-person'}
-  ],
-  cs:[
-    {img:IMG['build-run'],tag:'Thinking',tagClass:'tag-purple',title:'Build vs Run',date:'Jan 2026',excerpt:'Post-sales is where the run/build ratio matters most. Dust\'s framework: automate the repeatable, amplify the human. Why CS teams scale with AI rather than despite it.',link:'https://dust.tt/blog/build-vs-run'},
-    {img:IMG['interviews'],tag:'Hiring',tagClass:'tag-blue',title:'Interviews at Dust',date:'May 2025',excerpt:'CS and post-sales candidates spend onsite day on actual customer challenges — prioritizing feedback, framing projects, working inside Dust with a real Slack channel.',link:'https://dust.tt/blog/interviews-at-dust'},
-    {img:IMG['dust-for-dust'],tag:'How we work',tagClass:'tag-green',title:'Dust for Dust',date:'Apr 2025',excerpt:'How Dust uses its own product internally. Every workflow runs through agents — this is what you\'d be helping customers replicate.',link:'https://dust.tt/blog/dust-for-dust'}
-  ],
-  people:[
-    {img:IMG['free-market'],tag:'Values',tagClass:'tag-purple',title:'Let the Free Market Win',date:'Oct 2025',excerpt:'Dust\'s public stance on non-poaching agreements in French tech. A direct read into how leadership thinks about talent, competition, and fairness.',link:'https://dust.tt/blog/let-the-free-market-win'},
-    {img:IMG['eng-process'],tag:'Process',tagClass:'tag-blue',title:'Engineering Hiring Process at Dust',date:'Jan 2026',excerpt:'The full hiring process published — openly. Every stage, what\'s assessed, how fast feedback comes. The standard the TA team owns and evolves.',link:'https://dust.tt/blog/engineering-hiring-process-at-dust'},
-    {img:IMG['interviews'],tag:'Hiring',tagClass:'tag-green',title:'Interviews at Dust',date:'May 2025',excerpt:'What Dust looks for across all functions: ownership, communication, product thinking. Includes the full-day onsite format for both engineers and GTM.',link:'https://dust.tt/blog/interviews-at-dust'}
-  ],
-  product:[
-    {img:IMG['no-pms'],tag:'Culture',tagClass:'tag-green',title:'Product Is Everyone\'s Job',date:'Mar 2025',excerpt:'At Dust, designers and analysts own outcomes — not deliverables. The DRI model means you shape direction, not just execute on it.',link:'https://dust.tt/blog/no-pms-just-builders'},
-    {img:IMG['build-run'],tag:'Thinking',tagClass:'tag-purple',title:'Build vs Run',date:'Jan 2026',excerpt:'A framework that changes how you think about product and data roles post-AI. Build functions scale sub-linearly — and that\'s a feature, not a bug.',link:'https://dust.tt/blog/build-vs-run'},
-    {img:IMG['dust-for-dust'],tag:'How we work',tagClass:'tag-blue',title:'Dust for Dust',date:'Apr 2025',excerpt:'Real workflows. @Q, @eng, @incidentQ — each agent has full company context. This is what the product enables.',link:'https://dust.tt/blog/dust-for-dust'}
-  ]
-};
-
-// ── CASE STUDIES ──
-var CASES={
-  eng:[
-    {co:'Watershed',metric:'90%',label:'of team using Dust agents',quote:'"We asked what if your team had 20% more time? Dust made it possible."',author:'Matthieu Birach',role:'Chief People Officer',logo:'watershed',link:'https://dust.tt/customers/how-watershed-got-90-of-its-team-to-leverage-dust-agents'},
-    {co:'Persona',metric:'80%',label:'AI agent adoption',quote:'"Dust could serve as a knowledgeable buddy for all staff — from day one to veteran."',author:'Boris Lipiainen',role:'CPTO, Kyriba',logo:'persona',link:'https://dust.tt/customers/how-persona-hit-80-ai-agent-adoption-with-dust'}
-  ],
-  gtm:[
-    {co:'Clay',metric:'10×',label:'GTM output scaling',quote:'"Most impactful software we\'ve adopted since building Clay. It delivers immediate value."',author:'Everett Berry',role:'Head of GTM Engineering, Clay',logo:'clay',link:'https://dust.tt/customers/clay-scaling-gtme-team'},
-    {co:'Vanta',metric:'1,000s',label:'GTM hours saved annually',quote:'"Dust transformed how our GTM team prepares, runs, and follows up on every deal."',author:'',role:'Vanta GTM Team',logo:'vanta',link:'https://dust.tt/customers/how-vantas-gtm-team-saves-thousands-of-hours-annually-with-dust'}
-  ],
-  cs:[
-    {co:'Profound',metric:'1,800',label:'post-sales hours reclaimed',quote:'"From account research to renewals — Dust runs in the background of every customer interaction."',author:'',role:'Profound Post-Sales Team',logo:'profound',link:'https://dust.tt/customers/profound-post-sales-team-reclaimed-1800-hours'},
-    {co:'Assembled',metric:'AI-first',label:'CS operating model',quote:'"We now run CS like a product org. Dust is the connective tissue between our team and our customers."',author:'',role:'Assembled CS Team',logo:'assembled',link:'https://dust.tt/customers/part-1-assembled-ai-operating-system'}
-  ],
-  people:[
-    {co:'Doctolib',metric:'+20%',label:'effective capacity',quote:'"We asked for years: what if your team had 20% more time? Dust made it possible."',author:'Matthieu Birach',role:'Chief People Officer, Doctolib',logo:'datadog',link:'https://dust.tt/customers'},
-    {co:'Kyriba',metric:'All-staff',label:'AI adoption achieved',quote:'"It became evident that Dust could serve as a knowledgeable buddy for all staff."',author:'Boris Lipiainen',role:'CPTO, Kyriba',logo:'1password',link:'https://dust.tt/customers'}
-  ],
-  product:[
-    {co:'Wakam',metric:'Days → mins',label:'partner research turnaround',quote:'"Condensing days of manual research into minutes of AI-powered conversation."',author:'Alexandre Morillon',role:'CEO, Wakam',logo:'watershed',link:'https://dust.tt/customers'},
-    {co:'Malt',metric:'6 min → secs',label:'ticket processing time',quote:'"Managing higher volume and cut processing time from 6 minutes per ticket to just seconds."',author:'Anaïs Ghelfi',role:'Head of Data Platform, Malt',logo:'1password',link:'https://dust.tt/customers'}
-  ]
-};
-
-// ── ROLES ──
-var ROLES={
-  eng:[
-    {title:'Software Engineer',dept:'Engineering',loc:'Paris',salary:'€40K–€150K',top:true,skills:['TypeScript','Rust','Kubernetes','PostgreSQL'],link:'https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766'},
-    {title:'Software Engineer, Frontend',dept:'Engineering',loc:'Paris',salary:'€60K–€150K',top:false,skills:['React','Next.js','TypeScript','shadcn/ui'],link:'https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34'},
-    {title:'AI Builder (Open Role)',dept:'General',loc:'Paris · SF',salary:'Competitive',top:false,skills:['Builder mindset','AI passion','Ownership'],link:'https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a'}
-  ],
-  gtm:[
-    {title:'Account Executive',dept:'Sales',loc:'Paris · SF',salary:'Competitive + equity',top:true,skills:['B2B SaaS','Quota-carrying','Enterprise'],link:'https://jobs.ashbyhq.com/dust/490980d2-422c-4329-8776-093e74e9a91f'},
-    {title:'GTM Engineer',dept:'Sales',loc:'San Francisco',salary:'$135K–$200K + equity',top:false,skills:['GTM engineering','RevOps','Automation'],link:'https://jobs.ashbyhq.com/dust/20ab3e5a-21e9-412c-8289-420d9530f779'},
-    {title:'Solutions Engineer, Pre-Sales',dept:'Sales',loc:'Paris · SF',salary:'Competitive',top:false,skills:['Pre-sales','Technical demos','AI products'],link:'https://jobs.ashbyhq.com/dust/b310c837-22e8-4d23-8a5a-d0b1f71fa1db'},
-    {title:'Business Development Rep',dept:'Sales',loc:'Paris',salary:'€45K–€65K + equity',top:false,skills:['Outbound','B2B SaaS','Prospecting'],link:'https://jobs.ashbyhq.com/dust/d5c3c528-bea4-44ea-911f-c3b9c768fef6'}
-  ],
-  cs:[
-    {title:'Customer Success Manager',dept:'Customer Experience',loc:'Paris',salary:'Competitive',top:true,skills:['Retention','Onboarding','AI products'],link:'https://jobs.ashbyhq.com/dust/949b4370-93b5-4629-8060-2fe0aca0d016'},
-    {title:'AI Support Engineer',dept:'Customer Experience',loc:'Paris · SF',salary:'Competitive',top:false,skills:['Technical support','AI products','Customer empathy'],link:'https://jobs.ashbyhq.com/dust/31640a53-7c85-416b-9c95-610445a55e81'},
-    {title:'Founding AI Deployment Strategist',dept:'Customer Experience',loc:'San Francisco',salary:'$135K–$200K',top:false,skills:['Post-sales','AI deployment','Adoption'],link:'https://jobs.ashbyhq.com/dust/c97de2e4-93e8-4c24-b237-61ff3b16ce3c'},
-    {title:'Solutions Engineer, Post-Sales',dept:'Customer Experience',loc:'Paris',salary:'Competitive',top:false,skills:['Implementation','Technical CS','Product depth'],link:'https://jobs.ashbyhq.com/dust/cde42464-4844-4545-a1cd-b88f494d2661'}
-  ],
-  people:[
-    {title:'Senior Talent Acquisition Partner',dept:'Talent',loc:'Paris · London',salary:'Competitive',top:true,skills:['Tech hiring','Candidate experience','Sourcing'],link:'https://jobs.ashbyhq.com/dust/5f996467-a3ff-404b-922d-c39c2c718f75'},
-    {title:'Senior People Ops',dept:'People',loc:'Paris · NY · SF',salary:'Competitive',top:false,skills:['HR ops','Comp & benefits','Org scaling'],link:'https://jobs.ashbyhq.com/dust/5c4e9423-e7ca-48e1-9272-63071ccb4ce9'},
-    {title:'Founders Associate',dept:'Operations',loc:'Paris',salary:'Internship',top:false,skills:['Generalist','Operations','Founding team exposure'],link:'https://jobs.ashbyhq.com/dust/5a9c0db2-8c8c-4761-a551-70064025e6f4'},
-    {title:'General Counsel',dept:'Legal',loc:'Paris · NY · SF',salary:'€180K–€210K + equity',top:false,skills:['Corporate law','Privacy','Compliance'],link:'https://jobs.ashbyhq.com/dust/4a5b5dee-4f38-444b-adff-67e1bad89e75'}
-  ],
-  product:[
-    {title:'Senior Product Design',dept:'Product Design',loc:'Paris',salary:'Competitive',top:true,skills:['Product design','UX','Figma','User research'],link:'https://jobs.ashbyhq.com/dust/a58a9807-026c-469d-a550-582565b54329'},
-    {title:'Product Data Analyst',dept:'Data',loc:'Paris',salary:'€70K–€110K',top:false,skills:['SQL','A/B testing','Product metrics'],link:'https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883'},
-    {title:'Growth Engineer',dept:'Marketing',loc:'San Francisco',salary:'$100K–$200K',top:false,skills:['Growth','Data','Engineering'],link:'https://jobs.ashbyhq.com/dust/18f24ccf-5182-4099-8802-ab9b36e88db7'},
-    {title:'Field Marketing Manager',dept:'Marketing',loc:'San Francisco',salary:'$120K–$160K',top:false,skills:['Events','Demand gen','Brand'],link:'https://jobs.ashbyhq.com/dust/d0ef7e05-497b-4860-aec2-8a8226efd647'}
-  ]
-};
-
-// ── CAPTIONS ──
+var CAT='',SEC=0;
+var TL=['Mission','Product','Use Cases','How We Work','Hiring & Comp','The Team','Open Roles','Ask Dust'];
 var CAPS={
-  eng:['One belief. AI only works as team infrastructure — not individual tools.','See what building an agent actually looks like. No code.','How Dust thinks about engineering, AI, and what comes next.','Office-first in Paris and SF. Here\'s why.','Five steps. Clear feedback. No whiteboard puzzles.','~40 people. Alumni from OpenAI, Stripe, Front, Google.','Open roles matched to your background, plus the companies doing this at scale.'],
-  gtm:['One belief. AI in GTM isn\'t optional — it\'s competitive survival.','See what deploying an agent for a sales team looks like.','How Dust thinks about GTM, AI, and the zero-sum race for revenue.','Office-first in Paris and SF. Why in-person matters in GTM.','What onsite day looks like for GTM candidates. Real work, real accounts.','~40 people. The founders have scaled GTM before.','Open roles for your track, plus the companies already winning with Dust.'],
-  cs:['One belief. CS doesn\'t scale by hiring more people. It scales by amplifying each one.','See what a CS agent built in Dust looks like in practice.','How Dust thinks about post-sales in an AI-first world.','Office-first in Paris and SF — because CS problems get solved faster in person.','What the hiring process looks like for post-sales roles at Dust.','~40 people. Deep product and GTM background.','Open post-sales roles and case studies from teams already doing this.'],
-  people:['One belief. Recruiting is a zero-sum game. The team using AI wins.','See what a Dust agent for HR/people looks like in practice.','How Dust thinks publicly about talent, non-poaching, and the market.','Office-first and transparent. Culture that gets written about.','The exact hiring process you\'d own — published openly for candidates.','~40 people, two offices. The team you\'d be hiring for.','Open roles and what companies using AI for people ops look like.'],
-  product:['One belief. Product is a shared responsibility — not a siloed function.','See what building a Dust agent for product and analytics looks like.','How Dust thinks about product roles, data, and the post-AI build function.','Office-first. Iteration speed and product quality are directly linked.','What the hiring process looks like for product and data candidates.','~40 people. Engineers who PM their own projects.','Open roles and the companies getting real value from product AI.']
+  eng:['The one belief everything is built on.','How it works — watch an agent get built in 30 sec.','What Dust does in the real world, every function.','No PMs, DRI model, EngOS. How Dust actually ships.','Five steps, full comp published. No puzzles.','80 people, Paris & SF. Meet every one of them.','Roles matched to your track + what teams have built.','Your questions — answered by a real Dust agent.'],
+  gtm:['The one belief everything is built on.','How it works — watch an agent get built in 30 sec.','GTM teams using Dust at scale — what it looks like.','No PMs, DRI model, EngOS. How Dust actually ships.','What onsite looks like + full comp framework.','80 people, Paris & SF. Meet every one of them.','Roles matched to your track + customer proof.','Your questions — answered by a real Dust agent.'],
+  cs:['The one belief everything is built on.','How it works — watch an agent get built in 30 sec.','Post-sales teams using Dust — the before/after.','No PMs, DRI model, EngOS. How Dust actually ships.','Process + comp framework, published openly.','80 people, Paris & SF. Meet every one of them.','Roles matched to your track + customer proof.','Your questions — answered by a real Dust agent.'],
+  people:['The one belief everything is built on.','How it works — watch an agent get built in 30 sec.','How Dust thinks about hiring, talent, and org design.','No PMs, DRI model, EngOS. How Dust actually ships.','The process you\'d own — fully published. Plus comp.','80 people, Paris & SF. Meet every one of them.','Roles matched to your track + customer proof.','Your questions — answered by a real Dust agent.'],
+  product:['The one belief everything is built on.','How it works — watch an agent get built in 30 sec.','Product and data teams using Dust — real examples.','No PMs, DRI model, EngOS. How Dust actually ships.','Process + comp framework, published openly.','80 people, Paris & SF. Meet every one of them.','Roles matched to your track + customer proof.','Your questions — answered by a real Dust agent.']
 };
+var CL={eng:'Engineering',gtm:'Sales & GTM',cs:'Customer & Post-Sales',people:'Talent, People & Ops',product:'Product, Data & Design'};
+var ROLES={
+  eng:[[true,'Software Engineer','Engineering · Paris · €40K–€150K',['TypeScript','Rust','PostgreSQL'],'https://jobs.ashbyhq.com/dust/ec0ae613-e480-4d93-b89f-1d6a89db9766'],[false,'Software Engineer, Frontend','Engineering · Paris · €60K–€150K',['React','Next.js','TypeScript'],'https://jobs.ashbyhq.com/dust/0e76888e-d271-485c-b72c-9d344b595f34'],[false,'AI Builder','General · Paris · SF · Competitive',['Builder mindset','AI passion'],'https://jobs.ashbyhq.com/dust/11b8dbb0-6859-4826-b05c-083474483e1a']],
+  gtm:[[true,'Account Executive','Sales · Paris · SF · Competitive',['B2B SaaS','Enterprise'],'https://jobs.ashbyhq.com/dust/490980d2-422c-4329-8776-093e74e9a91f'],[false,'GTM Engineer','Sales · San Francisco · $135K–$200K',['GTM engineering','Automation'],'https://jobs.ashbyhq.com/dust/20ab3e5a-21e9-412c-8289-420d9530f779'],[false,'Solutions Engineer','Sales · Paris · SF · Competitive',['Pre-sales','Technical demos'],'https://jobs.ashbyhq.com/dust/b310c837-22e8-4d23-8a5a-d0b1f71fa1db'],[false,'BDR','Sales · Paris · €45K–€65K',['Outbound','Prospecting'],'https://jobs.ashbyhq.com/dust/d5c3c528-bea4-44ea-911f-c3b9c768fef6']],
+  cs:[[true,'Customer Success Manager','CX · Paris · Competitive',['Retention','Onboarding'],'https://jobs.ashbyhq.com/dust/949b4370-93b5-4629-8060-2fe0aca0d016'],[false,'AI Support Engineer','CX · Paris · SF · Competitive',['Technical support','AI products'],'https://jobs.ashbyhq.com/dust/31640a53-7c85-416b-9c95-610445a55e81'],[false,'AI Deployment Strategist','CX · San Francisco · $135K–$200K',['Post-sales','AI adoption'],'https://jobs.ashbyhq.com/dust/c97de2e4-93e8-4c24-b237-61ff3b16ce3c']],
+  people:[[true,'Senior Talent Acquisition Partner','Talent · Paris · Competitive',['Tech hiring','Sourcing'],'https://jobs.ashbyhq.com/dust/5f996467-a3ff-404b-922d-c39c2c718f75'],[false,'Senior People Ops','People · Paris · NY · SF',['HR ops','Comp & benefits'],'https://jobs.ashbyhq.com/dust/5c4e9423-e7ca-48e1-9272-63071ccb4ce9'],[false,'General Counsel','Legal · Paris · NY · SF · €180–210K',['Corporate law','Privacy'],'https://jobs.ashbyhq.com/dust/4a5b5dee-4f38-444b-adff-67e1bad89e75']],
+  product:[[true,'Senior Product Designer','Design · Paris · Competitive',['Product design','Figma','UX'],'https://jobs.ashbyhq.com/dust/a58a9807-026c-469d-a550-582565b54329'],[false,'Product Data Analyst','Data · Paris · €70–110K',['SQL','A/B testing'],'https://jobs.ashbyhq.com/dust/5426749b-1c1a-494b-932e-1299dbd4f883'],[false,'Growth Engineer','Marketing · SF · $100–200K',['Growth','Data'],'https://jobs.ashbyhq.com/dust/18f24ccf-5182-4099-8802-ab9b36e88db7']]
+};
+var CASES={
+  eng:[['Watershed','90%','of team using Dust','"What if your team had 20% more time? Dust made it possible."','watershed','https://dust.tt/customers/how-watershed-got-90-of-its-team-to-leverage-dust-agents'],['Persona','80%','agent adoption','"Dust could serve as a knowledgeable buddy for all staff."','persona','https://dust.tt/customers/how-persona-hit-80-ai-agent-adoption-with-dust']],
+  gtm:[['Clay','10×','GTM output scaling','"Most impactful software we\'ve adopted since building Clay."','clay','https://dust.tt/customers/clay-scaling-gtme-team'],['Vanta','1,000s','GTM hours saved','"Dust transformed how our GTM team prepares every deal."','vanta','https://dust.tt/customers/how-vantas-gtm-team-saves-thousands-of-hours-annually-with-dust']],
+  cs:[['Profound','1,800h','post-sales reclaimed','"Dust runs in the background of every customer interaction."','watershed','https://dust.tt/customers/profound-post-sales-team-reclaimed-1800-hours'],['Assembled','AI-first','CS operating model','"We now run CS like a product org. Dust is the connective tissue."','clay','https://dust.tt/customers/part-1-assembled-ai-operating-system']],
+  people:[['Doctolib','+20%','capacity per employee','"What if your team had 20% more time? Dust made it possible."','datadog','https://dust.tt/customers'],['Kyriba','All-staff','AI adoption','"Dust could serve as a knowledgeable buddy for all staff."','1password','https://dust.tt/customers']],
+  product:[['Malt','6min→secs','ticket processing','"Cut processing time from 6 minutes per ticket to seconds."','clay','https://dust.tt/customers'],['Wakam','Days→mins','partner research','"Condensing days of research into minutes of AI-powered conversation."','watershed','https://dust.tt/customers']]
+};
+var TEAM=[
+['Stanislas Polu','Co-founder, CTO','https://avatars.githubusercontent.com/u/15067'],
+['Gabriel Hubert','Co-founder, CEO','https://avatars.githubusercontent.com/u/998689'],
+['Henry Fontanier','Software Engineer','https://avatars.githubusercontent.com/u/14199823'],
+['Philippe Rolet','Software Engineer','https://avatars.githubusercontent.com/u/5437393'],
+['Edouard Wautier','Principal Designer','https://avatars.githubusercontent.com/u/4435185'],
+['Daphné Popin','Software Engineer','https://avatars.githubusercontent.com/u/3803406'],
+['Pauline Pham','Operations','https://avatars.githubusercontent.com/u/33726902'],
+['Flavien David','Software Engineer','https://avatars.githubusercontent.com/u/7428970'],
+['Nicolas Chinot','US GM','https://avatars.githubusercontent.com/u/13472346'],
+['Clément Bruneau','Sales','https://avatars.githubusercontent.com/u/120678252'],
+['Thibault Martin','GTM & Operations','https://avatars.githubusercontent.com/u/168569391'],
+['Jules Belveze','Software Engineer','https://avatars.githubusercontent.com/u/32683010'],
+['Thomas Draier','Software Engineer','https://avatars.githubusercontent.com/u/729255'],
+['Sébastien Flory','Software Engineer','https://avatars.githubusercontent.com/u/24419'],
+['Adèle Dugré','EMEA Customer Success','https://avatars.githubusercontent.com/u/180963192'],
+['Aubin Tchoi','Software Engineer','https://avatars.githubusercontent.com/u/60398825'],
+['Alexandre Pinot','Product Designer','https://avatars.githubusercontent.com/u/32997243'],
+['Amelie Deltombe','Marketing','https://avatars.githubusercontent.com/u/183381801'],
+['Theo Vanneufville','Operations','https://avatars.githubusercontent.com/u/190379594'],
+['Kevin Straszburger','Community','https://avatars.githubusercontent.com/u/7229871'],
+['Frank Aloia','Forward Deployed Eng','https://avatars.githubusercontent.com/u/201725577'],
+['Gina Kabasakalis','Go To Market','https://avatars.githubusercontent.com/u/202673816'],
+['Adrien Simon','Software Engineer','https://avatars.githubusercontent.com/u/99071153'],
+['Stephen Bronnec','Forward Deployed Eng','https://avatars.githubusercontent.com/u/11921176'],
+['Yuka Masuda','Software Engineer','https://avatars.githubusercontent.com/u/3702771'],
+['Victor Pery','Account Executive','https://avatars.githubusercontent.com/u/205647687'],
+['Gaëlle Caplier','Customer Success','https://avatars.githubusercontent.com/u/49072037'],
+['Léna Caloud','Customer Success','https://avatars.githubusercontent.com/u/212004840'],
+['David Ebbo','Software Engineer','https://avatars.githubusercontent.com/u/556238'],
+['Edouard Villette','Senior AE','https://avatars.githubusercontent.com/u/215458058'],
+['Vince Sarkisian','Solutions Engineer','https://avatars.githubusercontent.com/u/1455646'],
+['Louis Caulet','Enterprise AE','https://avatars.githubusercontent.com/u/218741719'],
+['Faateh Dhillon','Senior AE','https://ca.slack-edge.com/T050RH73H9P-U093VA8B7E0-e078a8e04a44-512'],
+['Nicole Kreider','Account Executive','https://avatars.githubusercontent.com/u/222190268'],
+['Lauriane Paour','Solution Engineer','https://avatars.githubusercontent.com/u/222254800'],
+['Côme Lucien-Brun','Account Executive','https://avatars.githubusercontent.com/u/227444187'],
+['Théo Gantzer','Data','https://avatars.githubusercontent.com/u/11852762'],
+['Okal Otieno','Solution Engineer','https://ca.slack-edge.com/T050RH73H9P-U09ATLV5RNX-f840cb7fa121-512'],
+['Zeïd Marouf','Security Engineer','https://ca.slack-edge.com/T050RH73H9P-U09DVNRFDJL-bbc7ebca4159-512'],
+['Rémy-C. Schermesser','Software Engineer','https://avatars.githubusercontent.com/u/16667'],
+['Pierre Milliotte','Software Engineer','https://avatars.githubusercontent.com/u/39985796'],
+['Alexandre Casanova','Enterprise AE','https://avatars.githubusercontent.com/u/229972775'],
+['Neyla Belmaachi','BDR','https://avatars.githubusercontent.com/u/129662164'],
+['Leandre Le Bizec','Forward Deployed Eng','https://avatars.githubusercontent.com/u/95234460'],
+['Ilias Bettahi','Support Engineer','https://avatars.githubusercontent.com/iliasbet'],
+['Fabien Celier','Software Engineer','https://avatars.githubusercontent.com/u/17087544'],
+['Christophe Jow','Software Engineer','https://avatars.githubusercontent.com/u/16521527'],
+['Gianna Gard','AI Deployment Strat.','https://avatars.githubusercontent.com/u/235716301'],
+['Ben Stoffel-Rosales','Account Executive','https://ca.slack-edge.com/T050RH73H9P-U09JG1NEUFJ-f63cb1b46c78-512'],
+['Astrid Le Faucheur','Solution Engineer','https://avatars.githubusercontent.com/u/237970272'],
+['Margherita Zama','Customer Success','https://avatars.githubusercontent.com/u/237991722'],
+['Alexandre Pinon','Software Engineer','https://avatars.githubusercontent.com/u/71273869'],
+['Jean-David Fiquet','Software Engineer','https://avatars.githubusercontent.com/u/6445595'],
+['Reece Batchelor','Talent Acquisition','https://ca.slack-edge.com/T050RH73H9P-U09S9S8PQTX-64b0620a0f35-72'],
+['Nic Siegle','Account Executive','https://ca.slack-edge.com/T050RH73H9P-U09SB8Q2DU6-65b85b4b1f83-72'],
+['Seth Mazow','Account Executive','https://ca.slack-edge.com/T050RH73H9P-U09SBL368JC-95d97a17fd2d-72'],
+['Bruno Murray','Customer Success','https://ca.slack-edge.com/T050RH73H9P-U09SGSRG0MA-2329071b8045-72'],
+['Ambra Zhang','Chief of Staff','https://ca.slack-edge.com/T050RH73H9P-U0A1YTZATCP-4f46317bbf0d-512'],
+['Elia Kemp','Solutions Engineer','https://ca.slack-edge.com/T050RH73H9P-U0A2CA90QCE-af4cacd4fec8-512'],
+['Sarah Breen','Forward Deployed Eng','https://ca.slack-edge.com/T050RH73H9P-U0A2EBECJEN-6c9022987019-512'],
+['Matthieu Mourey','Finance','https://ca.slack-edge.com/T050RH73H9P-U0A2T982L2V-bc6d5d8f965d-512'],
+['Josh Cohen','Account Executive','https://ca.slack-edge.com/T050RH73H9P-U0A6U9Y7ER1-6031f3f55d28-512'],
+['Rémy Frenoy','Software Engineer','https://ca.slack-edge.com/T050RH73H9P-U0A6X8L7CPP-6ee891885467-512'],
+['Matteo Trabattoni','Software Engineer','https://avatars.githubusercontent.com/u/31540320'],
+['Meaghan Shanley','Talent Acquisition','https://ca.slack-edge.com/T050RH73H9P-U0A7XBPR8R5-8c1884c1cfea-512'],
+['Anya Andrews','Solution Engineer','https://ca.slack-edge.com/T050RH73H9P-U0AA4ENGC0H-68f70aecf325-512'],
+['François Mossard','Partnership AM','https://ca.slack-edge.com/T050RH73H9P-U0AA4ELHZPB-05594a3227af-512'],
+['Iris Beraud','Business Operations','https://avatars.githubusercontent.com/u/256072453'],
+['Maxence Garnier','GTM Engineer','https://ca.slack-edge.com/T050RH73H9P-U0A9NJ8RC85-f6afba1f2122-512'],
+['Davis Christenhuis','SEO Writer','https://ca.slack-edge.com/T050RH73H9P-U0ACAJ2PNA2-25335cd55dd4-512'],
+['Martin Boudon','Growth Marketing','https://avatars.githubusercontent.com/u/259041606'],
+['Ali Kabbadj','AI Deployment Strat.','https://ca.slack-edge.com/T050RH73H9P-U0AD6UBJEPJ-17ea7e1e7d3f-512'],
+['Lily Guy','Customer Success','https://avatars.githubusercontent.com/u/263479686'],
+['Arthur Galy','Business Operations','https://ca.slack-edge.com/T050RH73H9P-U0AK0QJE0M6-c5fa772de63c-512'],
+['Simon Bernat','Account Executive','https://avatars.githubusercontent.com/u/265247911'],
+['Lilibeth Acuña','Partnership Operations','https://ca.slack-edge.com/T050RH73H9P-U0AKZT589QR-e1f26b534228-512'],
+['Emilie Gomes da Mota','Finance Operations','https://avatars.githubusercontent.com/u/200744908'],
+['Stephanie Rhumeur','Executive Assistant','https://ca.slack-edge.com/T050RH73H9P-U0AMW9B8SRE-bbd256ba10ef-512'],
+['Clément Aupiais','Product Designer','https://ca.slack-edge.com/T050RH73H9P-U0AM218ESR0-c266c1998762-512'],
+['Thibault Hervier','Software Engineer','https://ca.slack-edge.com/T050RH73H9P-U0AQAB1TPPB-0b1dcdfbf307-512']
+];
 
-var CAT_LABELS={eng:'Engineering',gtm:'Sales & GTM',cs:'Customer & Post-Sales',people:'Talent, People & Ops',product:'Product, Data & Design'};
-
-// ── INIT ──
+/* ── NAV ── */
 function pick(c){
   CAT=c;SEC=0;
   document.getElementById('ob').style.display='none';
   var t=document.getElementById('tour');t.style.display='flex';t.style.flexDirection='column';
-  document.getElementById('cat-label').textContent=CAT_LABELS[c];
-  document.getElementById('cat-footer').textContent=CAT_LABELS[c]+' track';
-  document.getElementById('tabs').innerHTML=LABELS.map(function(l,i){return '<button onclick="goTo('+i+')" id="t'+i+'" style="font-size:10px;font-weight:600;padding:5px 10px;border-radius:7px;border:none;transition:all .15s;color:#94A3B8;background:transparent">'+l+'</button>';}).join('');
+  document.getElementById('cat-label').textContent=CL[c];
+  document.getElementById('cat-footer').textContent=CL[c]+' track';
+  document.getElementById('tabs').innerHTML=TL.map(function(l,i){return '<button onclick="goTo('+i+')" id="t'+i+'" style="font-size:10px;font-weight:600;padding:5px 9px;border-radius:7px;border:none;cursor:pointer;white-space:nowrap;transition:all .15s;color:#94A3B8;background:transparent">'+l+'</button>';}).join('');
   goTo(0);
 }
-
 function goTo(i){
+  if(dT){clearTimeout(dT);dT=null;}
   SEC=i;
-  document.getElementById('dots').innerHTML=LABELS.map(function(_,j){return '<button onclick="goTo('+j+')" class="'+(j===i?'dot-on':'dot-off')+'" style="'+(j===i?'width:22px':'width:6px')+';height:6px;background:'+(j===i?'#0F172A':'#CBD5E1')+';border-radius:9999px;border:none;cursor:pointer;padding:0;transition:all .2s"></button>';}).join('');
+  document.getElementById('dots').innerHTML=TL.map(function(_,j){return '<button onclick="goTo('+j+')" style="'+(j===i?'width:18px;background:#0F172A':'width:6px;background:#CBD5E1')+';height:6px;border-radius:9999px;border:none;cursor:pointer;padding:0;transition:all .2s"></button>';}).join('');
   var caps=CAPS[CAT]||CAPS.eng;
-  document.getElementById('cap').innerHTML='<div class="fade"><h3 style="font-size:15px;font-weight:800;color:#0F172A;line-height:1.35;margin-bottom:8px;letter-spacing:-0.01em">'+caps[i]+'</h3></div>';
-  LABELS.forEach(function(_,j){var tab=document.getElementById('t'+j);if(tab){tab.style.background=j===i?'#0F172A':'transparent';tab.style.color=j===i?'#fff':'#94A3B8';}});
+  document.getElementById('cap').innerHTML='<div class="fade"><h3 style="font-size:13px;font-weight:800;color:#0F172A;line-height:1.4;margin-bottom:5px">'+caps[i]+'</h3></div>';
+  TL.forEach(function(_,j){var b=document.getElementById('t'+j);if(b){b.style.background=j===i?'#0F172A':'transparent';b.style.color=j===i?'#fff':'#94A3B8';}});
   document.getElementById('btnP').style.opacity=i===0?'0.3':'1';
-  document.getElementById('btnN').style.opacity=i===LABELS.length-1?'0.3':'1';
-  var fns=[sMission,sProduct,sThinking,sCulture,sHiring,sTeam,sRoles];
+  document.getElementById('btnN').style.opacity=i===TL.length-1?'0.3':'1';
+  var fns=[s0,s1,s2,s3,s4,s5,s6,s7];
   document.getElementById('rp').innerHTML='<div class="fade">'+fns[i]()+'</div>';
+  if(i===1){dS=0;runDemo();}
+  if(i===7)initChat();
 }
-function next(){if(SEC<LABELS.length-1)goTo(SEC+1);}
+function next(){if(SEC<TL.length-1)goTo(SEC+1);}
 function prev(){if(SEC>0)goTo(SEC-1);}
 
-// ═══ SECTION RENDERERS ═══
-
-// 1. MISSION
-var activeSrc=["Notion","Slack","GitHub"];
-function sMission(){
-  var logos=['datadog','clay','cursor','persona','vanta','watershed','1password'].map(function(c){return '<img src="https://dust.tt/static/landing/logos/gray/'+c+'.svg" alt="'+c+'" style="height:16px;opacity:.45;filter:grayscale(1)">';}).join('');
-  var stats=[['5,000+','Organizations'],['80K+','Agents shipped'],['12M','Conversations in 2025'],['70–90%','Typical adoption']].map(function(x){return '<div style="background:#0F172A;border-radius:14px;padding:18px 22px"><div style="font-size:26px;font-weight:900;letter-spacing:-0.03em;color:#fff;margin-bottom:3px">'+x[0]+'</div><div style="font-size:11px;color:#475569">'+x[1]+'</div></div>';}).join('');
-  return '<div style="padding:28px;max-width:600px">'
-    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">The thesis</div>'
-    +'<h2 style="font-size:34px;font-weight:900;color:#0F172A;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px">AI that works for one person<br/><span style="color:#CBD5E1">half-works.</span></h2>'
-    +'<p style="font-size:13px;color:#64748B;line-height:1.6;max-width:380px;margin-bottom:28px">Dust was built on one conviction: AI compounds when shared. Every agent becomes infrastructure. Every insight becomes institutional memory. The OS for AI at work.</p>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">'+stats+'</div>'
-    +'<div style="margin-bottom:28px"><div style="font-size:10px;font-weight:700;color:#CBD5E1;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Trusted by</div><div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">'+logos+'</div></div>'
-    +'<div style="border-left:2px solid #0F172A;padding-left:14px"><p style="font-size:13px;color:#334155;font-style:italic;margin-bottom:4px">"Not just a 10xer — a 100xer if we harness it right."</p><p style="font-size:11px;color:#94A3B8">Patrick Hall, Product Architect · Persona</p></div>'
-    +'</div>';
+/* ── S0: MISSION ── */
+function s0(){
+  var logos=['datadog','clay','cursor','persona','vanta','watershed','1password'].map(function(c){return '<img src="https://dust.tt/static/landing/logos/gray/'+c+'.svg" style="height:14px;opacity:.4;filter:grayscale(1)" alt="'+c+'">';}).join('');
+  var pts=[['🚀','Ambition & optimism','When we\'re done, work won\'t be the same. Think R2D2, not Skynet.'],['⚡','Move fast','See it, say it, solve it. Default to action. Edit the company.'],['🎯','Operate with greatness','Put users first. Apply 80/20 — except when 20/80 is crucial.'],['🤝','Act as one team','High-trust, high-energy, low-ego.']];
+  var inv=[['Konstantine Buhler','Sequoia Capital'],['Nat Friedman','AI Grant'],['Olivier Pomel','CEO, Datadog'],['Howie Liu','CEO, Airtable'],['Mathilde Colin','CEO, Front'],['Julien Chaumond','CTO, HuggingFace'],['Eléonore Crespo','CEO, Pigment'],['Matthieu Rouif','CEO, Photoroom']];
+  return '<div style="padding:28px;max-width:600px"><div class="lbl">Our mission</div>'
+    +'<h2 class="h2" style="font-size:30px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px">Transform how<br>work gets done.</h2>'
+    +'<p class="desc">We\'re building the <b style="color:#0F172A">AI operating system for the enterprise.</b> Like Windows provided universal UI primitives, Dust provides universal AI primitives that make enterprise workflows intelligent. Success isn\'t about training bigger models — it\'s about connecting them to how work actually happens.</p>'
+    +'<div class="g2" style="margin-bottom:22px">'+['5,000+|Organizations','80K+|Agents shipped','12M|Conversations in 2025','70–90%|Typical adoption'].map(function(s){var p=s.split('|');return '<div style="background:#0F172A;border-radius:12px;padding:15px 17px"><div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-.02em">'+p[0]+'</div><div style="font-size:11px;color:#475569;margin-top:2px">'+p[1]+'</div></div>';}).join('')+'</div>'
+    +'<div style="margin-bottom:22px"><div class="lbl">Operating principles</div><div style="display:flex;flex-direction:column;gap:7px">'+pts.map(function(p){return '<div style="background:#fff;border:1px solid #F1F5F9;border-radius:10px;padding:11px 13px;display:flex;gap:10px"><span style="font-size:15px">'+p[0]+'</span><div><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:2px">'+p[1]+'</div><div style="font-size:11px;color:#64748B">'+p[2]+'</div></div></div>';}).join('')+'</div></div>'
+    +'<div style="margin-bottom:22px"><div class="lbl" style="color:#CBD5E1">Trusted by</div><div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">'+logos+'</div></div>'
+    +'<div><div class="lbl">Backed by</div><div class="g2">'+inv.map(function(v){return '<div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:8px;padding:8px 10px"><div style="font-size:11px;font-weight:700;color:#0F172A">'+v[0]+'</div><div style="font-size:10px;color:#94A3B8">'+v[1]+'</div></div>';}).join('')+'</div></div></div>';
 }
 
-// 2. PRODUCT
-function sProduct(){
-  var srcList=["Notion","Slack","GitHub","Google Drive","Salesforce"];
-  var btns=srcList.map(function(s){var a=activeSrc.indexOf(s)>-1;return '<button onclick="tSrc(\''+s+'\')" style="font-size:11px;padding:5px 11px;border-radius:7px;font-weight:600;cursor:pointer;border:1px solid '+(a?'#0F172A':'#E2E8F0')+';background:'+(a?'#0F172A':'#fff')+';color:'+(a?'#fff':'#64748B')+';transition:all .15s">'+(a?'&#10003; ':'')+s+'</button>';}).join('');
-  var prev=activeSrc.length===0?'No data sources connected — I cannot answer this yet.':'Based on '+activeSrc[0]+', Project Atlas is in final review. Last updated Monday — 2 open blockers before the launch window.';
-  return '<div style="padding:28px;max-width:560px">'
-    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">Interactive demo</div>'
-    +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">Build an agent. Right now.</h2>'
-    +'<p style="font-size:13px;color:#64748B;margin-bottom:22px">Toggle data sources. Watch the instructions update live. No code, no prompt engineering.</p>'
-    +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05)">'
-      +'<div style="background:#F8FAFC;border-bottom:1px solid #F1F5F9;padding:9px 14px;display:flex;align-items:center;gap:5px"><div style="width:9px;height:9px;border-radius:50%;background:#FCA5A5"></div><div style="width:9px;height:9px;border-radius:50%;background:#FDE68A"></div><div style="width:9px;height:9px;border-radius:50%;background:#6EE7B7"></div><span style="font-size:10px;color:#94A3B8;margin-left:8px">dust.tt — New Agent</span></div>'
-      +'<div style="padding:14px">'
-        +'<div style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px">Model</div><div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:7px 11px;font-size:12px;font-weight:500;color:#0F172A;display:flex;align-items:center;justify-content:space-between">Claude Sonnet 4.5<span style="font-size:10px;color:#94A3B8">&#9660;</span></div></div>'
-        +'<div style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Data sources <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#94A3B8;font-size:10px">(click to toggle)</span></div><div id="sbtns" style="display:flex;flex-wrap:wrap;gap:6px">'+btns+'</div></div>'
-        +'<div><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Generated instructions</div><div style="background:#0F172A;border-radius:8px;padding:10px;font-size:11px;font-family:monospace;line-height:1.65"><span style="color:#93C5FD">You have access to</span> <span id="snames" style="color:#6EE7B7">'+(activeSrc.length>0?activeSrc.join(', '):'no sources selected')+'</span><span style="color:#93C5FD">. Answer using only what\'s in those sources.</span><br/><span style="color:#CBD5E1">Always cite your source in the reply.</span></div></div>'
-      +'</div>'
-      +'<div style="border-top:1px solid #F1F5F9;background:#F8FAFC;padding:14px"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Live preview</div>'
-        +'<div style="display:flex;justify-content:flex-end;margin-bottom:7px"><div style="background:#0F172A;color:#fff;font-size:11px;padding:7px 11px;border-radius:11px;border-top-right-radius:3px;max-width:240px">What\'s the status of Project Atlas?</div></div>'
-        +'<div style="display:flex;gap:7px"><div style="width:22px;height:22px;background:#7C3AED;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-weight:700;font-size:9px">AI</span></div><div id="prev-reply" style="background:#fff;border:1px solid #E2E8F0;font-size:11px;padding:7px 11px;border-radius:11px;border-top-left-radius:3px;color:#334155;flex:1;line-height:1.5">'+prev+'</div></div>'
-      +'</div>'
-    +'</div>'
-    +'</div>';
-}
-function tSrc(s){
-  var i=activeSrc.indexOf(s);if(i>-1)activeSrc.splice(i,1);else activeSrc.push(s);
-  var sl=["Notion","Slack","GitHub","Google Drive","Salesforce"];
-  var c=document.getElementById('sbtns');
-  if(c)c.innerHTML=sl.map(function(x){var a=activeSrc.indexOf(x)>-1;return '<button onclick="tSrc(\''+x+'\')" style="font-size:11px;padding:5px 11px;border-radius:7px;font-weight:600;cursor:pointer;border:1px solid '+(a?'#0F172A':'#E2E8F0')+';background:'+(a?'#0F172A':'#fff')+';color:'+(a?'#fff':'#64748B')+';transition:all .15s">'+(a?'&#10003; ':'')+x+'</button>';}).join('');
-  var n=document.getElementById('snames');if(n)n.textContent=activeSrc.length>0?activeSrc.join(', '):'no sources selected';
-  var r=document.getElementById('prev-reply');if(r)r.textContent=activeSrc.length===0?'No data sources connected — I cannot answer this yet.':'Based on '+activeSrc[0]+', Project Atlas is in final review. Last updated Monday — 2 open blockers before the launch window.';
-}
-
-// 3. THINKING (BLOG ARTICLES)
-function sThinking(){
-  var arts=ARTICLES[CAT]||ARTICLES.eng;
-  var cards=arts.map(function(a){
-    return '<a href="'+a.link+'" target="_blank" class="card" style="display:block;margin-bottom:12px;overflow:hidden"><div style="display:flex;gap:0">'
-      +'<img src="'+a.img+'" style="width:120px;height:90px;object-fit:cover;flex-shrink:0">'
-      +'<div style="padding:12px 14px;flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="tag '+a.tagClass+'">'+a.tag+'</span><span style="font-size:10px;color:#CBD5E1">'+a.date+'</span></div><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:5px;line-height:1.3">'+a.title+'</div><div style="font-size:11px;color:#64748B;line-height:1.5">'+a.excerpt+'</div></div>'
-      +'</div></a>';
-  }).join('');
-  return '<div style="padding:28px;max-width:600px">'
-    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">From the Dust blog — Joining Dust series</div>'
-    +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">Read how Dust thinks.</h2>'
-    +'<p style="font-size:13px;color:#64748B;margin-bottom:22px">These are the articles that matter for your function — directly from the team. Click any to read the full post.</p>'
-    +cards
-    +'<a href="https://dust.tt/blog?tag=Joining%20Dust" target="_blank" style="font-size:11px;font-weight:600;color:#0F172A;display:flex;align-items:center;gap:4px;margin-top:4px">All Joining Dust articles &#8599;</a>'
-    +'</div>';
-}
-
-// 4. CULTURE
-function sCulture(){
-  var isEng=CAT==='eng';
-  var msgs=isEng?[
-    {i:'SP',n:'Stanislas',bg:'#3730A3',t:'10:11',m:'shipped the @pr_review update — now checks against our design docs automatically before any human sees the PR'},
-    {i:'GH',n:'Gabriel',bg:'#6D28D9',t:'10:12',m:'that\'s wild. how long did it take?'},
-    {i:'SP',n:'Stanislas',bg:'#3730A3',t:'10:12',m:'3 days. used @Q to generate 80% of it against our own codebase context. reviewed myself, shipped'},
-    {i:'EH',n:'new hire',bg:'#475569',t:'10:14',m:'this is what "using our own product to build our product" actually means'},
-    {i:'GH',n:'Gabriel',bg:'#6D28D9',t:'10:15',m:'exactly. and the agent gets better every time we update the docs'}
-  ]:[
-    {i:'MB',n:'Maxence',bg:'#0F172A',t:'09:47',m:'prep brief for the Datadog call is ready in @sales_prep — pulled last 3 calls, open blockers, competitor intel'},
-    {i:'PL',n:'Pauline',bg:'#6D28D9',t:'09:48',m:'love it. did you catch the note from the CSM about the security concern?'},
-    {i:'MB',n:'Maxence',bg:'#0F172A',t:'09:48',m:'already flagged in the brief with the exact policy doc section. going in hot'},
-    {i:'EH',n:'new hire',bg:'#475569',t:'09:50',m:'you just prepped a full account brief in 2 minutes with Dust agents'},
-    {i:'MB',n:'Maxence',bg:'#0F172A',t:'09:51',m:'standard Tuesday 👋'}
-  ];
-  var slk=msgs.map(function(m){return '<div style="display:flex;gap:9px"><div style="width:30px;height:30px;border-radius:7px;background:'+m.bg+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;flex-shrink:0">'+m.i+'</div><div><div style="display:flex;align-items:baseline;gap:7px;margin-bottom:2px"><span style="font-size:12px;font-weight:700;color:#fff">'+m.n+'</span><span style="font-size:10px;color:#475569">'+m.t+' AM</span></div><p style="font-size:12px;color:#CBD5E1;margin:0;line-height:1.5">'+m.m+'</p></div></div>';}).join('');
-  var principles=['"See something, say something, do something"','"Dependability first, velocity second, leadership emerges"','"80/20 — and deliberately invert it on trapdoor decisions"','"Ship real things. Not demos."'];
-  var prCards=principles.map(function(p){return '<div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:12px 14px;font-size:12px;color:#334155;font-style:italic">'+p+'</div>';}).join('');
-  return '<div style="padding:28px;max-width:600px">'
-    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">Culture — office-first, Paris & SF</div>'
-    +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">What it actually feels like to work here.</h2>'
-    +'<p style="font-size:13px;color:#64748B;margin-bottom:22px">Dust is office-first by design. The team wrote about why — <a href="https://dust.tt/blog/build-in-person" target="_blank" style="color:#0F172A;font-weight:600;text-decoration:underline">Build in Person</a> is worth reading if you haven\'t yet.</p>'
-    +'<div style="background:#1E293B;border-radius:14px;overflow:hidden;margin-bottom:20px">'
-      +'<div style="padding:9px 14px;border-bottom:1px solid #334155;display:flex;align-items:center;gap:5px"><div style="display:flex;gap:4px"><div style="width:9px;height:9px;border-radius:50%;background:#FCA5A5"></div><div style="width:9px;height:9px;border-radius:50%;background:#FDE68A"></div><div style="width:9px;height:9px;border-radius:50%;background:#6EE7B7"></div></div><span style="color:#475569;font-size:10px;font-weight:600;margin-left:7px"># '+(isEng?'eng-daily':'gtm-daily')+'</span><span style="margin-left:auto;font-size:10px;color:#334155">Slack — Dust workspace</span></div>'
-      +'<div style="padding:14px;display:flex;flex-direction:column;gap:14px"><div style="text-align:center"><span style="font-size:10px;color:#475569;background:#1E293B;border:1px solid #334155;padding:3px 10px;border-radius:9999px">Today</span></div>'+slk+'</div>'
-    +'</div>'
-    +'<div><div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">How the team talks</div><div style="display:flex;flex-direction:column;gap:7px">'+prCards+'</div></div>'
-    +'</div>';
-}
-
-// 5. HIRING PROCESS
-function sHiring(){
-  var isEng=CAT==='eng';
-  if(isEng){
-    var steps=[
-      {n:'1',title:'Recruiter Screen',time:'30 min',detail:'Background, motivations, what you\'re looking for. Two-way: you get to ask everything about Dust, the role, the mission.'},
-      {n:'2',title:'Technical Screening',time:'45 min · Remote',detail:'Pair programming on a real problem — e.g. "Structured Chunking". Looking for velocity and communication, not perfection. Interview stress is accounted for.'},
-      {n:'3',title:'System Design Exercise',time:'40 min · Live',detail:'Whiteboard/design session. Brief sent 24h before (intentionally light). Discuss distributed systems, scalability, concurrency — your approach matters, not a polished answer.'},
-      {n:'4',title:'Founder Chat',time:'30–45 min',detail:'Stan or Gabriel. What drives you, proudest achievements, what you\'re looking for. Very much two-way. You\'ll leave knowing if Dust is the right place.'},
-      {n:'5',title:'Full Day Onsite',time:'9am–6pm · Paris or SF',detail:'Real code. Our codebase. You build actual features and present. Dedicated Slack channel. Lunch with the team. This is the heart of the process — and it\'s as much about you evaluating us.'}
-    ];
-    var cards=steps.map(function(s){return '<div style="background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:14px;display:flex;gap:12px"><div style="width:28px;height:28px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">'+s.n+'</div><div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="font-size:12px;font-weight:700;color:#0F172A">'+s.title+'</div><span style="font-size:10px;color:#94A3B8">'+s.time+'</span></div><p style="font-size:12px;color:#64748B;line-height:1.5">'+s.detail+'</p></div></div>';}).join('');
-    return '<div style="padding:28px;max-width:600px">'
-      +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">Engineering hiring process</div>'
-      +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">Five steps. Clear feedback. No puzzles.</h2>'
-      +'<p style="font-size:13px;color:#64748B;margin-bottom:22px">Dust published their full hiring process openly. <a href="https://dust.tt/blog/engineering-hiring-process-at-dust" target="_blank" style="color:#0F172A;font-weight:600;text-decoration:underline">Read the full article</a> — this is the summary.</p>'
-      +'<div style="display:flex;flex-direction:column;gap:8px">'+cards+'</div>'
-      +'<div style="background:#0F172A;color:#fff;border-radius:12px;padding:14px;margin-top:14px"><div style="font-size:10px;color:#475569;font-weight:700;margin-bottom:4px">What Dust evaluates in every step</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">'+['Ownership','Velocity','Communication','Product thinking','Shipping'].map(function(x){return '<span style="background:#1E293B;color:#CBD5E1;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px">'+x+'</span>';}).join('')+'</div></div>'
-      +'</div>';
-  } else {
-    var gsteps=[
-      {n:'1',title:'Initial Screening',time:'30 min',detail:'Hiring team screen: background, motivations, what you\'re looking for. Your chance to ask everything about the role, the mission, and how Dust operates.'},
-      {n:'2',title:'Role-Specific Interview',time:'45–60 min',detail:'Technical for engineers. For GTM, CS, and people roles: team interviews — your functional approach, past situations, how you think.'},
-      {n:'3',title:'Written Exercise',time:'Async',detail:'For GTM and operations roles: a short written challenge. Assesses communication, structure, and product thinking — how you\'d actually approach a real Dust problem.'},
-      {n:'4',title:'Founder Chat',time:'30–45 min',detail:'Gabriel for GTM/business. Two-way: they learn what drives you, you get direct access to founding vision. Plenty of time for your questions.'},
-      {n:'5',title:'Full Day Onsite',time:'9am–6pm · Paris or SF',detail:'You work on actual business challenges — real accounts, real data, Dust access. Dedicated Slack channel with your buddy. Lunch with the team. You present at the end.'}
-    ];
-    var gcards=gsteps.map(function(s){return '<div style="background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:14px;display:flex;gap:12px"><div style="width:28px;height:28px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">'+s.n+'</div><div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="font-size:12px;font-weight:700;color:#0F172A">'+s.title+'</div><span style="font-size:10px;color:#94A3B8">'+s.time+'</span></div><p style="font-size:12px;color:#64748B;line-height:1.5">'+s.detail+'</p></div></div>';}).join('');
-    return '<div style="padding:28px;max-width:600px">'
-      +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">Hiring process — all functions</div>'
-      +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">Real work. No theory. Decision in days.</h2>'
-      +'<p style="font-size:13px;color:#64748B;margin-bottom:22px">The process is published openly — <a href="https://dust.tt/blog/interviews-at-dust" target="_blank" style="color:#0F172A;font-weight:600;text-decoration:underline">read "Interviews at Dust"</a> for the full picture. Detailed feedback regardless of outcome.</p>'
-      +'<div style="display:flex;flex-direction:column;gap:8px">'+gcards+'</div>'
-      +'<div style="background:#0F172A;color:#fff;border-radius:12px;padding:14px;margin-top:14px"><div style="font-size:10px;color:#475569;font-weight:700;margin-bottom:8px">What Dust evaluates across all functions</div><div style="display:flex;flex-wrap:wrap;gap:6px">'+['Ownership','Communication','Product thinking','Prioritization','Shipping'].map(function(x){return '<span style="background:#1E293B;color:#CBD5E1;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px">'+x+'</span>';}).join('')+'</div></div>'
-      +'</div>';
+/* ── S1: PRODUCT (animated demo) ── */
+var dS=0,dT=null;
+var DS=[
+  ['1. Name your agent','<div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Agent name</div><div style="border:2px solid #0F172A;border-radius:8px;padding:8px 11px;font-size:13px;font-weight:700;color:#0F172A;display:flex;align-items:center;gap:3px">@<span id="dn"></span><span class="cur"></span></div>'],
+  ['2. Select a model','<div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Model</div><div style="background:#F8FAFC;border:1.5px solid #0F172A;border-radius:8px;padding:8px 11px;font-size:12px;font-weight:600;color:#0F172A;display:flex;justify-content:space-between">Claude Sonnet 4.5<span style="color:#10B981;font-weight:700">✓</span></div>'],
+  ['3. Connect data sources','<div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Data sources</div><div style="display:flex;flex-direction:column;gap:5px"><div id="d1" style="border:1px solid #E2E8F0;border-radius:8px;padding:7px 11px;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:#0F172A">Notion<span id="d1c" style="width:15px;height:15px;background:#E2E8F0;border-radius:4px"></span></div><div id="d2" style="border:1px solid #E2E8F0;border-radius:8px;padding:7px 11px;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:#0F172A">Slack<span id="d2c" style="width:15px;height:15px;background:#E2E8F0;border-radius:4px"></span></div><div id="d3" style="border:1px solid #E2E8F0;border-radius:8px;padding:7px 11px;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:#0F172A">GitHub<span id="d3c" style="width:15px;height:15px;background:#E2E8F0;border-radius:4px"></span></div></div>'],
+  ['4. Ask a question','<div style="background:#0F172A;border-radius:10px;padding:9px 11px;margin-bottom:8px;font-size:11px;color:#CBD5E1;font-family:monospace;line-height:1.6">You have access to Notion, Slack and GitHub. Answer using only those sources. Always cite.</div><div style="border:1.5px solid #0F172A;border-radius:8px;padding:8px 11px;font-size:12px;color:#0F172A;display:flex;gap:3px"><span id="dq"></span><span class="cur"></span></div>'],
+  ['5. Agent responds','<div style="display:flex;gap:8px;align-items:flex-start"><div style="width:22px;height:22px;background:#7C3AED;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:9px;font-weight:700">D</span></div><div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:11px;border-top-left-radius:3px;padding:9px 12px;font-size:11px;color:#334155;line-height:1.65"><span id="dr"></span><span class="cur"></span></div></div>']
+];
+function runDemo(){
+  var box=document.getElementById('db');if(!box)return;
+  var step=DS[dS];
+  box.innerHTML='<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">'+step[0]+'</div>'+step[1];
+  if(dS===0)tyTxt('dn','dust-candidate',70);
+  if(dS===2){
+    setTimeout(function(){ck('d1','d1c');},400);
+    setTimeout(function(){ck('d2','d2c');},900);
+    setTimeout(function(){ck('d3','d3c');},1400);
   }
+  if(dS===3)tyTxt('dq','What\'s the status of Project Atlas?',55);
+  if(dS===4)tyTxt('dr','Based on Notion (updated Mon): Project Atlas is in final review. 2 open blockers — security sign-off & legal. Launch window: next Friday.',18);
+  dS=(dS+1)%DS.length;
+  dT=setTimeout(runDemo,5800);
 }
-
-// 6. TEAM
-function sTeam(){
-  var alumni=["OpenAI","Stripe","Front","Google","Airbnb","Stanford","Datadog","Notion","Y Combinator"];
-  return '<div style="padding:28px;max-width:600px">'
-    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">The people</div>'
-    +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:22px">~40 people. Two offices. Exceptional density.</h2>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">'
-      +'<div style="background:#0F172A;border-radius:14px;padding:18px"><div style="width:40px;height:40px;background:#1E293B;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;margin-bottom:12px">SP</div><div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:3px">Stanislas Polu</div><div style="font-size:11px;color:#475569;margin-bottom:10px">Co-founder & CEO</div><div style="font-size:11px;color:#475569;margin-bottom:3px">· OpenAI Research Scientist</div><div style="font-size:11px;color:#475569;margin-bottom:3px">· GPT-3 & RLHF research</div><div style="font-size:11px;color:#94A3B8;font-style:italic;margin-top:10px;border-top:1px solid #1E293B;padding-top:10px">"Left OpenAI to fix the team AI problem."</div></div>'
-      +'<div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:14px;padding:18px"><div style="width:40px;height:40px;background:#0F172A;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;margin-bottom:12px">GH</div><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:3px">Gabriel Hubert</div><div style="font-size:11px;color:#64748B;margin-bottom:10px">Co-founder & CPO</div><div style="font-size:11px;color:#94A3B8;margin-bottom:3px">· Co-founder, Front</div><div style="font-size:11px;color:#94A3B8;margin-bottom:3px">· ex-Stripe</div><div style="font-size:11px;color:#94A3B8;font-style:italic;margin-top:10px;border-top:1px solid #E2E8F0;padding-top:10px">"Built products at scale before founding Dust."</div></div>'
+function ck(rowId,chkId){var r=document.getElementById(rowId);var c=document.getElementById(chkId);if(r&&c){r.style.borderColor='#0F172A';r.style.background='#F8FAFC';c.style.background='#0F172A';c.innerHTML='<span style="color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;height:100%">✓</span>';}}
+function tyTxt(id,txt,sp){var el=document.getElementById(id);if(!el)return;var i=0;el.textContent='';var iv=setInterval(function(){if(!document.getElementById(id)||i>=txt.length){clearInterval(iv);return;}document.getElementById(id).textContent+=txt[i++];},sp);}
+function s1(){
+  return '<div style="padding:28px;max-width:580px"><div class="lbl">The product</div>'
+    +'<h2 class="h2" style="font-size:26px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px">Shared AI agents.<br>Powered by your data.</h2>'
+    +'<p class="desc">Dust connects AI models to your company\'s knowledge — Notion, Slack, GitHub, Salesforce, Google Drive. You build agents. The whole team uses them. Every conversation compounds. AI stops being a personal tool and becomes shared infrastructure.</p>'
+    +'<div style="display:flex;gap:7px;margin-bottom:22px">'+['Platform<br><span style="font-weight:400;color:#64748B;font-size:10px">Connect any model to any data</span>','Agents<br><span style="font-weight:400;color:#64748B;font-size:10px">Shared across teams, not per-user</span>','Memory<br><span style="font-weight:400;color:#64748B;font-size:10px">Company knowledge compounds</span>'].map(function(s){return '<div style="flex:1;background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:11px;font-weight:700;color:#0F172A;line-height:1.5">'+s+'</div>';}).join('')+'</div>'
+    +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">'
+      +'<div style="background:#F8FAFC;border-bottom:1px solid #F1F5F9;padding:8px 13px;display:flex;align-items:center;gap:6px"><img src="https://dust.tt/apple-touch-icon.png" width="12" height="12" style="border-radius:3px"><span style="font-size:10px;color:#94A3B8;font-weight:600">dust.tt — Agent Builder</span><div style="margin-left:auto;display:flex;gap:4px">'+['#FCA5A5','#FDE68A','#6EE7B7'].map(function(c){return '<div style="width:8px;height:8px;border-radius:50%;background:'+c+'"></div>';}).join('')+'</div></div>'
+      +'<div id="db" style="padding:16px;min-height:130px"></div>'
     +'</div>'
-    +'<div style="background:#fff;border:1px solid #F1F5F9;border-radius:14px;padding:14px;margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Team alumni from</div><div style="display:flex;flex-wrap:wrap;gap:7px">'+alumni.map(function(a){return '<span style="background:#F8FAFC;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:4px 9px;border-radius:7px">'+a+'</span>';}).join('')+'</div></div>'
-    +'<div style="background:#0F172A;color:#fff;border-radius:14px;padding:14px"><div style="font-size:10px;color:#475569;font-weight:700;margin-bottom:4px">What this means for you</div><div style="font-size:12px;font-weight:500;line-height:1.55">The founders interview every candidate personally. From day one, you\'re treated as a peer with full context and trust — not someone proving themselves.</div></div>'
+    +'<p style="font-size:11px;color:#94A3B8;margin-top:9px;text-align:center">Scripted demo loops every 30 sec · <a href="https://dust.tt" target="_blank" style="color:#0F172A;font-weight:600">Try the real thing ↗</a></p>'
     +'</div>';
 }
 
-// 7. ROLES + CASE STUDIES
-function sRoles(){
+/* ── S2: USE CASES ── */
+function s2(){
+  var ucs=[
+    ['Engineering','@pr_review','Checks every PR against internal design docs before any human sees it. Catches regressions, enforces standards. Stanislas: "3 days to build. 80% generated from our own codebase context."','https://dust.tt/blog/an-engineers-day-at-dust'],
+    ['Sales & GTM','@sales_prep','Pulls last 3 calls, competitor intel, open blockers and CSM notes into a 2-min brief before every call. Nic Siegle, AE: "Standard Tuesday."','https://dust.tt/blog/day-in-the-life-ae-using-dust'],
+    ['Customer Success','@cs_deploy','Handles tier-1 tickets, surfaces docs, escalates with full context. Team focuses on strategic accounts only.','https://dust.tt/customers/profound-post-sales-team-reclaimed-1800-hours'],
+    ['People & Ops','@onboarding','Answers every new hire question from day one. Pulls from handbook, policies, org chart. Updates automatically as docs change.','https://dust.tt/customers'],
+    ['Product & Data','@product_brief','Summarizes feedback from Intercom, Slack, Notion into weekly product briefs. No manual synthesis.','https://dust.tt/customers']
+  ];
+  var trackMap={eng:'Engineering',gtm:'Sales & GTM',cs:'Customer Success',people:'People & Ops',product:'Product & Data'};
+  var myTrack=trackMap[CAT]||'Engineering';
+  var cards=ucs.map(function(u){
+    var hi=u[0]===myTrack||u[0].indexOf(myTrack.split(' ')[0])>-1;
+    return '<a href="'+u[3]+'" target="_blank" style="display:block;border:'+(hi?'1.5px solid #0F172A':'1px solid #E2E8F0')+';border-radius:12px;padding:13px;margin-bottom:7px;background:'+(hi?'#FAFAFA':'#fff')+'">'
+      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><code style="font-size:11px;font-weight:700;color:#0F172A;background:#F1F5F9;padding:2px 7px;border-radius:5px">'+u[1]+'</code><span style="font-size:10px;color:#94A3B8">'+u[0]+'</span>'+(hi?'<span style="margin-left:auto;font-size:10px;font-weight:700;color:#0F172A;background:#E2E8F0;padding:2px 7px;border-radius:5px">Your track</span>':'')+'</div>'
+      +'<div style="font-size:12px;color:#334155;line-height:1.55">'+u[2]+'</div>'
+      +'</a>';
+  }).join('');
+  return '<div style="padding:28px;max-width:580px"><div class="lbl">Real-world use cases</div>'
+    +'<h2 class="h2">What teams actually build.</h2>'
+    +'<p class="desc">Every function uses Dust differently. Your track is highlighted. All teams share the same infrastructure.</p>'
+    +cards
+    +'<div style="background:#0F172A;border-radius:12px;padding:13px;margin-top:4px"><div style="font-size:11px;color:#475569;font-weight:700;margin-bottom:5px">The "Build vs Run" thesis</div><div style="font-size:12px;color:#CBD5E1;line-height:1.6">AI amplifies build roles and collapses the ratio toward building. Every function needs to over-invest in AI while growing headcount — both simultaneously. <a href="https://dust.tt/blog/build-vs-run" target="_blank" style="color:#93C5FD;font-weight:600">Read the essay ↗</a></div></div>'
+    +'</div>';
+}
+
+/* ── S3: HOW WE WORK ── */
+function s3(){
+  var arts=[
+    ['https://images.ctfassets.net/751ge4ljeqso/ZTsLvhjuvW5GYjWstLY54/2e9979ee40d2595bca00bee560ac390/An_Engineer-s_Day.png?w=400&fm=webp&q=75','A day in the life','pb',"An Engineer's Day at Dust",'No product requirements handed down. Engineers own a project end to end — discovery, build, launch, monitoring.','https://dust.tt/blog/an-engineers-day-at-dust'],
+    ['https://images.ctfassets.net/751ge4ljeqso/7xKTCuYq5suv0nmySDreww/b770c141df5cdc372a46c9739532130c/Day_in_the_Life_of_an_AE__1_.jpg?w=400&fm=webp&q=75','A day in the life','pb',"An AE's Day Using Dust",'Nic opens Slack and his agents have been running since before he arrived. Account briefs ready. No prep time lost.','https://dust.tt/blog/day-in-the-life-ae-using-dust'],
+    ['https://images.ctfassets.net/751ge4ljeqso/21MynLrJpzBsOrooJOcQ2p/3c31a5b66a19924db2f7f4faf6fdb5de/image.png?w=400&fm=webp&q=75','How we work','pp','Dust for Dust','@Q writes PR drafts. @eng triages issues. @pr_review checks against design docs. @incidentQ has full context. The product builds itself.','https://dust.tt/blog/dust-for-dust'],
+    ['https://images.ctfassets.net/751ge4ljeqso/72Wlz12isH8V9j5NKqniza/05c5bfeb7447fddd78d195a486e42c3f/image.png?w=400&fm=webp&q=75','Culture','pg','No PMs — Product Is Everyone\'s Job','Engineers, designers, analysts own features end-to-end. The DRI model means no one to hand off to — you own it.','https://dust.tt/blog/no-pms-just-builders'],
+    ['https://images.ctfassets.net/751ge4ljeqso/20IW6HSj7YSYgT0JBLq9sm/071531a5222576fd510694ee6061b24e/image.png?w=400&fm=webp&q=75','Culture','pg','Build in Person','Office-first in Paris and SF by design. The kind of spontaneous, high-bandwidth collaboration that only happens in the same space.','https://dust.tt/blog/build-in-person'],
+    ['https://images.ctfassets.net/751ge4ljeqso/7lBib9mS1iZi76zBhYHSFk/518e0e029ebafd4f92442b185cac2a16/image.png?w=400&fm=webp&q=75','Values','pp','Let the Free Market Win',"Dust's public stance on non-poaching in French tech. Read to understand how leadership thinks — and writes — about hard topics.",'https://dust.tt/blog/let-the-free-market-win']
+  ];
+  var cards=arts.map(function(a){
+    return '<a href="'+a[5]+'" target="_blank" class="card" style="display:flex;margin-bottom:9px"><img src="'+a[0]+'" style="width:100px;height:74px;object-fit:cover;flex-shrink:0" onerror="this.style.display=\'none\'">'
+      +'<div style="padding:9px 12px"><div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span class="pill '+a[2]+'">'+a[1]+'</span></div><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:3px;line-height:1.3">'+a[3]+'</div><div style="font-size:11px;color:#64748B;line-height:1.5">'+a[4]+'</div></div>'
+      +'</a>';
+  }).join('');
+  return '<div style="padding:28px;max-width:600px"><div class="lbl">From the Dust blog</div>'
+    +'<h2 class="h2">Written down, published, shipped.</h2>'
+    +'<p class="desc">Dust documents how it operates and publishes it. These articles are the clearest picture of what it\'s actually like to work here.</p>'
+    +cards
+    +'<a href="https://dust.tt/blog?tag=Joining%20Dust" target="_blank" style="font-size:11px;font-weight:600;color:#0F172A;display:inline-flex;align-items:center;gap:4px;margin-top:2px">All Joining Dust articles ↗</a>'
+    +'</div>';
+}
+
+/* ── S4: HIRING & COMP ── */
+function s4(){
+  var isEng=CAT==='eng';
+  var steps=isEng?[['1','Recruiter Screen','30 min','Background, motivations, what you\'re looking for. Two-way.'],['2','Technical Screen','45 min · Remote','Pair programming. Looking for velocity and communication, not perfection.'],['3','System Design','40 min · Live','Brief sent 24h before. Your approach matters, not a polished answer.'],['4','Founder Chat','30–45 min','Stan or Gabriel. Very much two-way.'],['5','Full Day Onsite','9am–6pm · Paris or SF','Real code. Real codebase. Build actual features, present at end. Dedicated Slack channel.']]:[['1','Initial Screening','30 min','Background, motivations. Your chance to ask everything.'],['2','Role Interview','45–60 min','Functional approach, past situations, how you think through real problems.'],['3','Written Exercise','Async','Short challenge: communication, structure, product thinking.'],['4','Founder Chat','30–45 min','Gabriel for GTM/business. Direct access to founding vision.'],['5','Full Day Onsite','9am–6pm · Paris or SF','Real business challenges, real Dust access. Present at end. Dedicated Slack channel.']];
+  var sc=steps.map(function(x){return '<div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:11px;display:flex;gap:9px;margin-bottom:6px"><div style="width:22px;height:22px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">'+x[0]+'</div><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:12px;font-weight:700;color:#0F172A">'+x[1]+'</span><span style="font-size:10px;color:#94A3B8">'+x[2]+'</span></div><p style="font-size:11px;color:#64748B;line-height:1.5">'+x[3]+'</p></div></div>';}).join('');
+  return '<div style="padding:28px;max-width:580px"><div class="lbl">Hiring process + compensation</div>'
+    +'<h2 class="h2">'+(isEng?'Five steps. Full comp. No puzzles.':'Real work. No theory. Decision in days.')+'</h2>'
+    +'<p class="desc">Published openly at <a href="'+(isEng?'https://dust.tt/blog/engineering-hiring-process-at-dust':'https://dust.tt/blog/interviews-at-dust')+'" target="_blank" style="color:#0F172A;font-weight:600">dust.tt/blog ↗</a>. Detailed feedback regardless of outcome.</p>'
+    +sc
+    +'<div style="background:#0F172A;border-radius:10px;padding:11px;margin-bottom:20px;margin-top:4px"><div style="font-size:10px;color:#475569;font-weight:700;margin-bottom:6px">What Dust evaluates</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+['Ownership','Velocity','Communication','Product thinking','Shipping'].map(function(x){return '<span style="background:#1E293B;color:#CBD5E1;font-size:11px;font-weight:600;padding:4px 9px;border-radius:5px">'+x+'</span>';}).join('')+'</div></div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:13px;font-weight:800;color:#0F172A">EngOS 2026 — Comp framework</div><a href="https://github.com/dust-tt/engos" target="_blank" style="font-size:10px;font-weight:600;color:#475569;background:#F8FAFC;border:1px solid #E2E8F0;padding:3px 8px;border-radius:6px">github/engos ↗</a></div>'
+    +'<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:11px;margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#92400E;margin-bottom:3px">Why levels were removed</div><p style="font-size:11px;color:#78350F;line-height:1.6">Traditional levels incentivise individualistic behaviour. Dust removed them — everyone joins as Engineer from day one, however senior. Progression is transparent and time-based.</p></div>'
+    +'<div class="g2" style="margin-bottom:10px"><div style="background:#0F172A;border-radius:10px;padding:12px"><div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px">Engineer</div><div style="font-size:11px;color:#94A3B8;line-height:1.5">Initial + €10K × years at Dust. Opt-in check-ins. On-demand reviews.</div></div><div style="background:#1E293B;border:1px solid #3730A3;border-radius:10px;padding:12px"><div style="font-size:11px;font-weight:700;color:#93C5FD;margin-bottom:3px">Tenured ★</div><div style="font-size:11px;color:#94A3B8;line-height:1.5">Initial + €15K × years at Dust. Culture beacon. Decides keeper-test.</div></div></div>'
+    +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden;margin-bottom:10px"><div style="background:#F8FAFC;border-bottom:1px solid #F1F5F9;padding:7px 12px;font-size:11px;font-weight:700;color:#0F172A">Engineering comp (EU) · 2/3 payslip · 1/3 bonus</div><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr style="border-bottom:1px solid #F1F5F9"><th style="text-align:left;padding:7px 12px;color:#64748B;font-weight:600">Experience</th><th style="text-align:right;padding:7px 12px;color:#64748B;font-weight:600">Joining</th><th style="text-align:right;padding:7px 12px;color:#64748B;font-weight:600">+2y</th><th style="text-align:right;padding:7px 12px;color:#64748B;font-weight:600">+4y</th></tr></thead><tbody><tr style="border-bottom:1px solid #F8FAFC"><td style="padding:7px 12px;color:#334155;font-weight:500">No experience</td><td style="padding:7px 12px;text-align:right">€90K</td><td style="padding:7px 12px;text-align:right;font-weight:700;color:#0F172A">€120K</td><td style="padding:7px 12px;text-align:right;font-weight:700;color:#0F172A">€150K</td></tr><tr style="border-bottom:1px solid #F8FAFC"><td style="padding:7px 12px;color:#334155;font-weight:500">2–4 years</td><td style="padding:7px 12px;text-align:right">€90–130K</td><td style="padding:7px 12px;text-align:right;font-weight:700;color:#0F172A">€120–160K</td><td style="padding:7px 12px;text-align:right;font-weight:700;color:#0F172A">€150–190K</td></tr><tr><td style="padding:7px 12px;color:#334155;font-weight:500">5+ years</td><td style="padding:7px 12px;text-align:right">€130–180K</td><td style="padding:7px 12px;text-align:right;font-weight:700;color:#0F172A">€160–210K</td><td style="padding:7px 12px;text-align:right;font-weight:700;color:#0F172A">€190–240K</td></tr></tbody></table></div>'
+    +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:12px"><div style="font-size:11px;font-weight:700;color:#0F172A;margin-bottom:7px">No 4-year vesting. Split cash vs equity — reconfigure every 6 months.</div><div style="display:flex;gap:5px"><button onclick="setEq(0)" id="eq0" style="flex:1;font-size:10px;font-weight:600;padding:6px;border-radius:7px;border:1px solid #E2E8F0;background:#fff;color:#475569;cursor:pointer">100% cash</button><button onclick="setEq(50)" id="eq50" style="flex:1;font-size:10px;font-weight:600;padding:6px;border-radius:7px;border:1px solid #0F172A;background:#0F172A;color:#fff;cursor:pointer">50 / 50</button><button onclick="setEq(100)" id="eq100" style="flex:1;font-size:10px;font-weight:600;padding:6px;border-radius:7px;border:1px solid #E2E8F0;background:#fff;color:#475569;cursor:pointer">100% equity</button></div><div style="height:5px;background:#E2E8F0;border-radius:3px;overflow:hidden;margin:8px 0"><div id="eq-bar" style="width:50%;height:100%;background:#3730A3;transition:width .3s;border-radius:3px"></div></div><p id="eq-note" style="font-size:11px;color:#64748B">Split 50/50 — reconfigure every 6 months.</p></div>'
+    +'</div>';
+}
+function setEq(p){['eq0','eq50','eq100'].forEach(function(id){var b=document.getElementById(id);if(b){b.style.background='#fff';b.style.borderColor='#E2E8F0';b.style.color='#475569';}});var a=document.getElementById(p===0?'eq0':p===50?'eq50':'eq100');if(a){a.style.background='#0F172A';a.style.borderColor='#0F172A';a.style.color='#fff';}var bar=document.getElementById('eq-bar');if(bar)bar.style.width=(p===0?'3':p===50?'50':'100')+'%';var n=document.getElementById('eq-note');if(n)n.textContent=p===0?'Taking 100% as cash every 6 months.':p===50?'Split 50/50 — reconfigure every 6 months.':'Taking 100% as equity every 6 months.';}
+
+/* ── S5: TEAM ── */
+function s5(){
+  var grid=TEAM.map(function(p){return '<div style="text-align:center"><img src="'+p[2]+'" width="48" height="48" style="border-radius:50%;object-fit:cover;border:2px solid #F1F5F9" onerror="this.src=\'https://ui-avatars.com/api/?name='+encodeURIComponent(p[0])+'&size=88&background=E2E8F0&color=475569\'"><div style="font-size:9px;font-weight:700;color:#0F172A;margin-top:4px;line-height:1.3">'+p[0].split(' ')[0]+'</div><div style="font-size:9px;color:#94A3B8;margin-top:1px;line-height:1.2">'+p[1]+'</div></div>';}).join('');
+  var alumni=['OpenAI','Stripe','Front','Google','Airbnb','Datadog','Notion','Stanford','Y Combinator'];
+  return '<div style="padding:28px;max-width:680px"><div class="lbl">The team</div>'
+    +'<h2 class="h2">'+TEAM.length+' people. Two offices. Exceptional density.</h2>'
+    +'<p class="desc">Paris and San Francisco. The founders interview every candidate personally. From day one you\'re treated as a peer with full context and trust.</p>'
+    +'<div class="g2" style="margin-bottom:18px">'
+      +'<div style="background:#0F172A;border-radius:12px;padding:15px"><img src="https://avatars.githubusercontent.com/u/15067" width="42" height="42" style="border-radius:9px;margin-bottom:9px"><div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Stanislas Polu</div><div style="font-size:11px;color:#475569;margin-bottom:7px">Co-founder, CTO</div><div style="font-size:11px;color:#475569;margin-bottom:2px">· OpenAI Research Scientist</div><div style="font-size:11px;color:#475569;margin-bottom:7px">· GPT-3 &amp; RLHF research</div><div style="font-size:11px;color:#94A3B8;font-style:italic;border-top:1px solid #1E293B;padding-top:8px">"Left OpenAI to fix the team AI problem."</div></div>'
+      +'<div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:12px;padding:15px"><img src="https://avatars.githubusercontent.com/u/998689" width="42" height="42" style="border-radius:9px;margin-bottom:9px"><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:2px">Gabriel Hubert</div><div style="font-size:11px;color:#64748B;margin-bottom:7px">Co-founder, CEO</div><div style="font-size:11px;color:#94A3B8;margin-bottom:2px">· Co-founder, Front</div><div style="font-size:11px;color:#94A3B8;margin-bottom:7px">· ex-Stripe</div><div style="font-size:11px;color:#94A3B8;font-style:italic;border-top:1px solid #E2E8F0;padding-top:8px">"Built products at scale before founding Dust."</div></div>'
+    +'</div>'
+    +'<div style="background:#fff;border:1px solid #F1F5F9;border-radius:12px;padding:13px;margin-bottom:14px"><div class="lbl">The full team — '+TEAM.length+' people</div><div style="display:grid;grid-template-columns:repeat(8,1fr);gap:10px">'+grid+'</div></div>'
+    +'<div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:12px;padding:12px"><div class="lbl">Alumni from</div><div style="display:flex;flex-wrap:wrap;gap:6px">'+alumni.map(function(a){return '<span style="background:#fff;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:4px 9px;border-radius:7px">'+a+'</span>';}).join('')+'</div></div>'
+    +'</div>';
+}
+
+/* ── S6: ROLES ── */
+function s6(){
   var rlist=ROLES[CAT]||ROLES.eng;
-  var rcards=rlist.map(function(r){
-    var border=r.top?'border:1px solid #0F172A;box-shadow:0 1px 6px rgba(0,0,0,.08)':'border:1px solid #F1F5F9';
-    var badge=r.top?'<div style="font-size:10px;font-weight:700;color:#0F172A;margin-bottom:8px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;background:#10B981;border-radius:50%;display:inline-block"></span>Top match for your track</div>':'';
-    var tags=r.skills.map(function(s){return '<span style="background:#F1F5F9;color:#475569;font-size:10px;font-weight:600;padding:3px 7px;border-radius:5px">'+s+'</span>';}).join('');
-    var btnBg=r.top?'background:#0F172A;color:#fff;border:none':'background:#fff;color:#0F172A;border:1px solid #E2E8F0';
-    return '<div style="'+border+';border-radius:12px;padding:14px;margin-bottom:8px">'+badge+'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px"><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:3px">'+r.title+'</div><div style="font-size:11px;color:#64748B;margin-bottom:8px">'+r.dept+' · '+r.loc+' · '+r.salary+'</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+tags+'</div></div><a href="'+r.link+'" target="_blank" class="apply-btn" style="font-size:11px;padding:7px 12px;'+btnBg+';border-radius:7px">Apply &#8599;</a></div></div>';
+  var rc=rlist.map(function(r){
+    var bdr=r[0]?'border:1.5px solid #0F172A;box-shadow:0 1px 5px rgba(0,0,0,.07)':'border:1px solid #F1F5F9';
+    var badge=r[0]?'<div style="font-size:10px;font-weight:700;color:#0F172A;margin-bottom:6px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;background:#10B981;border-radius:50%;display:inline-block"></span>Top match</div>':'';
+    return '<div style="'+bdr+';border-radius:11px;padding:12px;margin-bottom:7px">'+badge+'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:9px"><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:3px">'+r[1]+'</div><div style="font-size:11px;color:#64748B;margin-bottom:7px">'+r[2]+'</div><div style="display:flex;flex-wrap:wrap;gap:5px">'+r[3].map(function(s){return '<span class="sk">'+s+'</span>';}).join('')+'</div></div><a href="'+r[4]+'" target="_blank" style="font-size:11px;font-weight:700;padding:7px 11px;border-radius:7px;text-decoration:none;flex-shrink:0;'+(r[0]?'background:#0F172A;color:#fff;border:none':'background:#fff;color:#0F172A;border:1px solid #E2E8F0')+'">Apply ↗</a></div></div>';
   }).join('');
   var clist=CASES[CAT]||CASES.eng;
-  var ccards=clist.map(function(c){
-    return '<a href="'+c.link+'" target="_blank" class="card" style="display:block;padding:14px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><img src="https://dust.tt/static/landing/logos/gray/'+c.logo+'.svg" style="height:14px;opacity:.5;filter:grayscale(1)" alt="'+c.co+'"><span style="font-size:12px;font-weight:700;color:#0F172A">'+c.co+'</span><span style="margin-left:auto;font-size:22px;font-weight:900;color:#0F172A;letter-spacing:-0.02em">'+c.metric+'</span></div><div style="font-size:10px;font-weight:600;color:#94A3B8;margin-bottom:7px">'+c.label+'</div><p style="font-size:11px;color:#64748B;font-style:italic;line-height:1.5;margin-bottom:6px">'+c.quote+'</p><div style="font-size:10px;color:#94A3B8">'+c.author+(c.author?' · ':'')+c.role+'</div></a>';
-  }).join('');
-  return '<div style="padding:28px;max-width:620px">'
-    +'<div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">Open roles</div>'
-    +'<h2 style="font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-0.02em;margin-bottom:6px">26 open positions. All with real ownership.</h2>'
-    +'<p style="font-size:13px;color:#64748B;margin-bottom:18px">Roles matched to your track. All include meaningful equity. <a href="https://dust.tt/jobs" target="_blank" style="color:#0F172A;font-weight:600">View all 26 &#8599;</a></p>'
-    +rcards
-    +'<div style="margin-top:24px"><div style="font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">Companies in your function — already winning with Dust</div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+ccards+'</div></div>'
+  var cc=clist.map(function(c){return '<a href="'+c[5]+'" target="_blank" class="card" style="display:block;padding:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><img src="https://dust.tt/static/landing/logos/gray/'+c[4]+'.svg" style="height:12px;opacity:.4;filter:grayscale(1)" alt="'+c[0]+'"><span style="font-size:12px;font-weight:700;color:#0F172A">'+c[0]+'</span><span style="margin-left:auto;font-size:17px;font-weight:900;color:#0F172A;letter-spacing:-.02em">'+c[1]+'</span></div><div style="font-size:10px;font-weight:600;color:#94A3B8;margin-bottom:5px">'+c[2]+'</div><p style="font-size:11px;color:#64748B;font-style:italic;line-height:1.5">'+c[3]+'</p></a>';}).join('');
+  return '<div style="padding:28px;max-width:580px"><div class="lbl">Open roles — matched to your track</div>'
+    +'<h2 class="h2">26 open positions. Real ownership from day one.</h2>'
+    +'<p class="desc">All include meaningful equity. <a href="https://dust.tt/jobs" target="_blank" style="color:#0F172A;font-weight:600">View all 26 ↗</a></p>'
+    +rc
+    +'<div style="margin-top:18px"><div class="lbl">Companies in your function already winning with Dust</div><div class="g2">'+cc+'</div></div>'
     +'</div>';
 }
+
+/* ── S7: CHATBOT ── */
+var convId=null;
+var TURNSTILE_SITEKEY="0x4AAAAAADKXkI0Mnf03LWMS";
+var turnstileWidgetId=null;
+function ensureTurnstile(){
+  if(!TURNSTILE_SITEKEY)return;
+  if(window.__tsLoaded)return;
+  window.__tsLoaded=true;
+  var s=document.createElement('script');
+  s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileReady';
+  s.async=true;s.defer=true;document.head.appendChild(s);
+}
+window.onTurnstileReady=function(){
+  var host=document.getElementById('ts-host');if(!host||!TURNSTILE_SITEKEY)return;
+  turnstileWidgetId=window.turnstile.render(host,{sitekey:TURNSTILE_SITEKEY,size:'invisible'});
+};
+async function getTurnstileToken(){
+  if(!TURNSTILE_SITEKEY||!window.turnstile||turnstileWidgetId==null)return null;
+  return new Promise(function(resolve){
+    try{
+      window.turnstile.reset(turnstileWidgetId);
+      window.turnstile.execute(turnstileWidgetId,{callback:function(t){resolve(t);}});
+      setTimeout(function(){resolve(null);},10000);
+    }catch(e){resolve(null);}
+  });
+}
+function initChat(){convId=null;}
+function s7(){
+  var sugg=['How is comp decided?','What does a day look like here?','How does the product work?','Who are the founders?','What\'s the hiring process?'];
+  return '<div style="padding:28px;max-width:580px;display:flex;flex-direction:column" style="height:calc(100vh - 100px)"><div class="lbl">Ask Dust anything</div>'
+    +'<h2 class="h2">Your questions. A real Dust agent.</h2>'
+    +'<p class="desc" style="margin-bottom:14px">This agent has the full Dust website, blog, job board and team page as its knowledge base. Ask anything.</p>'
+    +'<div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:300px;margin-bottom:10px">'
+      +'<div id="chat-msgs" class="sp" style="flex:1;max-height:320px"><div id="chat-inner" style="padding:14px;display:flex;flex-direction:column;gap:9px">'
+        +'<div style="text-align:center"><span style="font-size:10px;color:#94A3B8;background:#F8FAFC;border:1px solid #E2E8F0;padding:3px 10px;border-radius:9999px">@dust-candidate · Ready</span></div>'
+        +'<div style="display:flex;gap:8px;align-items:flex-start"><div style="width:22px;height:22px;background:#7C3AED;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:9px;font-weight:700">D</span></div><div class="cb ab">Hi! I\'m your Dust recruiting guide. Ask me anything about the product, culture, comp, the team, or open roles.</div></div>'
+      +'</div></div>'
+      +'<div style="border-top:1px solid #E2E8F0;padding:9px 11px;display:flex;gap:7px;background:#fff"><input id="chat-in" type="text" placeholder="Ask about culture, comp, roles, how the product works..." style="flex:1;border:1px solid #E2E8F0;border-radius:8px;padding:8px 10px;font-size:12px;font-family:Inter,sans-serif;outline:none;color:#0F172A" onkeydown="if(event.key===\'Enter\')sendChat()"><button onclick="sendChat()" id="chat-btn" style="background:#0F172A;color:#fff;border:none;border-radius:8px;padding:8px 13px;font-size:12px;font-weight:700">Send</button></div>'
+    +'</div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:6px">'+sugg.map(function(q){return '<button onclick="setSugg(\''+q+'\')" style="font-size:11px;background:#fff;border:1px solid #E2E8F0;color:#475569;padding:5px 10px;border-radius:7px;cursor:pointer;font-weight:500">'+q+'</button>';}).join('')+'</div>'
+    +'</div>';
+}
+function setSugg(q){var i=document.getElementById('chat-in');if(i){i.value=q;sendChat();}}
+function addBubble(txt,role){
+  var wrap=document.getElementById('chat-inner');if(!wrap)return;
+  var div=document.createElement('div');div.style.display='flex';div.style.gap='8px';div.style.alignItems='flex-start';
+  var bubble=document.createElement('div');
+  if(role==='user'){
+    div.style.justifyContent='flex-end';
+    bubble.className='cb ub';bubble.textContent=txt;
+    div.appendChild(bubble);
+  } else {
+    var avatar=document.createElement('div');
+    avatar.style.cssText='width:22px;height:22px;background:#7C3AED;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center';
+    var letter=document.createElement('span');
+    letter.style.cssText='color:#fff;font-size:9px;font-weight:700';letter.textContent='D';
+    avatar.appendChild(letter);
+    bubble.className='cb ab';bubble.textContent=txt;
+    div.appendChild(avatar);div.appendChild(bubble);
+  }
+  wrap.appendChild(div);
+  var m=document.getElementById('chat-msgs');if(m)m.scrollTop=m.scrollHeight;
+  return bubble;
+}
+var chatInFlight=false;
+async function sendChat(){
+  if(chatInFlight)return;
+  var inp=document.getElementById('chat-in');if(!inp||!inp.value.trim())return;
+  var txt=inp.value.trim();inp.value='';
+  chatInFlight=true;
+  var btn=document.getElementById('chat-btn');if(btn)btn.disabled=true;
+  if(inp)inp.disabled=true;
+  addBubble(txt,'user');
+  var loadEl=addBubble('...','ai');
+  var gotMessage=false;
+  try{
+    var url='https://dust-proxy.kevin-duchier.workers.dev/';
+    var tsToken=await getTurnstileToken();
+    var body={message:txt,conversationId:convId||null,turnstileToken:tsToken};
+    var resp=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    var reader=resp.body.getReader(),dec=new TextDecoder(),buf='',txt2='';
+    while(true){
+      var _r=await reader.read();if(_r.done)break;
+      buf+=dec.decode(_r.value,{stream:true});
+      var lines=buf.split('\n');buf=lines.pop();
+      for(var j=0;j<lines.length;j++){
+        var ln=lines[j];
+        if(ln.startsWith('data: ')){
+          try{
+            var ev=JSON.parse(ln.slice(6));
+            if(ev.type==='conversation_created'&&ev.conversation)convId=ev.conversation.sId;
+            if(ev.type==='agent_generation_tokens'&&ev.text&&ev.text.tokens){txt2+=ev.text.tokens;if(loadEl)loadEl.textContent=txt2;}
+            if(ev.type==='agent_message_success'&&ev.message&&ev.message.content){txt2=ev.message.content;gotMessage=true;if(loadEl)loadEl.textContent=txt2;}
+          }catch(e){}
+        }
+      }
+    }
+    if(!gotMessage&&loadEl)loadEl.textContent=txt2?(txt2+' …connection lost'):'No response received — please try again.';
+  }catch(e){if(loadEl)loadEl.textContent='Could not reach the agent. Please try again in a moment.';}
+  finally{
+    chatInFlight=false;
+    if(btn)btn.disabled=false;
+    if(inp)inp.disabled=false;
+  }
+}
+ensureTurnstile();
 </script>
 </body>
 </html>
