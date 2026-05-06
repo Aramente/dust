@@ -27,18 +27,20 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
 .ub{background:#0F172A;color:#fff;margin-left:auto;border-bottom-right-radius:3px}
 .ab{background:#F8FAFC;border:1px solid #E2E8F0;color:#334155;border-bottom-left-radius:3px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes fl{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(8px,-12px) rotate(2deg)}}
 .cur{display:inline-block;width:2px;height:12px;background:#0F172A;vertical-align:middle;animation:blink 1s infinite}
 </style>
 </head>
 <body>
 <div id="ts-host" style="position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden"></div>
 
-<div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden">
-  <div style="position:absolute;top:-120px;right:-120px;opacity:.04;pointer-events:none"><img src="https://dust.tt/static/landing/industry/d-blue.svg" width="460" height="460" alt=""></div>
-  <div style="position:absolute;bottom:-100px;left:-100px;opacity:.035;pointer-events:none"><img src="https://dust.tt/static/landing/industry/d-red.svg" width="360" height="360" alt=""></div>
+<div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;background:radial-gradient(ellipse 1100px 700px at 75% 15%, #EFF6FF 0%, #fff 65%),radial-gradient(ellipse 900px 600px at 15% 85%, #FEF2F2 0%, #fff 60%),#fff">
+  <div style="position:absolute;top:-120px;right:-120px;opacity:.10;pointer-events:none;animation:fl 9s ease-in-out infinite"><img src="https://dust.tt/static/landing/industry/d-blue.svg" width="460" height="460" alt=""></div>
+  <div style="position:absolute;bottom:-100px;left:-100px;opacity:.09;pointer-events:none;animation:fl 11s ease-in-out infinite reverse"><img src="https://dust.tt/static/landing/industry/d-red.svg" width="360" height="360" alt=""></div>
+  <div style="position:absolute;top:38%;right:18%;opacity:.07;pointer-events:none;animation:fl 13s ease-in-out infinite"><img src="https://dust.tt/static/landing/industry/d-green.svg" width="180" height="180" alt=""></div>
   <div style="max-width:440px;width:100%;position:relative;z-index:1">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:44px">
-      <img src="https://dust.tt/apple-touch-icon.png" width="32" height="32" style="border-radius:8px">
+      <img src="https://dust.tt/static/AppIcon.png" width="32" height="32" style="border-radius:8px">
       <span style="font-weight:900;font-size:20px;letter-spacing:-.05em;color:#0F172A">dust</span>
       <div style="width:1px;height:16px;background:#E2E8F0;margin:0 4px"></div>
       <span style="font-size:12px;color:#94A3B8;font-weight:500">Candidate Experience</span>
@@ -57,7 +59,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
 
 <div id="tour" style="display:none;height:100vh;flex-direction:column">
   <div style="border-bottom:1px solid #F1F5F9;padding:0 20px;height:48px;display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <img src="https://dust.tt/apple-touch-icon.png" width="22" height="22" style="border-radius:6px">
+    <img src="https://dust.tt/static/AppIcon.png" width="22" height="22" style="border-radius:6px">
     <span style="font-weight:900;font-size:15px;letter-spacing:-.04em;color:#0F172A">dust</span>
     <div style="width:1px;height:14px;background:#E2E8F0"></div>
     <span id="cat-label" style="font-size:11px;color:#94A3B8;font-weight:600"></span>
@@ -83,7 +85,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
         </div>
       </div>
       <div style="border-top:1px solid #E2E8F0;padding:7px 13px;display:flex;align-items:center;gap:6px">
-        <img src="https://dust.tt/apple-touch-icon.png" width="12" height="12" style="border-radius:3px;opacity:.5">
+        <img src="https://dust.tt/static/AppIcon.png" width="12" height="12" style="border-radius:3px;opacity:.5">
         <span id="cat-footer" style="font-size:10px;color:#94A3B8"></span>
       </div>
     </div>
@@ -272,7 +274,7 @@ function s1(){
     +'<p class="desc">Dust connects AI models to your company\'s knowledge — Notion, Slack, GitHub, Salesforce, Google Drive. You build agents. The whole team uses them. Every conversation compounds. AI stops being a personal tool and becomes shared infrastructure.</p>'
     +'<div style="display:flex;gap:7px;margin-bottom:22px">'+['Platform<br><span style="font-weight:400;color:#64748B;font-size:10px">Connect any model to any data</span>','Agents<br><span style="font-weight:400;color:#64748B;font-size:10px">Shared across teams, not per-user</span>','Memory<br><span style="font-weight:400;color:#64748B;font-size:10px">Company knowledge compounds</span>'].map(function(s){return '<div style="flex:1;background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:11px;font-weight:700;color:#0F172A;line-height:1.5">'+s+'</div>';}).join('')+'</div>'
     +'<div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">'
-      +'<div style="background:#F8FAFC;border-bottom:1px solid #F1F5F9;padding:8px 13px;display:flex;align-items:center;gap:6px"><img src="https://dust.tt/apple-touch-icon.png" width="12" height="12" style="border-radius:3px"><span style="font-size:10px;color:#94A3B8;font-weight:600">dust.tt — Agent Builder</span><div style="margin-left:auto;display:flex;gap:4px">'+['#FCA5A5','#FDE68A','#6EE7B7'].map(function(c){return '<div style="width:8px;height:8px;border-radius:50%;background:'+c+'"></div>';}).join('')+'</div></div>'
+      +'<div style="background:#F8FAFC;border-bottom:1px solid #F1F5F9;padding:8px 13px;display:flex;align-items:center;gap:6px"><img src="https://dust.tt/static/AppIcon.png" width="12" height="12" style="border-radius:3px"><span style="font-size:10px;color:#94A3B8;font-weight:600">dust.tt — Agent Builder</span><div style="margin-left:auto;display:flex;gap:4px">'+['#FCA5A5','#FDE68A','#6EE7B7'].map(function(c){return '<div style="width:8px;height:8px;border-radius:50%;background:'+c+'"></div>';}).join('')+'</div></div>'
       +'<div id="db" style="padding:16px;min-height:130px"></div>'
     +'</div>'
     +'<p style="font-size:11px;color:#94A3B8;margin-top:9px;text-align:center">Scripted demo loops every 30 sec · <a href="https://dust.tt" target="_blank" style="color:#0F172A;font-weight:600">Try the real thing ↗</a></p>'
@@ -308,7 +310,7 @@ function s2(){
 /* ── S3: HOW WE WORK ── */
 function s3(){
   var arts=[
-    ['https://images.ctfassets.net/751ge4ljeqso/ZTsLvhjuvW5GYjWstLY54/2e9979ee40d2595bca00bee560ac390/An_Engineer-s_Day.png?w=400&fm=webp&q=75','A day in the life','pb',"An Engineer's Day at Dust",'No product requirements handed down. Engineers own a project end to end — discovery, build, launch, monitoring.','https://dust.tt/blog/an-engineers-day-at-dust'],
+    ['https://images.ctfassets.net/751ge4ljeqso/5RMtrQdUfEqpRGMIbOgZbF/2c543bec99297892382eebe513e87d69/rcs.png?w=400&fm=webp&q=75','A day in the life','pb',"An Engineer's Day at Dust",'No product requirements handed down. Engineers own a project end to end — discovery, build, launch, monitoring.','https://dust.tt/blog/an-engineers-day-at-dust'],
     ['https://images.ctfassets.net/751ge4ljeqso/7xKTCuYq5suv0nmySDreww/b770c141df5cdc372a46c9739532130c/Day_in_the_Life_of_an_AE__1_.jpg?w=400&fm=webp&q=75','A day in the life','pb',"An AE's Day Using Dust",'Nic opens Slack and his agents have been running since before he arrived. Account briefs ready. No prep time lost.','https://dust.tt/blog/day-in-the-life-ae-using-dust'],
     ['https://images.ctfassets.net/751ge4ljeqso/21MynLrJpzBsOrooJOcQ2p/3c31a5b66a19924db2f7f4faf6fdb5de/image.png?w=400&fm=webp&q=75','How we work','pp','Dust for Dust','@Q writes PR drafts. @eng triages issues. @pr_review checks against design docs. @incidentQ has full context. The product builds itself.','https://dust.tt/blog/dust-for-dust'],
     ['https://images.ctfassets.net/751ge4ljeqso/72Wlz12isH8V9j5NKqniza/05c5bfeb7447fddd78d195a486e42c3f/image.png?w=400&fm=webp&q=75','Culture','pg','No PMs — Product Is Everyone\'s Job','Engineers, designers, analysts own features end-to-end. The DRI model means no one to hand off to — you own it.','https://dust.tt/blog/no-pms-just-builders'],
@@ -349,7 +351,17 @@ function setEq(p){['eq0','eq50','eq100'].forEach(function(id){var b=document.get
 
 /* ── S5: TEAM ── */
 function s5(){
-  var grid=TEAM.map(function(p){return '<div style="text-align:center"><img src="'+p[2]+'" width="48" height="48" style="border-radius:50%;object-fit:cover;border:2px solid #F1F5F9" onerror="this.src=\'https://ui-avatars.com/api/?name='+encodeURIComponent(p[0])+'&size=88&background=E2E8F0&color=475569\'"><div style="font-size:9px;font-weight:700;color:#0F172A;margin-top:4px;line-height:1.3">'+p[0].split(' ')[0]+'</div><div style="font-size:9px;color:#94A3B8;margin-top:1px;line-height:1.2">'+p[1]+'</div></div>';}).join('');
+  var grid=TEAM.map(function(p){
+    var ghMatch=/avatars\.githubusercontent\.com\/u\/(\d+)/.exec(p[2]);
+    var ghUserMatch=/avatars\.githubusercontent\.com\/([a-zA-Z0-9_-]+)$/.exec(p[2]);
+    var href=ghUserMatch
+      ? 'https://github.com/'+ghUserMatch[1]
+      : 'https://www.linkedin.com/search/results/people/?keywords='+encodeURIComponent(p[0]+' Dust')+'&origin=GLOBAL_SEARCH_HEADER';
+    var badge=ghMatch||ghUserMatch
+      ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="#0F172A" style="position:absolute;bottom:-2px;right:-2px;background:#fff;border-radius:50%;padding:1px"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.3v3.3c0 .3.1.7.8.6A12 12 0 0012 .3"/></svg>'
+      : '<svg width="10" height="10" viewBox="0 0 24 24" fill="#0A66C2" style="position:absolute;bottom:-2px;right:-2px;background:#fff;border-radius:50%;padding:1px"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3v9zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>';
+    return '<a href="'+href+'" target="_blank" rel="noopener" style="text-decoration:none;display:block;text-align:center;padding:4px;border-radius:8px;transition:background .15s" onmouseover="this.style.background=\'#F1F5F9\'" onmouseout="this.style.background=\'\'"><div style="position:relative;width:48px;margin:0 auto"><img src="'+p[2]+'" width="48" height="48" style="border-radius:50%;object-fit:cover;border:2px solid #F1F5F9;display:block" onerror="this.src=\'https://ui-avatars.com/api/?name='+encodeURIComponent(p[0])+'&size=88&background=E2E8F0&color=475569\'">'+badge+'</div><div style="font-size:9px;font-weight:700;color:#0F172A;margin-top:4px;line-height:1.3">'+p[0].split(' ')[0]+'</div><div style="font-size:9px;color:#94A3B8;margin-top:1px;line-height:1.2">'+p[1]+'</div></a>';
+  }).join('');
   var alumni=['OpenAI','Stripe','Front','Google','Airbnb','Datadog','Notion','Stanford','Y Combinator'];
   return '<div style="padding:28px;max-width:680px"><div class="lbl">The team</div>'
     +'<h2 class="h2">'+TEAM.length+' people. Two offices. Exceptional density.</h2>'
@@ -472,9 +484,12 @@ async function sendChat(){
         if(ln.startsWith('data: ')){
           try{
             var ev=JSON.parse(ln.slice(6));
-            if(ev.type==='conversation_created'&&ev.conversation)convId=ev.conversation.sId;
-            if(ev.type==='agent_generation_tokens'&&ev.text&&ev.text.tokens){txt2+=ev.text.tokens;if(loadEl)loadEl.textContent=txt2;}
-            if(ev.type==='agent_message_success'&&ev.message&&ev.message.content){txt2=ev.message.content;gotMessage=true;if(loadEl)loadEl.textContent=txt2;}
+            if(ev.type==='conversation_created'&&ev.conversation){convId=ev.conversation.sId;continue;}
+            var d=ev.data;
+            if(!d||!d.type)continue;
+            if(d.type==='generation_tokens'&&typeof d.text==='string'){txt2+=d.text;if(loadEl)loadEl.textContent=txt2;}
+            else if((d.type==='agent_message_success'||d.type==='agent_message_done')&&d.message&&d.message.content){txt2=d.message.content;gotMessage=true;if(loadEl)loadEl.textContent=txt2;}
+            else if(d.type==='agent_error'&&d.error&&d.error.message){if(loadEl)loadEl.textContent='Agent error: '+d.error.message;gotMessage=true;}
           }catch(e){}
         }
       }
