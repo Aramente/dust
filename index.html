@@ -32,7 +32,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
 </style>
 </head>
 <body>
-<div id="ts-host" style="position:fixed;bottom:6px;right:6px;z-index:9999;opacity:0;pointer-events:none"></div>
+<div id="ts-host" style="position:fixed;bottom:-9999px;left:-9999px"></div>
 
 <div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;background:radial-gradient(ellipse 1100px 700px at 75% 15%, #EFF6FF 0%, #fff 65%),radial-gradient(ellipse 900px 600px at 15% 85%, #FEF2F2 0%, #fff 60%),#fff">
   <div style="position:absolute;top:-120px;right:-120px;opacity:.10;pointer-events:none;animation:fl 9s ease-in-out infinite"><img src="https://dust.tt/static/landing/industry/d-blue.svg" width="460" height="460" alt=""></div>
@@ -409,14 +409,16 @@ function ensureTurnstile(){
 }
 window.onTurnstileReady=function(){
   var host=document.getElementById('ts-host');if(!host||!TURNSTILE_SITEKEY)return;
+  console.log('[ts] api ready, rendering widget');
   turnstileWidgetId=window.turnstile.render(host,{
     sitekey:TURNSTILE_SITEKEY,
     size:'invisible',
-    callback:function(t){settleTurnstile(t);},
-    'error-callback':function(){settleTurnstile(null);},
-    'expired-callback':function(){settleTurnstile(null);},
-    'timeout-callback':function(){settleTurnstile(null);}
+    callback:function(t){console.log('[ts] token received, len=',t&&t.length);settleTurnstile(t);},
+    'error-callback':function(c){console.warn('[ts] error',c);settleTurnstile(null);},
+    'expired-callback':function(){console.warn('[ts] expired');settleTurnstile(null);},
+    'timeout-callback':function(){console.warn('[ts] timeout');settleTurnstile(null);}
   });
+  console.log('[ts] render returned widgetId=',turnstileWidgetId);
 };
 async function getTurnstileToken(){
   if(!TURNSTILE_SITEKEY||!window.turnstile||turnstileWidgetId==null)return null;
