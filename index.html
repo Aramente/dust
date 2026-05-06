@@ -32,7 +32,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
 </style>
 </head>
 <body>
-<div id="ts-host" style="position:fixed;bottom:-9999px;left:-9999px"></div>
+<div id="ts-host" style="position:fixed;bottom:8px;right:8px;z-index:9999;max-width:300px"></div>
 
 <div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;background:radial-gradient(ellipse 1100px 700px at 75% 15%, #EFF6FF 0%, #fff 65%),radial-gradient(ellipse 900px 600px at 15% 85%, #FEF2F2 0%, #fff 60%),#fff">
   <div style="position:absolute;top:-120px;right:-120px;opacity:.10;pointer-events:none;animation:fl 9s ease-in-out infinite"><img src="https://dust.tt/static/landing/industry/d-blue.svg" width="460" height="460" alt=""></div>
@@ -394,11 +394,21 @@ function s6(){
 }
 
 /* ── S7: CHATBOT ── */
-var convId=null;
+function dustStorage(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){return null;}}
+function dustSessionToken(){
+  var t=dustStorage('dust_session');
+  if(!t){
+    t=(crypto&&crypto.randomUUID)?crypto.randomUUID():('s_'+Math.random().toString(36).slice(2)+Date.now().toString(36));
+    dustStorage('dust_session',t);
+  }
+  return t;
+}
+var convId=dustStorage('dust_conv')||null;
 var TURNSTILE_SITEKEY="0x4AAAAAADKXkI0Mnf03LWMS";
 var turnstileWidgetId=null;
+var turnstileToken=null;
 var turnstileResolve=null;
-function settleTurnstile(t){if(turnstileResolve){var r=turnstileResolve;turnstileResolve=null;r(t);}}
+function settleTurnstile(t){turnstileToken=t;if(turnstileResolve){var r=turnstileResolve;turnstileResolve=null;r(t);}}
 function ensureTurnstile(){
   if(!TURNSTILE_SITEKEY)return;
   if(window.__tsLoaded)return;
@@ -409,26 +419,26 @@ function ensureTurnstile(){
 }
 window.onTurnstileReady=function(){
   var host=document.getElementById('ts-host');if(!host||!TURNSTILE_SITEKEY)return;
-  console.log('[ts] api ready, rendering widget');
   turnstileWidgetId=window.turnstile.render(host,{
     sitekey:TURNSTILE_SITEKEY,
-    size:'invisible',
-    callback:function(t){console.log('[ts] token received, len=',t&&t.length);settleTurnstile(t);},
-    'error-callback':function(c){console.warn('[ts] error',c);settleTurnstile(null);},
-    'expired-callback':function(){console.warn('[ts] expired');settleTurnstile(null);},
-    'timeout-callback':function(){console.warn('[ts] timeout');settleTurnstile(null);}
+    size:'flexible',
+    appearance:'interaction-only',
+    callback:function(t){settleTurnstile(t);},
+    'error-callback':function(){settleTurnstile(null);},
+    'expired-callback':function(){settleTurnstile(null);},
+    'timeout-callback':function(){settleTurnstile(null);}
   });
-  console.log('[ts] render returned widgetId=',turnstileWidgetId);
 };
 async function getTurnstileToken(){
   if(!TURNSTILE_SITEKEY||!window.turnstile||turnstileWidgetId==null)return null;
+  if(turnstileToken){
+    var t=turnstileToken;turnstileToken=null;
+    try{window.turnstile.reset(turnstileWidgetId);}catch(e){}
+    return t;
+  }
   return new Promise(function(resolve){
     turnstileResolve=resolve;
-    try{
-      window.turnstile.reset(turnstileWidgetId);
-      window.turnstile.execute(turnstileWidgetId);
-      setTimeout(function(){settleTurnstile(null);},12000);
-    }catch(e){settleTurnstile(null);}
+    setTimeout(function(){settleTurnstile(null);},15000);
   });
 }
 function initChat(){convId=null;}
@@ -483,7 +493,7 @@ async function sendChat(){
   try{
     var url='https://dust-proxy.kevin-duchier.workers.dev/';
     var tsToken=await getTurnstileToken();
-    var body={message:txt,conversationId:convId||null,turnstileToken:tsToken};
+    var body={message:txt,conversationId:convId||null,sessionToken:dustSessionToken(),turnstileToken:tsToken};
     var resp=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!resp.ok)throw new Error('HTTP '+resp.status);
     var reader=resp.body.getReader(),dec=new TextDecoder(),buf='',txt2='';
@@ -496,7 +506,7 @@ async function sendChat(){
         if(ln.startsWith('data: ')){
           try{
             var ev=JSON.parse(ln.slice(6));
-            if(ev.type==='conversation_created'&&ev.conversation){convId=ev.conversation.sId;continue;}
+            if(ev.type==='conversation_created'&&ev.conversation){convId=ev.conversation.sId;dustStorage('dust_conv',convId);continue;}
             var d=ev.data;
             if(!d||!d.type)continue;
             if(d.type==='generation_tokens'&&typeof d.text==='string'){txt2+=d.text;if(loadEl)loadEl.textContent=txt2;}
