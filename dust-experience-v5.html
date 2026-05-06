@@ -31,6 +31,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
 </style>
 </head>
 <body>
+<div id="ts-host" style="position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden"></div>
 
 <div id="ob" style="height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden">
   <div style="position:absolute;top:-120px;right:-120px;opacity:.04;pointer-events:none"><img src="https://dust.tt/static/landing/industry/d-blue.svg" width="460" height="460" alt=""></div>
@@ -382,6 +383,30 @@ function s6(){
 
 /* ── S7: CHATBOT ── */
 var convId=null;
+var TURNSTILE_SITEKEY="";
+var turnstileWidgetId=null;
+function ensureTurnstile(){
+  if(!TURNSTILE_SITEKEY)return;
+  if(window.__tsLoaded)return;
+  window.__tsLoaded=true;
+  var s=document.createElement('script');
+  s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileReady';
+  s.async=true;s.defer=true;document.head.appendChild(s);
+}
+window.onTurnstileReady=function(){
+  var host=document.getElementById('ts-host');if(!host||!TURNSTILE_SITEKEY)return;
+  turnstileWidgetId=window.turnstile.render(host,{sitekey:TURNSTILE_SITEKEY,size:'invisible'});
+};
+async function getTurnstileToken(){
+  if(!TURNSTILE_SITEKEY||!window.turnstile||turnstileWidgetId==null)return null;
+  return new Promise(function(resolve){
+    try{
+      window.turnstile.reset(turnstileWidgetId);
+      window.turnstile.execute(turnstileWidgetId,{callback:function(t){resolve(t);}});
+      setTimeout(function(){resolve(null);},10000);
+    }catch(e){resolve(null);}
+  });
+}
 function initChat(){convId=null;}
 function s7(){
   var sugg=['How is comp decided?','What does a day look like here?','How does the product work?','Who are the founders?','What\'s the hiring process?'];
@@ -433,7 +458,8 @@ async function sendChat(){
   var gotMessage=false;
   try{
     var url='https://dust-proxy.kevin-duchier.workers.dev/';
-    var body={message:txt,conversationId:convId||null};
+    var tsToken=await getTurnstileToken();
+    var body={message:txt,conversationId:convId||null,turnstileToken:tsToken};
     var resp=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
     if(!resp.ok)throw new Error('HTTP '+resp.status);
     var reader=resp.body.getReader(),dec=new TextDecoder(),buf='',txt2='';
@@ -461,6 +487,7 @@ async function sendChat(){
     if(inp)inp.disabled=false;
   }
 }
+ensureTurnstile();
 </script>
 </body>
 </html>
