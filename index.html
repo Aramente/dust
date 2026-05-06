@@ -10,20 +10,36 @@ body{background:#fff;height:100vh;overflow:hidden}
 .fade{animation:fi .3s ease}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 a{color:inherit;text-decoration:none}button{cursor:pointer}
-.lbl{font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
-.h2{font-size:22px;font-weight:800;color:#0F172A;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px}
-.desc{font-size:13px;color:#64748B;line-height:1.65;margin-bottom:18px}
-.card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;transition:border-color .15s}
-.card:hover{border-color:#94A3B8}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sk{background:#F1F5F9;color:#475569;font-size:10px;font-weight:600;padding:3px 7px;border-radius:5px}
-.pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block}
+:root{--track:#3B82F6}
+#tour[data-cat="eng"]{--track:#3B82F6}
+#tour[data-cat="gtm"]{--track:#EF4444}
+#tour[data-cat="cs"]{--track:#10B981}
+#tour[data-cat="people"]{--track:#8B5CF6}
+#tour[data-cat="product"]{--track:#F59E0B}
+.lbl{font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.lbl.tk{color:var(--track)}
+.h2{font-size:36px;font-weight:800;color:#0F172A;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+.desc{font-size:16px;color:#475569;line-height:1.65;margin-bottom:22px;max-width:60ch}
+.card{background:#fff;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;transition:all .18s}
+.card:hover{border-color:#94A3B8;transform:translateY(-1px)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sk{background:#F1F5F9;color:#475569;font-size:11px;font-weight:600;padding:4px 9px;border-radius:6px}
+.pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:7px;display:inline-block}
 .pb{background:#EFF6FF;color:#1D4ED8}.pp{background:#F5F3FF;color:#6D28D9}.pg{background:#F0FDF4;color:#166534}
-.sp{overflow-y:auto;height:100%}.sp::-webkit-scrollbar{width:4px}.sp::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:4px}
+.sp{overflow-y:auto;height:100%}.sp::-webkit-scrollbar{width:6px}.sp::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:6px}
+.tw{max-width:1100px;margin:0 auto;padding:38px 40px}
+.dot{height:8px;border-radius:9999px;border:none;cursor:pointer;padding:0;transition:all .2s}
+.dot.on{width:24px;background:var(--track)}.dot.off{width:8px;background:#E2E8F0}.dot.off:hover{background:#CBD5E1}
+.tnav{height:64px;border-bottom:1px solid #F1F5F9;padding:0 24px;display:flex;align-items:center;gap:14px;flex-shrink:0;background:#fff}
+.tnav .nb{font-size:13px;font-weight:600;padding:8px 14px;border-radius:9px;border:1px solid #E2E8F0;color:#475569;background:#fff;transition:all .15s}
+.tnav .nb:hover:not(:disabled){border-color:#0F172A;color:#0F172A}
+.tnav .nb.primary{background:#0F172A;color:#fff;border-color:#0F172A}
+.tnav .nb.primary:hover:not(:disabled){background:#1E293B}
+.tnav .nb:disabled{opacity:.35;cursor:not-allowed}
 .ob-btn{width:100%;text-align:left;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px 16px;margin-bottom:8px;background:#fff;transition:all .18s;display:flex;align-items:center;justify-content:space-between}
 .ob-btn:hover{border-color:#0F172A;background:#FAFAFA}.ob-btn:hover .oa{opacity:1;transform:none}
 .oa{opacity:0;transform:translateX(-4px);transition:all .18s;color:#94A3B8}
-.cb{padding:9px 13px;border-radius:12px;font-size:12px;line-height:1.55;max-width:80%}
+.cb{padding:11px 15px;border-radius:13px;font-size:14px;line-height:1.55;max-width:80%}
 .ub{background:#0F172A;color:#fff;margin-left:auto;border-bottom-right-radius:3px}
 .ab{background:#F8FAFC;border:1px solid #E2E8F0;color:#334155;border-bottom-left-radius:3px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
@@ -58,39 +74,21 @@ a{color:inherit;text-decoration:none}button{cursor:pointer}
 </div>
 
 <div id="tour" style="display:none;height:100vh;flex-direction:column">
-  <div style="border-bottom:1px solid #F1F5F9;padding:0 20px;height:48px;display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <img src="https://dust.tt/static/AppIcon.png" width="22" height="22" style="border-radius:6px">
-    <span style="font-weight:900;font-size:15px;letter-spacing:-.04em;color:#0F172A">dust</span>
-    <div style="width:1px;height:14px;background:#E2E8F0"></div>
-    <span id="cat-label" style="font-size:11px;color:#94A3B8;font-weight:600"></span>
-    <div id="tabs" style="display:flex;gap:2px;margin-left:auto;overflow-x:auto"></div>
+  <div class="tnav">
+    <img src="https://dust.tt/static/AppIcon.png" width="26" height="26" style="border-radius:7px">
+    <span style="font-weight:900;font-size:18px;letter-spacing:-.04em;color:#0F172A">dust</span>
+    <div style="width:1px;height:18px;background:#E2E8F0;margin:0 4px"></div>
+    <span id="cat-label" style="font-size:13px;color:var(--track);font-weight:700;letter-spacing:.02em"></span>
+    <span id="cat-step" style="font-size:12px;color:#94A3B8;font-weight:500;margin-left:6px"></span>
+    <div id="dots" style="display:flex;gap:6px;margin:0 auto"></div>
+    <button id="btnP" class="nb" onclick="prev()">← Back</button>
+    <button id="btnN" class="nb primary" onclick="next()">Next →</button>
   </div>
-  <div style="flex:1;display:flex;overflow:hidden">
-    <div style="width:252px;border-right:1px solid #F1F5F9;display:flex;flex-direction:column;flex-shrink:0;background:#FAFAFA">
-      <div style="flex:1;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
-        <div>
-          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px">
-            <div style="width:28px;height:28px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:10px;font-weight:700">A</span></div>
-            <div><div style="font-size:11px;font-weight:700;color:#0F172A">Alex</div><div style="font-size:10px;color:#94A3B8">Dust Recruiting Guide</div></div>
-            <span style="margin-left:auto;width:6px;height:6px;background:#10B981;border-radius:50%"></span>
-          </div>
-          <div id="cap"></div>
-        </div>
-        <div>
-          <div id="dots" style="display:flex;gap:5px;margin-bottom:13px"></div>
-          <div style="display:flex;gap:7px">
-            <button id="btnP" onclick="prev()" style="flex:1;border:1px solid #E2E8F0;color:#475569;font-size:11px;font-weight:600;padding:8px;border-radius:8px;background:#fff">← Back</button>
-            <button id="btnN" onclick="next()" style="flex:1;background:#0F172A;color:#fff;font-size:11px;font-weight:600;padding:8px;border-radius:8px;border:none">Next →</button>
-          </div>
-        </div>
-      </div>
-      <div style="border-top:1px solid #E2E8F0;padding:7px 13px;display:flex;align-items:center;gap:6px">
-        <img src="https://dust.tt/static/AppIcon.png" width="12" height="12" style="border-radius:3px;opacity:.5">
-        <span id="cat-footer" style="font-size:10px;color:#94A3B8"></span>
-      </div>
-    </div>
-    <div id="rp" class="sp" style="flex:1"></div>
-  </div>
+  <div style="height:3px;background:linear-gradient(90deg,var(--track),transparent);flex-shrink:0;opacity:.7"></div>
+  <div id="rp" class="sp" style="flex:1"></div>
+  <div id="cap" style="display:none"></div>
+  <div id="tabs" style="display:none"></div>
+  <span id="cat-footer" style="display:none"></span>
 </div>
 
 <script>
@@ -206,34 +204,39 @@ function pick(c){
   CAT=c;SEC=0;
   document.getElementById('ob').style.display='none';
   var t=document.getElementById('tour');t.style.display='flex';t.style.flexDirection='column';
+  t.setAttribute('data-cat',c);
   document.getElementById('cat-label').textContent=CL[c];
   document.getElementById('cat-footer').textContent=CL[c]+' track';
-  document.getElementById('tabs').innerHTML=TL.map(function(l,i){return '<button onclick="goTo('+i+')" id="t'+i+'" style="font-size:10px;font-weight:600;padding:5px 9px;border-radius:7px;border:none;cursor:pointer;white-space:nowrap;transition:all .15s;color:#94A3B8;background:transparent">'+l+'</button>';}).join('');
   goTo(0);
 }
 function goTo(i){
   if(dT){clearTimeout(dT);dT=null;}
   SEC=i;
-  document.getElementById('dots').innerHTML=TL.map(function(_,j){return '<button onclick="goTo('+j+')" style="'+(j===i?'width:18px;background:#0F172A':'width:6px;background:#CBD5E1')+';height:6px;border-radius:9999px;border:none;cursor:pointer;padding:0;transition:all .2s"></button>';}).join('');
+  document.getElementById('dots').innerHTML=TL.map(function(_,j){return '<button onclick="goTo('+j+')" class="dot '+(j===i?'on':'off')+'" title="'+TL[j]+'"></button>';}).join('');
   var caps=CAPS[CAT]||CAPS.eng;
-  document.getElementById('cap').innerHTML='<div class="fade"><h3 style="font-size:13px;font-weight:800;color:#0F172A;line-height:1.4;margin-bottom:5px">'+caps[i]+'</h3></div>';
-  TL.forEach(function(_,j){var b=document.getElementById('t'+j);if(b){b.style.background=j===i?'#0F172A':'transparent';b.style.color=j===i?'#fff':'#94A3B8';}});
-  document.getElementById('btnP').style.opacity=i===0?'0.3':'1';
-  document.getElementById('btnN').style.opacity=i===TL.length-1?'0.3':'1';
+  document.getElementById('cap').innerHTML='<div class="fade"><h3>'+caps[i]+'</h3></div>';
+  document.getElementById('cat-step').textContent='· '+TL[i]+' · '+(i+1)+' / '+TL.length;
+  document.getElementById('btnP').disabled=i===0;
+  document.getElementById('btnN').disabled=i===TL.length-1;
   var fns=[s0,s1,s2,s3,s4,s5,s6,s7];
-  document.getElementById('rp').innerHTML='<div class="fade">'+fns[i]()+'</div>';
+  document.getElementById('rp').innerHTML='<div class="fade tw">'+fns[i]()+'</div>';
   if(i===1){dS=0;runDemo();}
   if(i===7)initChat();
 }
 function next(){if(SEC<TL.length-1)goTo(SEC+1);}
 function prev(){if(SEC>0)goTo(SEC-1);}
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('tour').style.display!=='flex')return;
+  var t=e.target&&e.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;
+  if(e.key==='ArrowRight')next();else if(e.key==='ArrowLeft')prev();
+});
 
 /* ── S0: MISSION ── */
 function s0(){
   var logos=['datadog','clay','cursor','persona','vanta','watershed','1password'].map(function(c){return '<img src="https://dust.tt/static/landing/logos/gray/'+c+'.svg" style="height:14px;opacity:.4;filter:grayscale(1)" alt="'+c+'">';}).join('');
   var pts=[['🚀','Ambition & optimism','When we\'re done, work won\'t be the same. Think R2D2, not Skynet.'],['⚡','Move fast','See it, say it, solve it. Default to action. Edit the company.'],['🎯','Operate with greatness','Put users first. Apply 80/20 — except when 20/80 is crucial.'],['🤝','Act as one team','High-trust, high-energy, low-ego.']];
   var inv=[['Konstantine Buhler','Sequoia Capital'],['Nat Friedman','AI Grant'],['Olivier Pomel','CEO, Datadog'],['Howie Liu','CEO, Airtable'],['Mathilde Colin','CEO, Front'],['Julien Chaumond','CTO, HuggingFace'],['Eléonore Crespo','CEO, Pigment'],['Matthieu Rouif','CEO, Photoroom']];
-  return '<div style="padding:28px;max-width:600px"><div class="lbl">Our mission</div>'
+  return '<div><div class="lbl">Our mission</div>'
     +'<h2 class="h2" style="font-size:30px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px">Transform how<br>work gets done.</h2>'
     +'<p class="desc">We\'re building the <b style="color:#0F172A">AI operating system for the enterprise.</b> Like Windows provided universal UI primitives, Dust provides universal AI primitives that make enterprise workflows intelligent. Success isn\'t about training bigger models — it\'s about connecting them to how work actually happens.</p>'
     +'<div class="g2" style="margin-bottom:22px">'+['5,000+|Organizations','80K+|Agents shipped','12M|Conversations in 2025','70–90%|Typical adoption'].map(function(s){var p=s.split('|');return '<div style="background:#0F172A;border-radius:12px;padding:15px 17px"><div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-.02em">'+p[0]+'</div><div style="font-size:11px;color:#475569;margin-top:2px">'+p[1]+'</div></div>';}).join('')+'</div>'
@@ -269,7 +272,7 @@ function runDemo(){
 function ck(rowId,chkId){var r=document.getElementById(rowId);var c=document.getElementById(chkId);if(r&&c){r.style.borderColor='#0F172A';r.style.background='#F8FAFC';c.style.background='#0F172A';c.innerHTML='<span style="color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;height:100%">✓</span>';}}
 function tyTxt(id,txt,sp){var el=document.getElementById(id);if(!el)return;var i=0;el.textContent='';var iv=setInterval(function(){if(!document.getElementById(id)||i>=txt.length){clearInterval(iv);return;}document.getElementById(id).textContent+=txt[i++];},sp);}
 function s1(){
-  return '<div style="padding:28px;max-width:580px"><div class="lbl">The product</div>'
+  return '<div><div class="lbl">The product</div>'
     +'<h2 class="h2" style="font-size:26px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px">Shared AI agents.<br>Powered by your data.</h2>'
     +'<p class="desc">Dust connects AI models to your company\'s knowledge — Notion, Slack, GitHub, Salesforce, Google Drive. You build agents. The whole team uses them. Every conversation compounds. AI stops being a personal tool and becomes shared infrastructure.</p>'
     +'<div style="display:flex;gap:7px;margin-bottom:22px">'+['Platform<br><span style="font-weight:400;color:#64748B;font-size:10px">Connect any model to any data</span>','Agents<br><span style="font-weight:400;color:#64748B;font-size:10px">Shared across teams, not per-user</span>','Memory<br><span style="font-weight:400;color:#64748B;font-size:10px">Company knowledge compounds</span>'].map(function(s){return '<div style="flex:1;background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:11px;font-weight:700;color:#0F172A;line-height:1.5">'+s+'</div>';}).join('')+'</div>'
@@ -299,7 +302,7 @@ function s2(){
       +'<div style="font-size:12px;color:#334155;line-height:1.55">'+u[2]+'</div>'
       +'</a>';
   }).join('');
-  return '<div style="padding:28px;max-width:580px"><div class="lbl">Real-world use cases</div>'
+  return '<div><div class="lbl">Real-world use cases</div>'
     +'<h2 class="h2">What teams actually build.</h2>'
     +'<p class="desc">Every function uses Dust differently. Your track is highlighted. All teams share the same infrastructure.</p>'
     +cards
@@ -322,7 +325,7 @@ function s3(){
       +'<div style="padding:9px 12px"><div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span class="pill '+a[2]+'">'+a[1]+'</span></div><div style="font-size:12px;font-weight:700;color:#0F172A;margin-bottom:3px;line-height:1.3">'+a[3]+'</div><div style="font-size:11px;color:#64748B;line-height:1.5">'+a[4]+'</div></div>'
       +'</a>';
   }).join('');
-  return '<div style="padding:28px;max-width:600px"><div class="lbl">From the Dust blog</div>'
+  return '<div><div class="lbl">From the Dust blog</div>'
     +'<h2 class="h2">Written down, published, shipped.</h2>'
     +'<p class="desc">Dust documents how it operates and publishes it. These articles are the clearest picture of what it\'s actually like to work here.</p>'
     +cards
@@ -335,7 +338,7 @@ function s4(){
   var isEng=CAT==='eng';
   var steps=isEng?[['1','Recruiter Screen','30 min','Background, motivations, what you\'re looking for. Two-way.'],['2','Technical Screen','45 min · Remote','Pair programming. Looking for velocity and communication, not perfection.'],['3','System Design','40 min · Live','Brief sent 24h before. Your approach matters, not a polished answer.'],['4','Founder Chat','30–45 min','Stan or Gabriel. Very much two-way.'],['5','Full Day Onsite','9am–6pm · Paris or SF','Real code. Real codebase. Build actual features, present at end. Dedicated Slack channel.']]:[['1','Initial Screening','30 min','Background, motivations. Your chance to ask everything.'],['2','Role Interview','45–60 min','Functional approach, past situations, how you think through real problems.'],['3','Written Exercise','Async','Short challenge: communication, structure, product thinking.'],['4','Founder Chat','30–45 min','Gabriel for GTM/business. Direct access to founding vision.'],['5','Full Day Onsite','9am–6pm · Paris or SF','Real business challenges, real Dust access. Present at end. Dedicated Slack channel.']];
   var sc=steps.map(function(x){return '<div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:11px;display:flex;gap:9px;margin-bottom:6px"><div style="width:22px;height:22px;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">'+x[0]+'</div><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:12px;font-weight:700;color:#0F172A">'+x[1]+'</span><span style="font-size:10px;color:#94A3B8">'+x[2]+'</span></div><p style="font-size:11px;color:#64748B;line-height:1.5">'+x[3]+'</p></div></div>';}).join('');
-  return '<div style="padding:28px;max-width:580px"><div class="lbl">Hiring process + compensation</div>'
+  return '<div><div class="lbl">Hiring process + compensation</div>'
     +'<h2 class="h2">'+(isEng?'Five steps. Full comp. No puzzles.':'Real work. No theory. Decision in days.')+'</h2>'
     +'<p class="desc">Published openly at <a href="'+(isEng?'https://dust.tt/blog/engineering-hiring-process-at-dust':'https://dust.tt/blog/interviews-at-dust')+'" target="_blank" style="color:#0F172A;font-weight:600">dust.tt/blog ↗</a>. Detailed feedback regardless of outcome.</p>'
     +sc
@@ -385,7 +388,7 @@ function s6(){
   }).join('');
   var clist=CASES[CAT]||CASES.eng;
   var cc=clist.map(function(c){return '<a href="'+c[5]+'" target="_blank" class="card" style="display:block;padding:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><img src="https://dust.tt/static/landing/logos/gray/'+c[4]+'.svg" style="height:12px;opacity:.4;filter:grayscale(1)" alt="'+c[0]+'"><span style="font-size:12px;font-weight:700;color:#0F172A">'+c[0]+'</span><span style="margin-left:auto;font-size:17px;font-weight:900;color:#0F172A;letter-spacing:-.02em">'+c[1]+'</span></div><div style="font-size:10px;font-weight:600;color:#94A3B8;margin-bottom:5px">'+c[2]+'</div><p style="font-size:11px;color:#64748B;font-style:italic;line-height:1.5">'+c[3]+'</p></a>';}).join('');
-  return '<div style="padding:28px;max-width:580px"><div class="lbl">Open roles — matched to your track</div>'
+  return '<div><div class="lbl">Open roles — matched to your track</div>'
     +'<h2 class="h2">26 open positions. Real ownership from day one.</h2>'
     +'<p class="desc">All include meaningful equity. <a href="https://dust.tt/jobs" target="_blank" style="color:#0F172A;font-weight:600">View all 26 ↗</a></p>'
     +rc
@@ -444,7 +447,7 @@ async function getTurnstileToken(){
 function initChat(){convId=null;}
 function s7(){
   var sugg=['How is comp decided?','What does a day look like here?','How does the product work?','Who are the founders?','What\'s the hiring process?'];
-  return '<div style="padding:28px;max-width:580px;display:flex;flex-direction:column" style="height:calc(100vh - 100px)"><div class="lbl">Ask Dust anything</div>'
+  return '<div style=";display:flex;flex-direction:column" style="height:calc(100vh - 100px)"><div class="lbl">Ask Dust anything</div>'
     +'<h2 class="h2">Your questions. A real Dust agent.</h2>'
     +'<p class="desc" style="margin-bottom:14px">This agent has the full Dust website, blog, job board and team page as its knowledge base. Ask anything.</p>'
     +'<div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:300px;margin-bottom:10px">'
